@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="76px" height="76px" viewBox="0 0 76 76" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>Google+</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="25" cy="25" r="25"></circle>
+        <filter x="-41.0%" y="-37.0%" width="182.0%" height="182.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 0.448247201   0 0 0 0 0.346493902  0 0 0 0.0863745629 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login/Register" transform="translate(-275.000000, -427.000000)">
+            <g id="Google+" transform="translate(288.000000, 438.000000)">
+                <g id="Oval-Copy-2">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="google-plus-(1)" transform="translate(11.000000, 16.000000)" fill="#F44336" fill-rule="nonzero">
+                    <polygon id="Path" points="28 6.72 24.48 6.72 24.48 3.2 22.72 3.2 22.72 6.72 19.2 6.72 19.2 8.48 22.72 8.48 22.72 12 24.48 12 24.48 8.48 28 8.48"></polygon>
+                    <path d="M8.8,10.56 L13.77904,10.56 C13.05216,12.60864 11.09504,14.08 8.8,14.08 C5.88896,14.08 3.52,11.71104 3.52,8.8 C3.52,5.88896 5.88896,3.52 8.8,3.52 C10.06192,3.52 11.27632,3.97232 12.21968,4.79424 L14.53232,2.14016 C12.94832,0.76032 10.91376,0 8.8,0 C3.94768,0 0,3.94768 0,8.8 C0,13.65232 3.94768,17.6 8.8,17.6 C13.65232,17.6 17.6,13.65232 17.6,8.8 L17.6,7.04 L8.8,7.04 L8.8,10.56 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

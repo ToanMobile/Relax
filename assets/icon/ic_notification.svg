@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61.2 (89653) - https://sketch.com -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="42.0775124%" y1="36.7828242%" x2="128.117561%" y2="180.179814%" id="linearGradient-1">
+            <stop stop-color="#FFC200" offset="0%"></stop>
+            <stop stop-color="#FFBB00" offset="26.8%"></stop>
+            <stop stop-color="#FFA801" offset="65.9%"></stop>
+            <stop stop-color="#FF9102" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="127.505713%" y1="114.896472%" x2="12.8675518%" y2="0.259310383%" id="linearGradient-2">
+            <stop stop-color="#FFC200" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFBB00" stop-opacity="0.203" offset="20.3%"></stop>
+            <stop stop-color="#FFA700" stop-opacity="0.499" offset="49.9%"></stop>
+            <stop stop-color="#FF8800" stop-opacity="0.852" offset="85.2%"></stop>
+            <stop stop-color="#FF7800" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="37.7339415%" y1="46.3748004%" x2="90.2761128%" y2="61.900794%" id="linearGradient-3">
+            <stop stop-color="#FFC200" offset="0%"></stop>
+            <stop stop-color="#FFBB00" offset="26.8%"></stop>
+            <stop stop-color="#FFA801" offset="65.9%"></stop>
+            <stop stop-color="#FF9102" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="35.2496878%" y1="56.592767%" x2="92.1345837%" y2="103.754322%" id="linearGradient-4">
+            <stop stop-color="#FFC200" offset="0%"></stop>
+            <stop stop-color="#FFBB00" offset="26.8%"></stop>
+            <stop stop-color="#FFA801" offset="65.9%"></stop>
+            <stop stop-color="#FF9102" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="94.7781104%" y1="49.7517206%" x2="-4.5567492%" y2="50.2545501%" id="linearGradient-5">
+            <stop stop-color="#FFC200" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFBB00" stop-opacity="0.203" offset="20.3%"></stop>
+            <stop stop-color="#FFA700" stop-opacity="0.499" offset="49.9%"></stop>
+            <stop stop-color="#FF8800" stop-opacity="0.852" offset="85.2%"></stop>
+            <stop stop-color="#FF7800" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="167.478611%" y1="129.882793%" x2="52.0291768%" y2="14.4941782%" id="linearGradient-6">
+            <stop stop-color="#FFC200" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFBB00" stop-opacity="0.203" offset="20.3%"></stop>
+            <stop stop-color="#FFA700" stop-opacity="0.499" offset="49.9%"></stop>
+            <stop stop-color="#FF8800" stop-opacity="0.852" offset="85.2%"></stop>
+            <stop stop-color="#FF7800" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Expand" transform="translate(-32.000000, -133.000000)">
+            <g id="Group-2" transform="translate(32.000000, 133.000000)">
+                <circle id="Oval" fill="#EBEBEB" cx="35" cy="35" r="35"></circle>
+                <g id="notification" transform="translate(19.000000, 18.000000)" fill-rule="nonzero">
+                    <circle id="Oval" fill="url(#linearGradient-1)" cx="16" cy="30" r="4"></circle>
+                    <path d="M15.9910427,26 C13.9028466,26 12.1882771,27.5967517 12,29.6357173 L16.364251,34 C18.4032344,33.8116548 20,32.0971699 20,30.0089921 C20,27.7948557 18.2051287,26 15.9910427,26 Z" id="Path" fill="url(#linearGradient-2)"></path>
+                    <path d="M28.8274228,24 L3.17250914,24 C1.42034972,24 0,25.3430876 0,27 C0,28.656848 1.42034972,30 3.17250914,30 L28.8274228,30 C30.5795822,30 32,28.656848 32,27 C32,25.3430876 30.5795822,24 28.8274228,24 Z" id="Path" fill="url(#linearGradient-3)"></path>
+                    <path d="M27.5049244,21.5284085 L27.5049244,15.2231035 C27.5049244,10.1237674 23.9678488,5.84426868 19.1910043,4.65530534 C19.4634645,4.19622608 19.6212297,3.66136465 19.6212297,3.09060287 C19.6211616,1.3839185 18.2235594,0 16.5,0 C14.7764406,0 13.3788384,1.3839185 13.3788384,3.09060287 C13.3788384,3.66143213 13.5366036,4.19622608 13.8090638,4.65530534 C9.03208309,5.84426868 5.49596153,10.1238349 5.49596153,15.2231035 L5.49596153,21.5284085 C5.49596153,22.8933646 4.37845226,24 3,24 L30,24 C28.6214796,24 27.5049244,22.8933646 27.5049244,21.5284085 Z M16.5,4.32599374 C15.8107398,4.32599374 15.2515081,3.77318214 15.2515081,3.09067035 C15.2515081,2.40721381 15.8107398,1.85440221 16.5,1.85440221 C17.1892602,1.85440221 17.7484919,2.40721381 17.7484919,3.09067035 C17.7484919,3.77318214 17.1892602,4.32599374 16.5,4.32599374 Z" id="Shape" fill="url(#linearGradient-4)"></path>
+                    <path d="M0,27 C0.240107465,28.1918662 1.55472825,29.1032901 3.14084309,28.990567 L28.8591569,28.990567 C30.44534,29.1032901 31.7598925,28.1918662 32,27 L0,27 Z" id="Path" fill="url(#linearGradient-5)"></path>
+                    <path d="M27,16.2470323 L27,20 L22,15.0026405 L22.0181988,15.0015951 C22.2752134,14.987448 22.5264406,15.0680101 22.7347158,15.2191686 C23.6844006,15.9082673 24.8525409,16.3144926 26.115789,16.3144926 C26.4170804,16.3145623 26.7114687,16.2910767 27,16.2470323 Z" id="Path" fill="url(#linearGradient-6)"></path>
+                    <circle id="Oval" fill="#FF5252" cx="26" cy="11" r="6"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

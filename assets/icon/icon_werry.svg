@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="138px" height="25px" viewBox="0 0 138 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>WERRY</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="78.1223065%" y1="47.0071742%" x2="14.8684167%" y2="52.9565545%" id="linearGradient-1">
+            <stop stop-color="#F78361" offset="0%"></stop>
+            <stop stop-color="#F54B64" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="AvenirNext-Bold, Avenir Next" font-size="35" font-weight="bold" letter-spacing="2.59259259">
+        <g id="Login/Register" transform="translate(-118.000000, -132.000000)" fill="url(#linearGradient-1)">
+            <text id="WERRY">
+                <tspan x="118.221019" y="157">WERRY</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
