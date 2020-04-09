@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 
 enum IconType { BACK, CLOSE }
 
@@ -50,7 +51,7 @@ class AppBarIcon extends StatelessWidget {
       icon: Icon(
         Icons.keyboard_backspace,
         color: ColorsUtils.black,
-        size: 30,
+        size: 90.w,
       ),
     );
   }
@@ -61,7 +62,7 @@ class AppBarIcon extends StatelessWidget {
       icon: Icon(
         Icons.close,
         color: ColorsUtils.black,
-        size: 30,
+        size: 90.w,
       ),
     );
   }
@@ -103,7 +104,7 @@ class AppBarIcon extends StatelessWidget {
   Align buildAlignAppBar(String title) {
     return Align(
       alignment: Alignment.centerRight,
-      child: Text(title, style: TextStylesUtils().styleMedium20TextSelect),
+      child: Text(title, style: TextStylesUtils.styleMedium20TextSelect),
     );
   }
 }

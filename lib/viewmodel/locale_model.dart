@@ -36,6 +36,8 @@ class LocaleModel extends ChangeNotifier {
         return 'Việt Nam';
       case 2:
         return 'English';
+      case 3:
+        return 'Đức';
       default:
         return '';
     }

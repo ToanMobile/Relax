@@ -46,7 +46,7 @@ class MapState extends State<MapPage> {
               ),
               Text(
                 "4:51 pm  | Tuesday, April 07th, 2020 | 89F",
-                style: TextStylesUtils().styleMedium20White,
+                style: TextStylesUtils.styleMedium20White,
               ),
             ],
           ),

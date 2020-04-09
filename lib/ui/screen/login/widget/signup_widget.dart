@@ -37,14 +37,11 @@ class _SingUpWidgetState extends State<SingUpWidget> {
     return Container(
       child: Text.rich(
         TextSpan(
-          text: S.of(context).loginUsername,
-          style: TextStylesUtils().styleMedium20TextSelect,
+          text: S.of(context).login_content1,
+          style: TextStylesUtils.styleRegular12BrownGreyW400,
           children: [
-            TextSpan(
-                text: S.of(context).signUp,
-                recognizer: _recognizerRegister,
-                style: TextStylesUtils().styleMedium20TextSelect),
-            TextSpan(text: S.of(context).loginUsername, style: TextStylesUtils().styleMedium20TextSelect)
+            TextSpan(text: S.of(context).signUp, recognizer: _recognizerRegister, style: TextStylesUtils.styleRegular12PinkishOrangeW600),
+            TextSpan(text: S.of(context).login_content2, style: TextStylesUtils.styleRegular12BrownGreyW400)
           ],
         ),
       ),

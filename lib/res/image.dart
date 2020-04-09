@@ -13,7 +13,7 @@ class ImagesUtils {
   static const String iconLanding = "$imageIcon/tab_icon.webp";
 
   //Login
-  static const String bgLogin = "$imageDir/login/bglogin.webp";
+  static const String bgLogin = "$imageDir/bg_login.webp";
 
   //Show
   static const String iconInfo = "$imageIcon/ic_info_screen.xml";

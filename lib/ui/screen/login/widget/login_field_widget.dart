@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 
 class LoginTextField extends StatefulWidget {
   final String label;
@@ -66,9 +67,9 @@ class _LoginTextFieldState extends State<LoginTextField> {
         textInputAction: widget.textInputAction,
         onFieldSubmitted: widget.onFieldSubmitted,
         decoration: InputDecoration(
-          prefixIcon: Icon(widget.icon, color: theme.hintColor, size: 20),
+          prefixIcon: Icon(widget.icon, color: theme.hintColor, size: 60.w),
           hintText: widget.label,
-          hintStyle: TextStylesUtils().styleMedium20TextSelect,
+          hintStyle: TextStylesUtils.styleRegular14BlackW400,
           suffixIcon: LoginTextFieldSuffixIcon(
             controller: controller,
             obscureText: widget.obscureText,
@@ -98,7 +99,7 @@ class LoginTextFieldSuffixIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -115,7 +116,7 @@ class LoginTextFieldSuffixIcon extends StatelessWidget {
                 valueListenable: obscureNotifier,
                 builder: (context, value, child) => Icon(
                   Icons.remove_red_eye,
-                  size: 20,
+                  size: 60.w,
                   color: value ? theme.hintColor : theme.accentColor,
                 ),
               ),
@@ -171,7 +172,7 @@ class _LoginTextFieldClearIconState extends State<LoginTextFieldClearIcon> {
               widget.controller.clear();
             });
           },
-          child: Icon(CupertinoIcons.clear, size: 20, color: Theme.of(context).hintColor)),
+          child: Icon(CupertinoIcons.clear, size: 60.w, color: Theme.of(context).hintColor)),
     );
   }
 }

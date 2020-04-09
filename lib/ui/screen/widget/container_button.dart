@@ -53,12 +53,12 @@ class _ContainerButtonState extends State<ContainerButton> {
     TextStyle textStyleNormal;
     TextStyle textStyleFocus;
     if (widget.textStyle == null) {
-      textStyleNormal = TextStylesUtils().styleMedium20TextSelect;
+      textStyleNormal = TextStylesUtils.styleMedium20TextSelect;
     } else {
       textStyleNormal = widget.textStyle;
     }
     if (widget.textStyleFocus == null) {
-      textStyleFocus = TextStylesUtils().styleMedium20White;
+      textStyleFocus = TextStylesUtils.styleMedium20White;
     } else {
       textStyleFocus = widget.textStyleFocus;
     }

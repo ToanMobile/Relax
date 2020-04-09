@@ -50,12 +50,12 @@ class ContainerParentalState extends State<ContainerParental> {
     TextStyle textStyleNormal;
     TextStyle textStyleFocus;
     if (widget.textStyle == null) {
-      textStyleNormal = TextStylesUtils().styleMedium20White;
+      textStyleNormal = TextStylesUtils.styleMedium20White;
     } else {
       textStyleNormal = widget.textStyle;
     }
     if (widget.textStyleFocus == null) {
-      textStyleFocus = TextStylesUtils().styleMedium20White;
+      textStyleFocus = TextStylesUtils.styleMedium20White;
     } else {
       textStyleFocus = widget.textStyleFocus;
     }

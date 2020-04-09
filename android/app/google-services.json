@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "872763368063",
+    "firebase_url": "https://smartway24-30c7d.firebaseio.com",
+    "project_id": "smartway24-30c7d",
+    "storage_bucket": "smartway24-30c7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872763368063:android:dc11218a031537d88bd54a",
+        "android_client_info": {
+          "package_name": "com.example.relax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872763368063-rs1na5r8d1g0b666s82hcrthf59300bg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_mhf9Ep1PV24kH6SioPp2Z-bcwhNoW5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872763368063-rs1na5r8d1g0b666s82hcrthf59300bg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872763368063:android:126c7f421e53ba888bd54a",
+        "android_client_info": {
+          "package_name": "com.relax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872763368063-7mi8tf77ro2k0p9hermh3nfl7laluc6b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.relax",
+            "certificate_hash": "bcf83ba859d82709ee1b0ccd45f3c415f46aa7d6"
+          }
+        },
+        {
+          "client_id": "872763368063-rs1na5r8d1g0b666s82hcrthf59300bg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_mhf9Ep1PV24kH6SioPp2Z-bcwhNoW5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872763368063-rs1na5r8d1g0b666s82hcrthf59300bg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

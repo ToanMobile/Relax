@@ -8,6 +8,7 @@ import 'package:relax/config/router_manger.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/viewmodel/locale_model.dart';
 import 'package:relax/viewmodel/theme_model.dart';
+
 import 'generated/l10n.dart';
 
 main() async {
@@ -46,7 +47,7 @@ class App extends StatelessWidget {
               ],
               supportedLocales: S.delegate.supportedLocales,
               onGenerateRoute: Router.generateRoute,
-              initialRoute: RouteName.home,
+              initialRoute: StorageManager.preToken.isEmpty ? RouteName.login : RouteName.home,
             ),
           );
         }),

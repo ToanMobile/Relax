@@ -20,9 +20,16 @@ class HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return Scaffold(
-      backgroundColor: ColorsUtils.dark,
-      body: Container(
-        child: buildVast(),
+      body: Stack(
+        children: [
+          Container(
+            child: Text(
+              "4:51 pm  | Tuesday, April 07th, 2020 | 89F",
+              style: TextStylesUtils.styleMedium20White,
+            ),
+          )
+          ,
+        ],
       ),
     );
   }
@@ -46,7 +53,7 @@ class HomeState extends State<HomePage> {
               ),
               Text(
                 "4:51 pm  | Tuesday, April 07th, 2020 | 89F",
-                style: TextStylesUtils().styleMedium20White,
+                style: TextStylesUtils.styleRegular14BlackW400,
               ),
             ],
           ),

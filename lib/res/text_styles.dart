@@ -1,61 +1,92 @@
 import 'dart:ui';
 
-import 'package:relax/lib/screenutils/flutter_screenutil.dart';
-import 'package:relax/lib/screenutils/screenutil.dart';
-import 'package:relax/res/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:relax/res/colors.dart';
 
 class TextStylesUtils {
   static const FontFamilyRegular = 'Roboto';
   static const FontFamilyLight = 'RobotoLight';
   static const fontFamilyMedium = "RobotoMedium";
 
-  final styleMedium18Black = TextStyle(
-    fontFamily: fontFamilyMedium,
-    color: ColorsUtils.black,
-    fontSize: ScreenUtil().setSp(18, allowFontScalingSelf: true),
+  static const styleRegular12BrownGreyW400 = const TextStyle(
+    fontFamily: FontFamilyRegular,
+    color: ColorsUtils.brownGrey,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
   );
 
-  final styleMedium18White = TextStyle(
+  static const styleRegular12PinkishOrangeW600 = const TextStyle(
+    fontFamily: FontFamilyRegular,
+    color: ColorsUtils.pinkishOrange,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+    letterSpacing: 0.21428574,
+  );
+
+  static const styleRegular14BlackW400 = const TextStyle(
+    fontFamily: FontFamilyRegular,
+    color: ColorsUtils.black,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+
+  static const styleMedium18Black = const TextStyle(
+    fontFamily: fontFamilyMedium,
+    color: ColorsUtils.black,
+    fontSize: 18,
+    fontStyle: FontStyle.normal,
+  );
+
+  static const styleMedium18White = const TextStyle(
     fontFamily: fontFamilyMedium,
     color: ColorsUtils.white,
-    fontSize: ScreenUtil().setSp(18, allowFontScalingSelf: true),
+    fontSize: 18,
     fontStyle: FontStyle.normal,
   );
 
-  final styleMedium20Black = TextStyle(
+  static const styleMedium20Black = const TextStyle(
     fontFamily: fontFamilyMedium,
     color: ColorsUtils.black,
-    fontSize: ScreenUtil().setSp(20, allowFontScalingSelf: true),
+    fontSize: 20,
     fontStyle: FontStyle.normal,
   );
 
-  final styleMedium20TextSelect = TextStyle(
+  static const styleMedium20TextSelect = const TextStyle(
     fontFamily: fontFamilyMedium,
     color: ColorsUtils.textSelect,
-    fontSize: ScreenUtil().setSp(20, allowFontScalingSelf: true),
+    fontSize: 20,
     fontStyle: FontStyle.normal,
   );
 
-  final styleMedium20White = TextStyle(
+  static const styleMedium20White = const TextStyle(
     fontFamily: fontFamilyMedium,
     color: ColorsUtils.white,
-    fontSize: ScreenUtil().setSp(20, allowFontScalingSelf: true),
+    fontSize: 20,
     fontStyle: FontStyle.normal,
   );
 
-  final styleRegular20TextSelect = TextStyle(
+  static const styleRegular20TextSelect = const TextStyle(
     fontFamily: FontFamilyRegular,
     color: ColorsUtils.textSelect,
-    fontSize: ScreenUtil().setSp(20, allowFontScalingSelf: true),
+    fontSize: 20,
     fontStyle: FontStyle.normal,
   );
 
-  final styleMedium30White = TextStyle(
+  static const styleRegular20CoalGreyW600 = const TextStyle(
+    fontFamily: FontFamilyRegular,
+    color: ColorsUtils.charcoalGrey,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
+  static const styleMedium30White = const TextStyle(
     fontFamily: fontFamilyMedium,
     color: ColorsUtils.white,
-    fontSize: ScreenUtil().setSp(30, allowFontScalingSelf: true),
+    fontSize: 30,
     fontStyle: FontStyle.normal,
   );
 }
