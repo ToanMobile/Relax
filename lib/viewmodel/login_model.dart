@@ -5,8 +5,10 @@ import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/provider/view_state_model.dart';
 
 class LoginModel extends ViewStateModel {
+  static const String preLoginUser = 'preLoginUser';
+  static const String preIsLogin = 'preIsLogin';
 
-  LoginEntity getLogin() => JsonConvert.fromJsonAsT(StorageManager.getObject(StorageManager.preLoginUser));
+  LoginEntity getLogin() => JsonConvert.fromJsonAsT(StorageManager.getObject(preLoginUser));
 
   Future<bool> login(email, password) async {
     setBusy();

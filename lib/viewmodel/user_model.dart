@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
+import 'login_model.dart';
 
 class UserModel extends ChangeNotifier {
   LoginEntity _loginEntity;
@@ -13,18 +14,18 @@ class UserModel extends ChangeNotifier {
   String get getName => login != null ? login.name : "";
 
   UserModel() {
-    _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(StorageManager.preLoginUser));
+    _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
   }
 
   saveUser(LoginEntity loginEntity) {
     _loginEntity = loginEntity;
     notifyListeners();
-    StorageManager.localStorage.setItem(StorageManager.preLoginUser, loginEntity);
+    StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
   }
 
   clearUser() {
     _loginEntity = null;
     notifyListeners();
-    StorageManager.localStorage.deleteItem(StorageManager.preLoginUser);
+    StorageManager.saveObject(LoginModel.preLoginUser, null);
   }
 }

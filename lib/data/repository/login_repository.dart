@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
-
+import 'package:relax/viewmodel/login_model.dart';
 import 'base_repository.dart';
 
 class LoginRepository {
@@ -49,13 +49,13 @@ class LoginRepository {
       tel: snapshot['tel'],
     );
     printLog('saveUser=$loginEntity');
-    StorageManager.saveObject(StorageManager.preLoginUser, loginEntity);
+    StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
+    StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
   }
 
   static Future logout() async {
     try {
       await StorageManager.sharedPreferences.clear();
-      await StorageManager.localStorage.clear();
       await _auth.signOut();
       return true;
     } catch (e) {
