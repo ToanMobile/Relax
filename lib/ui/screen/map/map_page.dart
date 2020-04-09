@@ -1,12 +1,9 @@
-import 'package:relax/config/router_manger.dart';
-import 'package:relax/generated/l10n.dart';
+import 'package:flutter/material.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
-import 'package:relax/ui/screen/widget/container_button.dart';
-import 'package:flutter/material.dart';
 
 enum View { TOP, BOTTOM }
 

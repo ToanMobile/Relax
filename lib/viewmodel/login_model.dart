@@ -1,19 +1,17 @@
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
-import 'package:relax/data/model/register_entity.dart';
 import 'package:relax/data/repository/login_repository.dart';
-import 'package:relax/data/service/base_entity.dart';
+import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/provider/view_state_model.dart';
 
 class LoginModel extends ViewStateModel {
 
-  LoginEntity getLogin() => BaseEntity.fromJson(StorageManager.getObject(StorageManager.preLoginUser)) as LoginEntity;
+  LoginEntity getLogin() => JsonConvert.fromJsonAsT(StorageManager.getObject(StorageManager.preLoginUser));
 
   Future<bool> login(email, password) async {
     setBusy();
     try {
-      var user = await LoginRepository.login(email, password);
-      StorageManager.saveObject(StorageManager.preLoginUser, user);
+      await LoginRepository.login(email, password);
       setIdle();
       return true;
     } catch (e, s) {
@@ -25,8 +23,7 @@ class LoginModel extends ViewStateModel {
   Future<bool> register(loginName, email, password) async {
     setBusy();
     try {
-      var user = await LoginRepository.register(loginName, email, password);
-      StorageManager.sharedPreferences.setString(StorageManager.preToken, (user as RegisterEntity).jwt);
+      await LoginRepository.register(loginName, email, password);
       setIdle();
       return true;
     } catch (e, s) {

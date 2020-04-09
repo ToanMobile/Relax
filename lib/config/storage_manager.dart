@@ -1,13 +1,13 @@
 import 'dart:convert';
+
 import 'package:localstorage/localstorage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:relax/utils/log_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageManager {
   static SharedPreferences sharedPreferences;
   static LocalStorage localStorage;
   static const String preLoginUser = 'preLoginUser';
-  static const String preToken = 'preToken';
 
   Future init() async {
     Log.init();
@@ -17,7 +17,7 @@ class StorageManager {
   }
 
   static dynamic getObject(String key) {
-    return sharedPreferences.getString(key);
+    return jsonDecode(sharedPreferences.getString(key));
   }
 
   static void saveObject(String key, dynamic value) {

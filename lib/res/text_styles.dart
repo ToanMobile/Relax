@@ -54,6 +54,13 @@ class TextStylesUtils {
     fontStyle: FontStyle.normal,
   );
 
+  static const styleMedium20CoalGreyW600 = const TextStyle(
+      fontFamily: fontFamilyMedium,
+      color: ColorsUtils.charcoalGrey,
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      fontStyle: FontStyle.normal);
+
   static const styleMedium20TextSelect = const TextStyle(
     fontFamily: fontFamilyMedium,
     color: ColorsUtils.textSelect,

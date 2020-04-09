@@ -47,7 +47,7 @@ class App extends StatelessWidget {
               ],
               supportedLocales: S.delegate.supportedLocales,
               onGenerateRoute: Router.generateRoute,
-              initialRoute: StorageManager.preToken.isEmpty ? RouteName.login : RouteName.home,
+              initialRoute: StorageManager.localStorage.getItem(StorageManager.preLoginUser) != null ? RouteName.home : RouteName.login,
             ),
           );
         }),

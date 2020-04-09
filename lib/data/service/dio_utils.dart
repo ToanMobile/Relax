@@ -1,10 +1,12 @@
 
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:relax/data/service/http_api.dart';
 import 'package:logger/logger.dart';
+import 'package:relax/data/service/http_api.dart';
 import 'package:rxdart/rxdart.dart';
+
 import '../../common/constant.dart';
 import 'base_entity.dart';
 import 'error_handle.dart';

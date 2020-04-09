@@ -5,5 +5,5 @@
 
 library flutter_screenutil;
 
-export 'size_extension.dart';
 export 'screenutil.dart';
+export 'size_extension.dart';

@@ -1,8 +1,7 @@
-import 'package:relax/res/colors.dart';
-import 'package:relax/res/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
+import 'package:relax/res/colors.dart';
+import 'package:relax/res/text_styles.dart';
 
 class ContainerParental extends StatefulWidget {
   final String title;

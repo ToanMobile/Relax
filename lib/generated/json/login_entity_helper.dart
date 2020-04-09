@@ -4,19 +4,6 @@ loginEntityFromJson(LoginEntity data, Map<String, dynamic> json) {
 	if (json['uid'] != null) {
 		data.uid = json['uid']?.toString();
 	}
-	return data;
-}
-
-Map<String, dynamic> loginEntityToJson(LoginEntity entity) {
-	final Map<String, dynamic> data = new Map<String, dynamic>();
-	data['uid'] = entity.uid;
-	return data;
-}
-
-loginUserFromJson(LoginUser data, Map<String, dynamic> json) {
-	if (json['uid'] != null) {
-		data.uid = json['uid']?.toString();
-	}
 	if (json['address'] != null) {
 		data.address = json['address']?.toString();
 	}
@@ -32,7 +19,7 @@ loginUserFromJson(LoginUser data, Map<String, dynamic> json) {
 	return data;
 }
 
-Map<String, dynamic> loginUserToJson(LoginUser entity) {
+Map<String, dynamic> loginEntityToJson(LoginEntity entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['uid'] = entity.uid;
 	data['address'] = entity.address;

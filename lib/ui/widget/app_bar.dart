@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
 
 enum IconType { BACK, CLOSE }
 

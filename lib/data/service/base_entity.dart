@@ -1,8 +1,8 @@
 import 'package:relax/generated/json/base/json_convert_content.dart';
+
 import '../../common/constant.dart';
 
-class BaseEntity<T>{
-
+class BaseEntity<T> {
   int code;
   String message;
   T data;
@@ -10,7 +10,7 @@ class BaseEntity<T>{
 
   BaseEntity(this.code, this.message, this.data);
 
-  BaseEntity.fromJson(Map<String, dynamic> json) {
+  BaseEntity.fromJsonWithKey(Map<String, dynamic> json) {
     code = json[Constant.code];
     message = json[Constant.message];
     if (json.containsKey(Constant.data)) {
@@ -24,13 +24,23 @@ class BaseEntity<T>{
     }
   }
 
+  BaseEntity.fromJson(dynamic json) {
+    if (json is List) {
+      json.forEach((item) {
+        listData.add(_generateOBJ<T>(item));
+      });
+    } else {
+      data = _generateOBJ(json);
+    }
+  }
+
   S _generateOBJ<S>(json) {
     if (S.toString() == "String") {
       return json.toString() as S;
     } else if (T.toString() == "Map<dynamic, dynamic>") {
       return json as S;
     } else {
-     return JsonConvert.fromJsonAsT(json);
+      return JsonConvert.fromJsonAsT(json);
     }
   }
 }

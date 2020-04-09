@@ -1,12 +1,13 @@
-import 'package:relax/config/router_manger.dart';
+import 'package:flutter/material.dart';
+import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
-import 'package:relax/ui/screen/widget/container_button.dart';
-import 'package:flutter/material.dart';
+import 'package:relax/ui/widget/text_input_search.dart';
+import 'package:relax/viewmodel/user_model.dart';
 
 enum View { TOP, BOTTOM }
 
@@ -20,53 +21,72 @@ class HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            child: Text(
-              "4:51 pm  | Tuesday, April 07th, 2020 | 89F",
-              style: TextStylesUtils.styleMedium20White,
-            ),
-          )
-          ,
-        ],
+      backgroundColor: ColorsUtils.offWhite,
+      body: ViewModelProvider<UserModel>.withConsumer(
+        viewModel: UserModel(),
+        onModelReady: (model) {},
+        builder: (context, model, child) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              buildTextUserName(model.getName),
+              SizedBox(
+                height: 20.h,
+              ),
+              buildTextSearch(),
+              SizedBox(
+                height: 40.h,
+              ),
+              buildSearchView(),
+              buildListSuggest()
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget buildWeather() => Expanded(
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: ColorsUtils.background,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                image: AssetImage(ImagesUtils.iconLanding),
-                width: 600.w,
-                height: 250.h,
-              ),
-              SizedBox(
-                height: 100.h,
-              ),
-              Text(
-                "4:51 pm  | Tuesday, April 07th, 2020 | 89F",
-                style: TextStylesUtils.styleRegular14BlackW400,
-              ),
-            ],
-          ),
-        ),
-        flex: 1,
+  Widget buildTextUserName(String name) => Container(
+        alignment: Alignment.bottomCenter,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.13,
+        child: Text(name, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20CoalGreyW600),
       );
 
-  Widget buildVast() => Expanded(
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: ColorsUtils.black,
-        ),
-        flex: 1,
+  Widget buildTextSearch() => Container(
+        width: MediaQuery.of(context).size.width,
+        child: Text(S.of(context).home_search, textAlign: TextAlign.center, style: TextStylesUtils.styleRegular14BlackW400),
       );
+
+  Widget buildSearchView() => TextInputSearch(
+        validateErrMsg: "",
+      );
+
+  Widget buildListSuggest() {
+    final titles = ['iPhone XR', 'Samsung Galaxy Note 10', 'Oppo', 'iPhone XR', 'Samsung Galaxy Note 10', 'Oppo'];
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 32.w),
+      height: 60.h,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: titles.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 12.w),
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              titles[index],
+              textAlign: TextAlign.center,
+              style: TextStylesUtils.styleRegular12BrownGreyW400,
+            ),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: ColorsUtils.coral),
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }

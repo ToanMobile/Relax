@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/screenutil.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
+import 'package:relax/res/colors.dart';
+import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/login/widget/login_bg_widget.dart';
 import 'package:relax/ui/screen/login/widget/signup_widget.dart';
 import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
-import 'package:relax/res/colors.dart';
-import 'package:relax/res/text_styles.dart';
 import 'package:relax/viewmodel/login_model.dart';
+
 import 'widget/login_field_widget.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -37,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     _nameController.text = 'hvtoan.dev@gmail.com';
     _passwordController.text = '123456';
     return Scaffold(
@@ -46,11 +47,10 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: <Widget>[
           BackgroundLogin(),
-          ViewModelProvider<LoginModel>.withConsumer(
+          ViewModelProvider<LoginModel>.withoutConsumer(
             viewModel: LoginModel(),
-            onModelReady: (model) {
-              ScreenUtil.init(context);
-              //_nameController.text = model.getLogin().toString();
+            onModelReady: (model) => {
+
             },
             builder: (context, model, child) {
               return SingleChildScrollView(
@@ -120,47 +120,46 @@ class _LoginPageState extends State<LoginPage> {
   Widget buildTextPassword() => Text(S.of(context).login_password, style: TextStylesUtils.styleRegular12BrownGreyW400);
 }
 
-class LoginButton extends StatelessWidget {
+class LoginButton extends ProviderWidget<LoginModel> {
   final nameController;
   final passwordController;
   final _formKey;
 
   LoginButton(this._formKey, this.nameController, this.passwordController);
 
-  @override
-  Widget build(BuildContext context) {
-    var model = Provider.of<LoginModel>(context);
-    Widget child = model.busy
-        ? Container(
-            height: 150.h,
-            child: Center(
-              child: ButtonProgressIndicator(),
-            ),
-          )
-        : Container(
-            height: 150.h,
-            child: Center(
-              child: Text(
-                S.of(context).signIn,
-                style: TextStylesUtils.styleRegular14BlackW400,
-              ),
-            ),
-          );
-    return FilledRoundButton.withGradient(
-        radius: 10,
-        gradientColor: Constant.gradient_WaterMelon_Melon,
-        child: child,
-        cb: () {
-          //var formState = Form.of(context);
-          if (_formKey.currentState.validate()) {
-            model.login(nameController.text, passwordController.text).then((value) {
-              if (value) {
-                Navigator.pushNamed(context, RouteName.home);
-              } else {
-                model.showErrorMessage(context);
-              }
-            });
-          }
-        });
+ @override
+  Widget build(BuildContext context, LoginModel model) {
+   Widget child = model.busy
+       ? Container(
+     height: 150.h,
+     child: Center(
+       child: ButtonProgressIndicator(),
+     ),
+   )
+       : Container(
+     height: 150.h,
+     child: Center(
+       child: Text(
+         S.of(context).signIn,
+         style: TextStylesUtils.styleRegular14BlackW400,
+       ),
+     ),
+   );
+   return FilledRoundButton.withGradient(
+       radius: 10,
+       gradientColor: Constant.gradient_WaterMelon_Melon,
+       child: child,
+       cb: () {
+         //var formState = Form.of(context);
+         if (_formKey.currentState.validate()) {
+           model.login(nameController.text, passwordController.text).then((value) {
+             if (value) {
+               Navigator.pushNamed(context, RouteName.home);
+             } else {
+               model.showErrorMessage(context);
+             }
+           });
+         }
+       });
   }
 }

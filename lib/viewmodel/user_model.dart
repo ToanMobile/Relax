@@ -1,31 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
-import 'package:relax/data/service/base_entity.dart';
+import 'package:relax/generated/json/base/json_convert_content.dart';
 
 class UserModel extends ChangeNotifier {
-  static const String kUser = 'PrefLogin';
-
   LoginEntity _loginEntity;
 
   LoginEntity get login => _loginEntity;
 
   bool get hasLogin => login != null;
 
+  String get getName => login != null ? login.name : "";
+
   UserModel() {
-    var userMap = StorageManager.localStorage.getItem(kUser);
-    _loginEntity = userMap != null ? BaseEntity.fromJson(userMap) as LoginEntity : null;
+    _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(StorageManager.preLoginUser));
   }
 
   saveUser(LoginEntity loginEntity) {
     _loginEntity = loginEntity;
     notifyListeners();
-    StorageManager.localStorage.setItem(kUser, loginEntity);
+    StorageManager.localStorage.setItem(StorageManager.preLoginUser, loginEntity);
   }
 
   clearUser() {
     _loginEntity = null;
     notifyListeners();
-    StorageManager.localStorage.deleteItem(kUser);
+    StorageManager.localStorage.deleteItem(StorageManager.preLoginUser);
   }
 }

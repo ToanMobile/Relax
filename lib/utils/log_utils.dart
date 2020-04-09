@@ -1,5 +1,6 @@
-import 'package:relax/common/constant.dart';
 import 'dart:convert' as convert;
+
+import 'package:relax/common/constant.dart';
 
 class Log {
   static const String tag = 'X-LOG';
