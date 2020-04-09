@@ -2,12 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
+import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/viewmodel/login_model.dart';
+
 import 'base_repository.dart';
 
 class LoginRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
+
+  static List<LoginEntity> listUser() {
+    return JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
+  }
 
   static Future login(String email, String password) async {
     try {
@@ -16,6 +22,13 @@ class LoginRepository {
       await infoCollection.document(user.uid).get().then((value) {
         saveUser(user.uid, value.data);
       });
+      List<LoginEntity> list = List();
+      await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
+        snapshot.documents.forEach(
+          (doc) => {list.add(saveUser(doc.data['uid']??"", doc.data))},
+        );
+      });
+      StorageManager.saveObject(LoginModel.preListUser, list);
       return true;
     } catch (e) {
       print(e.toString());

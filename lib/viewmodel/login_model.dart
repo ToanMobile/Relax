@@ -6,6 +6,7 @@ import 'package:relax/provider/view_state_model.dart';
 
 class LoginModel extends ViewStateModel {
   static const String preLoginUser = 'preLoginUser';
+  static const String preListUser = 'preListUser';
   static const String preIsLogin = 'preIsLogin';
 
   LoginEntity getLogin() => JsonConvert.fromJsonAsT(StorageManager.getObject(preLoginUser));

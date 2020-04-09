@@ -4,6 +4,7 @@ import 'package:relax/common/constant.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 
 typedef ValidateFunc = bool Function(String);
 typedef GetTextCb = void Function(String);
@@ -32,8 +33,8 @@ class _TextInputSearchState extends State<TextInputSearch> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _buildTextField(),
-        const SizedBox(
-          height: 5.0,
+        SizedBox(
+          height: 5.h,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -49,16 +50,16 @@ class _TextInputSearchState extends State<TextInputSearch> {
   Widget _buildTextField() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
-      height: 55.h,
+      height: 150.h,
       child: CupertinoTextField(
         controller: widget.controller,
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         clearButtonMode: OverlayVisibilityMode.editing,
-        placeholder: S.of(context).close,
+        placeholder: S.of(context).home_search,
         suffix: Container(
           margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-          width: 40.w,
-          height: 40.h,
+          width: 120.w,
+          height: 120.h,
           child: FlatButton(
             padding: EdgeInsets.all(0),
             child: Icon(Icons.search, color: Colors.white),
