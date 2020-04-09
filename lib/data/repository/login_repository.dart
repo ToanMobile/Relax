@@ -12,7 +12,7 @@ class LoginRepository {
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
 
   static List<LoginEntity> listUser() {
-    return JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
+    return JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser)) ?? List();
   }
 
   static Future login(String email, String password) async {
@@ -20,12 +20,12 @@ class LoginRepository {
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
       await infoCollection.document(user.uid).get().then((value) {
-        saveUser(user.uid, value.data);
+        saveUser(user.uid, value.data, true);
       });
       List<LoginEntity> list = List();
       await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
         snapshot.documents.forEach(
-          (doc) => {list.add(saveUser(doc.data['uid']??"", doc.data))},
+          (doc) => {list.add(saveUser(doc.data['uid'] ?? "", doc.data, false))},
         );
       });
       StorageManager.saveObject(LoginModel.preListUser, list);
@@ -44,7 +44,7 @@ class LoginRepository {
         user = result.user;
       }
       await infoCollection.document(user.uid).get().then((value) {
-        saveUser(user.uid, value.data);
+        saveUser(user.uid, value.data, true);
         return true;
       });
     } catch (e) {
@@ -53,7 +53,7 @@ class LoginRepository {
     }
   }
 
-  static saveUser(String uid, Map<String, dynamic> snapshot) {
+  static saveUser(String uid, Map<String, dynamic> snapshot, bool isSave) {
     LoginEntity loginEntity = LoginEntity(
       uid: uid,
       address: snapshot['address'],
@@ -61,9 +61,12 @@ class LoginRepository {
       role: snapshot['role'],
       tel: snapshot['tel'],
     );
+    if (isSave) {
+      StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
+      StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
+    }
     printLog('saveUser=$loginEntity');
-    StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
-    StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
+    return loginEntity;
   }
 
   static Future logout() async {

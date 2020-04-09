@@ -96,7 +96,6 @@ class HomeState extends State<HomePage> {
       );
 
   Widget buildListUser(List<LoginEntity> listUser) {
-    print(listUser);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 32.w),
       width: ScreenUtil.screenWidthDp,
