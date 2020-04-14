@@ -3,7 +3,7 @@ import 'package:relax/config/storage_manager.dart';
 import 'package:relax/generated/l10n.dart';
 
 class LocaleModel extends ChangeNotifier {
-  static const localeValueList = ['', 'vn', 'en'];
+  static const localeValueList = ['', 'vi', 'en'];
   static const kLocaleIndex = 'kLocaleIndex';
 
   int _localeIndex;
@@ -19,7 +19,7 @@ class LocaleModel extends ChangeNotifier {
   }
 
   LocaleModel() {
-    _localeIndex = StorageManager.sharedPreferences?.getInt(kLocaleIndex) ?? 0;
+    _localeIndex = StorageManager.sharedPreferences?.getInt(kLocaleIndex) ?? 1;
   }
 
   switchLocale(int index) {

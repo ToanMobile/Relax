@@ -22,8 +22,8 @@ class ContainerButton extends StatefulWidget {
       this.cb,
       this.textStyle,
       this.textStyleFocus,
-      this.bgColorFocus = ColorsUtils.menuSelectDark,
-      this.bgColor = ColorsUtils.menuBackground});
+      this.bgColorFocus = ColorsUtils.lightPink,
+      this.bgColor = ColorsUtils.transparent});
 
   @override
   _ContainerButtonState createState() => _ContainerButtonState();
@@ -53,7 +53,7 @@ class _ContainerButtonState extends State<ContainerButton> {
     TextStyle textStyleNormal;
     TextStyle textStyleFocus;
     if (widget.textStyle == null) {
-      textStyleNormal = TextStylesUtils.styleMedium20TextSelect;
+      textStyleNormal = TextStylesUtils.styleMedium18Black;
     } else {
       textStyleNormal = widget.textStyle;
     }
@@ -63,12 +63,15 @@ class _ContainerButtonState extends State<ContainerButton> {
       textStyleFocus = widget.textStyleFocus;
     }
     if (widget.title.isNotEmpty) {
-      if (widget.isCenter) {
+      if (!widget.isCenter) {
         childWidgetText = FlatButton(
           onPressed: widget.cb == null ? () => {} : widget.cb,
           focusColor: widget.bgColorFocus,
           focusNode: _focusNode,
-          child: Text(widget.title, textAlign: TextAlign.center, style: _focusNode.hasFocus ? textStyleFocus : textStyleNormal),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(widget.title, style: _focusNode.hasFocus ? textStyleFocus : textStyleNormal),
+          ),
         );
       } else {
         childWidgetText = Container(

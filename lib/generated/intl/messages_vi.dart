@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "home_menu_hotel" : MessageLookupByLibrary.simpleMessage("Khách sạn"),
     "home_menu_makeup" : MessageLookupByLibrary.simpleMessage("Làm đẹp"),
     "home_menu_technology" : MessageLookupByLibrary.simpleMessage("Công nghệ"),
-    "home_search" : MessageLookupByLibrary.simpleMessage("Bạn muốn tìm kiếm và đánh giá sản phẩm nào?"),
+    "home_search" : MessageLookupByLibrary.simpleMessage("Bạn muốn tìm kiếm địa chỉ nào?"),
     "login_confirm_password" : MessageLookupByLibrary.simpleMessage("Xác nhận mật khẩu"),
     "login_content1" : MessageLookupByLibrary.simpleMessage("Bạn chưa có tài khoản? Vậy hãy "),
     "login_content2" : MessageLookupByLibrary.simpleMessage(" ngay nhé"),

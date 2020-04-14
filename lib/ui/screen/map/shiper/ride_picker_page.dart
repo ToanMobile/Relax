@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
-import 'package:relax/res/image.dart';
+import 'package:relax/provider/view_state_widget.dart';
+import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
+import 'package:relax/ui/widget/text_input_search.dart';
 import 'package:relax/viewmodel/map_model.dart';
 
 class RidePickerPage extends StatefulWidget {
@@ -31,90 +33,60 @@ class _RidePickerPageState extends State<RidePickerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: ViewModelProvider<MapModel>.withoutConsumer(
+      body: ViewModelProvider<MapModel>.withConsumer(
         viewModel: MapModel(),
-        onModelReady: (model) => {},
+        onModelReady: (model) {
+          _addressController.text = widget.selectedAddress;
+          model.searchPlace(_addressController.text);
+        },
         builder: (context, model, child) {
-          Widget childWidget = model.busy
-              ? Container(
-                  height: 150.h,
-                  child: Center(
-                    child: ButtonProgressIndicator(),
-                  ),
-                )
-              : Container(
-                  padding: EdgeInsets.only(top: 20),
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(model.items.elementAt(index).name == null ? '' : model.items.elementAt(index).name),
-                          subtitle: Text(model.items.elementAt(index).address == null ? '' : model.items.elementAt(index).address),
-                          onTap: () {
-                            print("on tap");
-                            Navigator.of(context).pop();
-                            widget.onSelected(model.items.elementAt(index), widget._isFromAddress);
-                          },
-                        );
+          Widget widgetChild;
+          if (model.busy) {
+            widgetChild = Container(
+              height: 150.h,
+              child: Center(
+                child: ButtonProgressIndicator(),
+              ),
+            );
+          } else if (model.error && model.items.isEmpty) {
+            widgetChild = ViewStateErrorWidget(error: model.viewStateError, onPressed: () {});
+          } else if (model.empty) {
+            widgetChild = ViewStateEmptyWidget(onPressed: () {});
+          } else {
+            widgetChild = Expanded(
+              flex: 1,
+              child: ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                        model.items.elementAt(index).name == null ? '' : model.items.elementAt(index).name,
+                        style: TextStylesUtils.styleRegular14BlackW400,
+                      ),
+                      subtitle: Text(model.items.elementAt(index).address == null ? '' : model.items.elementAt(index).address,
+                          style: TextStylesUtils.styleRegular12BrownGreyW400),
+                      onTap: () {
+                        print("on tap");
+                        Navigator.of(context).pop();
+                        widget.onSelected(model.items.elementAt(index), widget._isFromAddress);
                       },
-                      separatorBuilder: (context, index) => Divider(
-                            height: 1,
-                            color: Color(0xfff5f5f5),
-                          ),
-                      itemCount: model.items.length),
-                );
+                    );
+                  },
+                  separatorBuilder: (context, index) => Divider(
+                        height: 1,
+                        color: Color(0xfff5f5f5),
+                      ),
+                  itemCount: model.items.length),
+            );
+          }
           return Container(
             constraints: BoxConstraints.expand(),
             color: Color(0xfff8f8f8),
             child: Column(
               children: <Widget>[
-                Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Container(
-                      width: double.infinity,
-                      height: 60,
-                      child: Stack(
-                        alignment: AlignmentDirectional.centerStart,
-                        children: <Widget>[
-                          SizedBox(
-                            width: 40,
-                            height: 60,
-                            child: Center(
-                              child: Image.asset(ImagesUtils.iconLocation),
-                            ),
-                          ),
-                          Positioned(
-                            right: 0,
-                            top: 0,
-                            width: 40,
-                            height: 60,
-                            child: Center(
-                              child: FlatButton(
-                                  onPressed: () {
-                                    _addressController.text = "";
-                                  },
-                                  child: Image.asset(ImagesUtils.iconClose)),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 40, right: 50),
-                            child: TextField(
-                              controller: _addressController,
-                              textInputAction: TextInputAction.search,
-                              onSubmitted: (str) {
-                                model.searchPlace(str);
-                              },
-                              style: TextStyle(fontSize: 16, color: Color(0xff323643)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                childWidget,
+                buildSearchView(model),
+                widgetChild,
               ],
             ),
           );
@@ -122,4 +94,12 @@ class _RidePickerPageState extends State<RidePickerPage> {
       ),
     );
   }
+
+  Widget buildSearchView(MapModel mapModel) => TextInputSearch(
+        validateErrMsg: "",
+        controller: _addressController,
+        cb: () {
+          mapModel.searchPlace(_addressController.text);
+        },
+      );
 }

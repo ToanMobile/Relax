@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "home_menu_hotel" : MessageLookupByLibrary.simpleMessage("Hotel"),
     "home_menu_makeup" : MessageLookupByLibrary.simpleMessage("Beautify"),
     "home_menu_technology" : MessageLookupByLibrary.simpleMessage("Technology"),
-    "home_search" : MessageLookupByLibrary.simpleMessage("What products do you want to search and review?"),
+    "home_search" : MessageLookupByLibrary.simpleMessage("What address do you want to search?"),
     "login_confirm_password" : MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "login_content1" : MessageLookupByLibrary.simpleMessage("Do not have an account? So let\'s "),
     "login_content2" : MessageLookupByLibrary.simpleMessage(" right away"),

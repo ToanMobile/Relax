@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:relax/res/colors.dart';
 
 class ButtonProgressIndicator extends StatelessWidget {
   final double size;
   final Color color;
 
-  ButtonProgressIndicator({this.size: 24, this.color: Colors.white});
+  ButtonProgressIndicator({this.size: 24, this.color: ColorsUtils.coralPink});
 
   @override
   Widget build(BuildContext context) {

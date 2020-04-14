@@ -4,8 +4,6 @@ import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
 import 'package:relax/data/repository/map_repository.dart';
-import 'package:relax/res/colors.dart';
-import 'package:relax/res/image.dart';
 import 'package:relax/ui/screen/map/packaging_pickup.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
@@ -50,7 +48,7 @@ class MapState extends State<MapPage> {
               zoom: 14.4746,
             ),
           ),
-          //RidePicker(onPlaceSelected, onPackagingselected),
+          RidePicker(onPlaceSelected, onPackagingselected),
         ],
       ),
       drawer: Drawer(

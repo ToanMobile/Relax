@@ -155,7 +155,7 @@ class S {
 
   String get home_search {
     return Intl.message(
-      'What products do you want to search and review?',
+      'What address do you want to search?',
       name: 'home_search',
       desc: '',
       args: [],

@@ -39,14 +39,6 @@ class HomeState extends State<HomePage> {
                 SizedBox(
                   height: 20.h,
                 ),
-                buildTextSearch(),
-                SizedBox(
-                  height: 40.h,
-                ),
-                buildSearchView(),
-                SizedBox(
-                  height: 20.h,
-                ),
                 buildLogOut(),
                 buildListUser(model.listUser)
               ],
@@ -88,62 +80,65 @@ class HomeState extends State<HomePage> {
       );
 
   Widget buildListUser(List<LoginEntity> listUser) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 32.w),
-      width: ScreenUtil.screenWidthDp,
-      height: 1200.h,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemExtent: 200.h,
-        itemCount: listUser.length,
-        itemBuilder: (context, index) {
-          return InkWell(
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 12.w),
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  Text(
-                    listUser[index].name ?? "",
-                    textAlign: TextAlign.center,
-                    style: TextStylesUtils.styleRegular14BlackW400,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        listUser[index].address.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStylesUtils.styleMedium18Black,
-                      ),
-                      Text(
-                        listUser[index].role.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStylesUtils.styleRegular14BlackW400,
-                      ),
-                      Text(
-                        listUser[index].tel.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStylesUtils.styleRegular14BlackW400,
-                      )
-                    ],
-                  )
-                ],
+    return Expanded(
+      flex: 1,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 32.w),
+        width: ScreenUtil.screenWidthDp,
+        height: 1200.h,
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemExtent: 200.h,
+          itemCount: listUser.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 12.w),
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    Text(
+                      listUser[index].name ?? "",
+                      textAlign: TextAlign.center,
+                      style: TextStylesUtils.styleRegular14BlackW400,
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          listUser[index].address.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStylesUtils.styleMedium18Black,
+                        ),
+                        Text(
+                          listUser[index].role.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStylesUtils.styleRegular14BlackW400,
+                        ),
+                        Text(
+                          listUser[index].tel.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStylesUtils.styleRegular14BlackW400,
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0.5, color: ColorsUtils.coral),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                ),
               ),
-              decoration: BoxDecoration(
-                border: Border.all(width: 0.5, color: ColorsUtils.coral),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-            ),
-            onTap: (){
-              Navigator.pushNamed(context, RouteName.map);
-            },
-          );
-        },
+              onTap: () {
+                Navigator.pushNamed(context, RouteName.map);
+              },
+            );
+          },
+        ),
       ),
     );
   }

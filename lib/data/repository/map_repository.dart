@@ -21,8 +21,7 @@ class MapRepository {
       return new List();
     }
   }
-  static Future<dynamic> getStep(
-      double lat, double lng, double tolat, double tolng) async {
+  static Future<dynamic> getStep(double lat, double lng, double tolat, double tolng) async {
     String str_origin = "origin=" + lat.toString() + "," + lng.toString();
     // Destination of route
     String str_dest =
