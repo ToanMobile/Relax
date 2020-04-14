@@ -3,25 +3,24 @@ import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
 
-enum IconType { BACK, CLOSE }
+enum IconType { BACK, CLOSE, DRAWER }
 
 class AppBarIcon extends StatelessWidget {
   final IconType icon;
-  final String rightTitle;
+  final String title;
   final bool isOnlyIcon;
   final Color color;
+  final bool isCenter;
+  final VoidCallback cb;
 
-  AppBarIcon.back(
-      {this.rightTitle = '',
-      this.isOnlyIcon = false,
-      this.color = ColorsUtils.pale})
+  AppBarIcon.back({this.title = '', this.isOnlyIcon = false, this.color = ColorsUtils.pale, this.isCenter = true, this.cb})
       : this.icon = IconType.BACK;
 
-  AppBarIcon.close(
-      {this.rightTitle = '',
-      this.isOnlyIcon = false,
-      this.color = ColorsUtils.pale})
+  AppBarIcon.close({this.title = '', this.isOnlyIcon = false, this.color = ColorsUtils.pale, this.isCenter = true, this.cb})
       : this.icon = IconType.CLOSE;
+
+  AppBarIcon.drawer({this.title = '', this.isOnlyIcon = false, this.color = ColorsUtils.pale, this.isCenter = true, this.cb})
+      : this.icon = IconType.DRAWER;
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +28,19 @@ class AppBarIcon extends StatelessWidget {
       if (this.isOnlyIcon) {
         return buildIconButtonBack(context);
       }
-      if (this.rightTitle != '') {
-        return buildAppBarBackTitle(context, this.rightTitle);
+      if (this.title != '') {
+        return buildAppBarBackTitle(context, this.title);
       } else {
         return buildAppBarBack(context);
       }
+    } else if (this.icon == IconType.DRAWER) {
+      return buildAppBarDrawerTitle(context, this.title);
     }
     if (this.isOnlyIcon) {
       return buildIconButtonClose(context);
     }
-    if (this.rightTitle != '') {
-      return buildAppBarCloseTitle(context, this.rightTitle);
+    if (this.title != '') {
+      return buildAppBarCloseTitle(context, this.title);
     } else {
       return buildAppBarClose(context);
     }
@@ -61,6 +62,17 @@ class AppBarIcon extends StatelessWidget {
       onPressed: () => Navigator.pop(context),
       icon: Icon(
         Icons.close,
+        color: ColorsUtils.black,
+        size: 90.w,
+      ),
+    );
+  }
+
+  Widget buildIconButtonDrawer(BuildContext context) {
+    return IconButton(
+      onPressed: cb == null ? () => {} : cb,
+      icon: Icon(
+        Icons.menu,
         color: ColorsUtils.black,
         size: 90.w,
       ),
@@ -101,10 +113,17 @@ class AppBarIcon extends StatelessWidget {
     );
   }
 
-  Align buildAlignAppBar(String title) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Text(title, style: TextStylesUtils.styleMedium20TextSelect),
+  AppBar buildAppBarDrawerTitle(BuildContext context, String title) {
+    return AppBar(
+      centerTitle: true,
+      leading: buildIconButtonDrawer(context),
+      backgroundColor: this.color,
+      elevation: 0.0,
+      title: buildAlignAppBar(title),
     );
+  }
+
+  Widget buildAlignAppBar(String title) {
+    return Text(title, style: TextStylesUtils.styleMedium20Black);
   }
 }

@@ -55,38 +55,30 @@ class HomeState extends State<HomePage> {
         ));
   }
 
-  Widget buildTextUserName(String name) =>
-      Container(
+  Widget buildTextUserName(String name) => Container(
         alignment: Alignment.bottomCenter,
         width: ScreenUtil.screenWidthDp,
         height: ScreenUtil.screenHeightDp * 0.13,
         child: Text(name, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20CoalGreyW600),
       );
 
-  Widget buildTextSearch() =>
-      Container(
+  Widget buildTextSearch() => Container(
         width: ScreenUtil.screenWidthDp,
-        child: Text(S
-            .of(context)
-            .home_search, textAlign: TextAlign.center, style: TextStylesUtils.styleRegular14BlackW400),
+        child: Text(S.of(context).home_search, textAlign: TextAlign.center, style: TextStylesUtils.styleRegular14BlackW400),
       );
 
-  Widget buildSearchView() =>
-      TextInputSearch(
+  Widget buildSearchView() => TextInputSearch(
         validateErrMsg: "",
       );
 
-  Widget buildLogOut() =>
-      Center(
+  Widget buildLogOut() => Center(
         child: Container(
           width: 300.w,
           height: 130.h,
           child: FilledRoundButton.withGradient(
             radius: 10,
             gradientColor: Constant.gradient_WaterMelon_Melon,
-            text: Text(S
-                .of(context)
-                .logout, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+            text: Text(S.of(context).logout, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
             cb: () async {
               await LoginRepository.logout();
               Navigator.pushNamed(context, RouteName.login);
@@ -105,46 +97,51 @@ class HomeState extends State<HomePage> {
         itemExtent: 200.h,
         itemCount: listUser.length,
         itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.symmetric(vertical: 12.w),
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              children: [
-                Text(
-                  listUser[index].name??"",
-                  textAlign: TextAlign.center,
-                  style: TextStylesUtils.styleRegular14BlackW400,
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      listUser[index].address.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStylesUtils.styleMedium18Black,
-                    ),
-                    Text(
-                      listUser[index].role.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStylesUtils.styleRegular14BlackW400,
-                    ),
-                    Text(
-                      listUser[index].tel.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStylesUtils.styleRegular14BlackW400,
-                    )
-                  ],
-                )
-              ],
+          return InkWell(
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 12.w),
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Text(
+                    listUser[index].name ?? "",
+                    textAlign: TextAlign.center,
+                    style: TextStylesUtils.styleRegular14BlackW400,
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        listUser[index].address.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStylesUtils.styleMedium18Black,
+                      ),
+                      Text(
+                        listUser[index].role.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStylesUtils.styleRegular14BlackW400,
+                      ),
+                      Text(
+                        listUser[index].tel.toString(),
+                        textAlign: TextAlign.center,
+                        style: TextStylesUtils.styleRegular14BlackW400,
+                      )
+                    ],
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.5, color: ColorsUtils.coral),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              ),
             ),
-            decoration: BoxDecoration(
-              border: Border.all(width: 0.5, color: ColorsUtils.coral),
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-            ),
+            onTap: (){
+              Navigator.pushNamed(context, RouteName.map);
+            },
           );
         },
       ),

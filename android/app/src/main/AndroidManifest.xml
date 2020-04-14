@@ -9,6 +9,8 @@
         android:name="com.relax.App"
         android:label="relax"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

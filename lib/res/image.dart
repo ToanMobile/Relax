@@ -15,6 +15,16 @@ class ImagesUtils {
   //Login
   static const String bgLogin = "$imageDir/bg_login.webp";
 
+  //Menu
+  static const String iconHelp = "$imageIcon/help_outline-24px.svg";
+  static const String iconHistory = "$imageIcon/history-24px.svg";
+  static const String iconExit = "$imageIcon/exit_to_app-24px.svg";
+  static const String iconNotification = "$imageIcon/notifications_active-24px.svg";
+  static const String iconIdentity = "$imageIcon/perm_identity-24px.svg";
+  static const String iconPercent = "$imageIcon/ic_percent.svg";
+  static const String iconLocation = "$imageIcon/ic_location.svg";
+  static const String iconClose = "$imageIcon/ic_close.svg";
+
   //Show
   static const String iconInfo = "$imageIcon/ic_info_screen.xml";
 }
