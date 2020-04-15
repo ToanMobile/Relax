@@ -14,6 +14,7 @@ class ImagesUtils {
 
   //Login
   static const String bgLogin = "$imageDir/bg_login.webp";
+  static const String bgCode = "$imageDir/bg_registered_successfully.webp";
 
   //Menu
   static const String iconHelp = "$imageIcon/help_outline-24px.svg";

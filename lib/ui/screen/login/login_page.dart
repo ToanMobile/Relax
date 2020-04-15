@@ -7,6 +7,7 @@ import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
+import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/login/widget/login_bg_widget.dart';
 import 'package:relax/ui/screen/login/widget/signup_widget.dart';
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBarIcon.back().build(context),
       body: Stack(
         children: <Widget>[
-          BackgroundLogin(),
+          BackgroundLogin(bgBackgroud: ImagesUtils.bgLogin),
           ViewModelProvider<LoginModel>.withoutConsumer(
             viewModel: LoginModel(),
             onModelReady: (model) => {

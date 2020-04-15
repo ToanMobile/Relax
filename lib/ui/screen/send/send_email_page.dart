@@ -6,6 +6,7 @@ import 'package:relax/config/router_manger.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
+import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/login/widget/login_bg_widget.dart';
 import 'package:relax/ui/screen/login/widget/login_field_widget.dart';
@@ -38,7 +39,6 @@ class _SendEmailState extends State<SendEmailPage> {
       appBar: AppBarIcon.back().build(context),
       body: Stack(
         children: <Widget>[
-          BackgroundLogin(),
           ViewModelProvider<DriverModel>.withoutConsumer(
             viewModel: DriverModel(),
             onModelReady: (model) => {},
@@ -49,11 +49,13 @@ class _SendEmailState extends State<SendEmailPage> {
                   key: _formKey,
                   child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
                     buildTextTitleLogin(),
+                    SizedBox(
+                      height: 30.h,
+                    ),
                     LoginTextField(
                       controller: _codeController,
                       label: S.of(context).inputCode,
                       icon: Icons.vpn_key,
-                      obscureText: true,
                       focusNode: _codeFocus,
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (text) {
@@ -74,11 +76,7 @@ class _SendEmailState extends State<SendEmailPage> {
     );
   }
 
-  Widget buildTextTitleLogin() => Text(S.of(context).theme, style: TextStylesUtils.styleRegular20CoalGreyW600);
-
-  Widget buildTextUserName() => Text(S.of(context).login_username, style: TextStylesUtils.styleRegular12BrownGreyW400);
-
-  Widget buildTextPassword() => Text(S.of(context).login_password, style: TextStylesUtils.styleRegular12BrownGreyW400);
+  Widget buildTextTitleLogin() => Text(S.of(context).inputCode, style: TextStylesUtils.styleRegular20CoalGreyW600);
 
   Widget buildSendCode(DriverModel model) {
     Widget child = model.busy
@@ -92,7 +90,7 @@ class _SendEmailState extends State<SendEmailPage> {
             height: 150.h,
             child: Center(
               child: Text(
-                S.of(context).inputCode,
+                'Send Code',
                 style: TextStylesUtils.styleRegular14BlackW400,
               ),
             ),
