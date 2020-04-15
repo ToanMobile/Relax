@@ -4,6 +4,7 @@ import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/provider/view_state_widget.dart';
+import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/text_input_search.dart';
@@ -45,7 +46,7 @@ class _RidePickerPageState extends State<RidePickerPage> {
             widgetChild = Container(
               height: 150.h,
               child: Center(
-                child: ButtonProgressIndicator(),
+                child: ButtonProgressIndicator(color: ColorsUtils.coralPink,),
               ),
             );
           } else if (model.error && model.items.isEmpty) {

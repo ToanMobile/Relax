@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:relax/ui/screen/capture/capture_page.dart';
 import 'package:relax/ui/screen/home/home_page.dart';
 import 'package:relax/ui/screen/login/login_page.dart';
 import 'package:relax/ui/screen/map/map_page.dart';
@@ -10,6 +11,7 @@ class RouteName {
   static const String login = 'login';
   static const String register = 'register';
   static const String map = 'map';
+  static const String capture = 'capture';
 }
 
 //SlideTopRouteBuilder
@@ -24,6 +26,8 @@ class Router {
         return FadeRouteBuilder(LoginPage());
       case RouteName.home:
         return FadeRouteBuilder(HomePage());
+      case RouteName.capture:
+        return FadeRouteBuilder(CapturePage());
       case RouteName.map:
         return FadeRouteBuilder(MapPage());
       default:

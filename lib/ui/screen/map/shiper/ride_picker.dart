@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/res/colors.dart';
+import 'package:relax/ui/screen/map/basic_datetime.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker_page.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
@@ -69,6 +70,17 @@ class _RidePickerState extends State<RidePicker> {
                     setState(() {});
                   }, false),
                 ),
+              );
+            },
+          ),
+          ContainerButton(
+            isExpanded: true,
+            isCenter: false,
+            title: toAddress == null ? "To" : toAddress.name,
+            cb: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MyDateTimePage()),
               );
             },
           ),

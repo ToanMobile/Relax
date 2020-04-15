@@ -134,7 +134,7 @@ class HomeState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                Navigator.pushNamed(context, RouteName.map);
+                Navigator.pushNamed(context, RouteName.capture);
               },
             );
           },
