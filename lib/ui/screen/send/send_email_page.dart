@@ -1,0 +1,117 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:provider_architecture/provider_architecture.dart';
+import 'package:relax/common/constant.dart';
+import 'package:relax/config/router_manger.dart';
+import 'package:relax/generated/l10n.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
+import 'package:relax/res/colors.dart';
+import 'package:relax/res/text_styles.dart';
+import 'package:relax/ui/screen/login/widget/login_bg_widget.dart';
+import 'package:relax/ui/screen/login/widget/login_field_widget.dart';
+import 'package:relax/ui/widget/app_bar.dart';
+import 'package:relax/ui/widget/button_progress_indicator.dart';
+import 'package:relax/ui/widget/filled_round_button.dart';
+import 'package:relax/viewmodel/driver_model.dart';
+
+class SendEmailPage extends StatefulWidget {
+  @override
+  _SendEmailState createState() => _SendEmailState();
+}
+
+class _SendEmailState extends State<SendEmailPage> {
+  final _codeController = TextEditingController();
+  final _codeFocus = FocusNode();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _codeController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: ColorsUtils.pale,
+      appBar: AppBarIcon.back().build(context),
+      body: Stack(
+        children: <Widget>[
+          BackgroundLogin(),
+          ViewModelProvider<DriverModel>.withoutConsumer(
+            viewModel: DriverModel(),
+            onModelReady: (model) => {},
+            builder: (context, model, child) {
+              return Container(
+                padding: EdgeInsets.all(40),
+                child: Form(
+                  key: _formKey,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+                    buildTextTitleLogin(),
+                    LoginTextField(
+                      controller: _codeController,
+                      label: S.of(context).inputCode,
+                      icon: Icons.vpn_key,
+                      obscureText: true,
+                      focusNode: _codeFocus,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (text) {
+                        _codeController.text = text;
+                      },
+                    ),
+                    SizedBox(
+                      height: 100.h,
+                    ),
+                    buildSendCode(model)
+                  ]),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildTextTitleLogin() => Text(S.of(context).theme, style: TextStylesUtils.styleRegular20CoalGreyW600);
+
+  Widget buildTextUserName() => Text(S.of(context).login_username, style: TextStylesUtils.styleRegular12BrownGreyW400);
+
+  Widget buildTextPassword() => Text(S.of(context).login_password, style: TextStylesUtils.styleRegular12BrownGreyW400);
+
+  Widget buildSendCode(DriverModel model) {
+    Widget child = model.busy
+        ? Container(
+            height: 150.h,
+            child: Center(
+              child: ButtonProgressIndicator(),
+            ),
+          )
+        : Container(
+            height: 150.h,
+            child: Center(
+              child: Text(
+                S.of(context).inputCode,
+                style: TextStylesUtils.styleRegular14BlackW400,
+              ),
+            ),
+          );
+    return FilledRoundButton.withGradient(
+        radius: 10,
+        gradientColor: Constant.gradient_WaterMelon_Melon,
+        child: child,
+        cb: () {
+          //var formState = Form.of(context);
+          if (_formKey.currentState.validate()) {
+            model.sendEmail(_codeController.text).then((value) {
+              if (value) {
+                Navigator.pushNamed(context, RouteName.map);
+              } else {
+                model.showErrorMessage(context);
+              }
+            });
+          }
+        });
+  }
+}

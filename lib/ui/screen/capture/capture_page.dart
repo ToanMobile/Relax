@@ -3,14 +3,19 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
+import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
+import 'package:relax/provider/view_state_widget.dart';
 import 'package:relax/res/text_styles.dart';
+import 'package:relax/ui/screen/login/widget/login_field_widget.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/image_picker_gallery_camera.dart';
+import 'package:relax/viewmodel/driver_model.dart';
 
 enum Type { LICENCE, DRIVER, CERTIFICATE }
 
@@ -23,95 +28,126 @@ class CaptureState extends State<CapturePage> {
   File _imageLicence;
   File _imageDriver;
   File _imageCertificate;
+  final _emailController = TextEditingController();
+  final _emailFocus = FocusNode();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: 50.h,
-          ),
-          Row(
+      body: ViewModelProvider<DriverModel>.withoutConsumer(
+        viewModel: DriverModel(),
+        onModelReady: (model) => {},
+        builder: (context, model, child) {
+          return Column(
             children: [
-              Container(
-                width: ScreenUtil.screenWidthDp / 2,
-                height: 800.h,
-                child: Column(
-                  children: [
-                    ContainerButton(
-                      isExpanded: true,
-                      isCenter: false,
-                      title: 'Driver licence',
-                      cb: () {
-                        selectCapture(context, Type.LICENCE);
-                      },
-                    ),
-                    buildImage(Type.LICENCE),
-                  ],
-                ),
+              SizedBox(
+                height: 50.h,
               ),
-              Container(
-                width: ScreenUtil.screenWidthDp / 2,
-                height: 800.h,
-                child: Column(
-                  children: [
-                    ContainerButton(
-                      isExpanded: true,
-                      isCenter: false,
-                      title: 'Potrait of driver',
-                      cb: () {
-                        selectCapture(context, Type.DRIVER);
-                      },
+              Row(
+                children: [
+                  Container(
+                    width: ScreenUtil.screenWidthDp / 2,
+                    height: 800.h,
+                    child: Column(
+                      children: [
+                        ContainerButton(
+                          isExpanded: true,
+                          isCenter: false,
+                          title: 'Driver licence',
+                          cb: () {
+                            selectCapture(context, Type.LICENCE);
+                          },
+                        ),
+                        buildImage(Type.LICENCE),
+                      ],
                     ),
-                    buildImage(Type.DRIVER),
-                  ],
-                ),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Container(
-                width: ScreenUtil.screenWidthDp / 2,
-                height: 800.h,
-                child: Column(
-                  children: [
-                    ContainerButton(
-                      isExpanded: true,
-                      isCenter: false,
-                      title: 'Policy certificate ',
-                      cb: () {
-                        selectCapture(context, Type.CERTIFICATE);
-                      },
+                  ),
+                  Container(
+                    width: ScreenUtil.screenWidthDp / 2,
+                    height: 800.h,
+                    child: Column(
+                      children: [
+                        ContainerButton(
+                          isExpanded: true,
+                          isCenter: false,
+                          title: 'Potrait of driver',
+                          cb: () {
+                            selectCapture(context, Type.DRIVER);
+                          },
+                        ),
+                        buildImage(Type.DRIVER),
+                      ],
                     ),
-                    buildImage(Type.CERTIFICATE),
-                  ],
-                ),
+                  )
+                ],
               ),
+              Row(
+                children: [
+                  Container(
+                    width: ScreenUtil.screenWidthDp / 2,
+                    height: 800.h,
+                    child: Column(
+                      children: [
+                        ContainerButton(
+                          isExpanded: true,
+                          isCenter: false,
+                          title: 'Policy certificate ',
+                          cb: () {
+                            selectCapture(context, Type.CERTIFICATE);
+                          },
+                        ),
+                        buildImage(Type.CERTIFICATE),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50.h,
+              ),
+              buildSendEmail(model)
             ],
-          ),
-          SizedBox(
-            height: 50.h,
-          ),
-          buildGoogleMap()
-        ],
+          );
+        },
       ),
     );
   }
 
-  Widget buildGoogleMap() => Center(
-        child: Container(
-          width: 400.w,
-          height: 130.h,
-          child: FilledRoundButton.withGradient(
-            radius: 10,
-            gradientColor: Constant.gradient_WaterMelon_Melon,
-            text: Text('Google Map', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
-            cb: () {
-              Navigator.pushNamed(context, RouteName.map);
-            },
-          ),
+  Widget buildSendEmail(DriverModel driverModel) => Container(
+        child: Row(
+          children: [
+            LoginTextField(
+              label: S.of(context).login_email,
+              icon: Icons.email,
+              controller: _emailController,
+              focusNode: _emailFocus,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (text) {
+                _emailController.text = text;
+                FocusScope.of(context).requestFocus(_emailFocus);
+              },
+            ),
+            FilledRoundButton.withGradient(
+              radius: 10,
+              gradientColor: Constant.gradient_WaterMelon_Melon,
+              text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+              cb: () {
+                driverModel.sendEmail(_emailController.text).then((value) {
+                  if (value) {
+                    Navigator.pushNamed(context, RouteName.code);
+                  } else {
+                    ViewStateErrorWidget(error: null, onPressed: () {});
+                  }
+                });
+              },
+            )
+          ],
         ),
       );
 

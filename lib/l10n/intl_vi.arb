@@ -6,6 +6,7 @@
   "login_content1": "Bạn chưa có tài khoản? Vậy hãy\u0020",
   "login_content2": "\u0020ngay nhé",
   "login_title": "Tên đăng nhập",
+  "login_email": "Email",
   "login_username": "Tài khoản",
   "login_password": "Mật khẩu",
   "login_confirm_password": "Xác nhận mật khẩu",
@@ -35,6 +36,7 @@
   "challenge_time_left": "Thời gian còn lại",
   "challenge_rewards_left": "Khuyến mãi còn lại",
   "fontAvenirNext": "AvenirNext",
+  "inputCode": "Nhập mã code",
 
   "actionConfirm": "Xác nhận",
   "actionCancel": "Huỷ",

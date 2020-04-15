@@ -4,6 +4,7 @@ import 'package:relax/ui/screen/capture/capture_page.dart';
 import 'package:relax/ui/screen/home/home_page.dart';
 import 'package:relax/ui/screen/login/login_page.dart';
 import 'package:relax/ui/screen/map/map_page.dart';
+import 'package:relax/ui/screen/send/send_email_page.dart';
 import 'package:relax/ui/widget/page_route_anim.dart';
 
 class RouteName {
@@ -11,6 +12,7 @@ class RouteName {
   static const String login = 'login';
   static const String register = 'register';
   static const String map = 'map';
+  static const String code = 'code';
   static const String capture = 'capture';
 }
 
@@ -30,6 +32,8 @@ class Router {
         return FadeRouteBuilder(CapturePage());
       case RouteName.map:
         return FadeRouteBuilder(MapPage());
+      case RouteName.code:
+        return FadeRouteBuilder(SendEmailPage());
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

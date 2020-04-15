@@ -6,6 +6,7 @@
   "login_content1": "Do not have an account? So let's\u0020",
   "login_content2": "\u0020right away",
   "login_title": "Username",
+  "login_email": "Email",
   "login_username": "Username",
   "login_password": "Password",
   "login_confirm_password": "Confirm Password",
@@ -35,7 +36,7 @@
   "challenge_time_left": "Time Left",
   "challenge_rewards_left": "Rewards Left",
   "fontAvenirNext": "AvenirNext",
-
+  "inputCode": "Input code",
   "actionConfirm": "Confirm",
   "actionCancel": "Cancel",
   "viewStateMessageError": "Load Failed",

@@ -90,6 +90,15 @@ class S {
     );
   }
 
+  String get login_email {
+    return Intl.message(
+      'Email',
+      name: 'login_email',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get login_username {
     return Intl.message(
       'Username',
@@ -346,6 +355,15 @@ class S {
     return Intl.message(
       'AvenirNext',
       name: 'fontAvenirNext',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get inputCode {
+    return Intl.message(
+      'Input code',
+      name: 'inputCode',
       desc: '',
       args: [],
     );
