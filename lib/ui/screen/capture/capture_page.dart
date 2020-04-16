@@ -7,12 +7,12 @@ import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/provider/view_state_widget.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/login/widget/login_field_widget.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/image_picker_gallery_camera.dart';
@@ -135,6 +135,7 @@ class CaptureState extends State<CapturePage> {
               child: LoginTextField(
                 label: S.of(context).login_email,
                 icon: Icons.email,
+                textInputType: TextInputType.emailAddress,
                 controller: _emailController,
                 focusNode: _emailFocus,
                 textInputAction: TextInputAction.next,

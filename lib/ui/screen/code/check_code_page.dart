@@ -8,19 +8,18 @@ import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
-import 'package:relax/ui/screen/login/widget/login_bg_widget.dart';
 import 'package:relax/ui/screen/login/widget/login_field_widget.dart';
 import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/viewmodel/driver_model.dart';
 
-class SendEmailPage extends StatefulWidget {
+class CheckCodePage extends StatefulWidget {
   @override
-  _SendEmailState createState() => _SendEmailState();
+  _CheckCodeState createState() => _CheckCodeState();
 }
 
-class _SendEmailState extends State<SendEmailPage> {
+class _CheckCodeState extends State<CheckCodePage> {
   final _codeController = TextEditingController();
   final _codeFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
@@ -33,6 +32,7 @@ class _SendEmailState extends State<SendEmailPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(Constant.check_code);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
@@ -55,6 +55,7 @@ class _SendEmailState extends State<SendEmailPage> {
                     LoginTextField(
                       controller: _codeController,
                       label: S.of(context).inputCode,
+                      textInputType: TextInputType.number,
                       icon: Icons.vpn_key,
                       focusNode: _codeFocus,
                       textInputAction: TextInputAction.done,
@@ -102,7 +103,7 @@ class _SendEmailState extends State<SendEmailPage> {
         cb: () {
           //var formState = Form.of(context);
           if (_formKey.currentState.validate()) {
-            model.sendEmail(_codeController.text).then((value) {
+            model.checkCode(_codeController.text).then((value) {
               if (value) {
                 Navigator.pushNamed(context, RouteName.map);
               } else {

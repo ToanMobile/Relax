@@ -13,6 +13,7 @@ class LoginTextField extends StatefulWidget {
   final FormFieldValidator<String> validator;
   final FocusNode focusNode;
   final TextInputAction textInputAction;
+  final TextInputType textInputType;
   final ValueChanged<String> onFieldSubmitted;
 
   LoginTextField({
@@ -23,6 +24,7 @@ class LoginTextField extends StatefulWidget {
     this.validator,
     this.focusNode,
     this.textInputAction,
+    this.textInputType,
     this.onFieldSubmitted,
   });
 
@@ -59,6 +61,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
       builder: (context, value, child) => TextFormField(
         controller: controller,
         obscureText: value,
+        keyboardType: widget.textInputType,
         validator: (text) {
           var validator = widget.validator ?? (_) => null;
           return text.trim().length > 0 ? validator(text) : S.of(context).fieldNotNull;

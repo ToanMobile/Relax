@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/repository/driver_repository.dart';
 import 'package:relax/data/repository/map_repository.dart';
 import 'package:relax/provider/view_state_model.dart';
 import 'package:relax/ui/screen/capture/capture_page.dart';
+import 'package:relax/lib/res/utils.dart';
 
 class DriverModel extends ViewStateModel {
   List<PlaceItemRes> _items = List();
@@ -35,16 +39,38 @@ class DriverModel extends ViewStateModel {
     }
   }
 
-  Future sendEmail(String email) async {
-    if (email.length > 0) {
+  Future<bool> sendEmail(String _email) async {
+    if (_email.length > 0) {
       setBusy();
       try {
-        _items = await MapRepository.searchPlace(email);
+        final random = Random();
+        Constant.check_code = random.nextIntOfDigits(6);
+        final Email email = Email(
+          body: Constant.check_code.toString(),
+          subject: 'Relax Code',
+          recipients: [_email]
+        );
+        await FlutterEmailSender.send(email);
         setIdle();
-        notifyListeners();
+        return true;
       } catch (e, s) {
         setError(e, s);
       }
     }
+    return false;
+  }
+
+  Future<bool> checkCode(String code) async {
+    print('check_code=' +Constant.check_code.toString());
+    print('code=' +code);
+    if (code.length > 0) {
+      setBusy();
+      if (code.trim() == Constant.check_code.toString()) {
+        setIdle();
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 }

@@ -76,7 +76,7 @@ class _RidePickerState extends State<RidePicker> {
           ContainerButton(
             isExpanded: true,
             isCenter: false,
-            title: toAddress == null ? "To" : toAddress.name,
+            title: toAddress == null ? "Time" : toAddress.name,
             cb: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
