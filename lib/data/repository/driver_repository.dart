@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:relax/config/storage_manager.dart';
@@ -6,6 +7,7 @@ import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/ui/screen/capture/capture_page.dart';
 import 'package:relax/viewmodel/login_model.dart';
+
 import 'base_repository.dart';
 
 class DriverRepository {

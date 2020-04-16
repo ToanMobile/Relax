@@ -7,6 +7,7 @@ import 'package:relax/data/repository/map_repository.dart';
 import 'package:relax/ui/screen/map/packaging_pickup.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
+
 import 'home_menu.dart';
 
 class MapPage extends StatefulWidget {

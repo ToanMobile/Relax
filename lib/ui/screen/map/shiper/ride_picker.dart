@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:relax/data/model/place_item_res.dart';
-import 'package:relax/res/colors.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/ui/screen/map/basic_datetime.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker_page.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
+
 import '../packaging_pickup.dart';
 
 class RidePicker extends StatefulWidget {
@@ -27,7 +27,7 @@ class _RidePickerState extends State<RidePicker> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 250.h,
+      height: 300.h,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
@@ -73,6 +73,7 @@ class _RidePickerState extends State<RidePicker> {
               );
             },
           ),
+          Divider(),
           ContainerButton(
             isExpanded: true,
             isCenter: false,

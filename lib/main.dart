@@ -7,7 +7,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/viewmodel/locale_model.dart';
-import 'package:relax/viewmodel/login_model.dart';
 import 'package:relax/viewmodel/theme_model.dart';
 
 import 'generated/l10n.dart';

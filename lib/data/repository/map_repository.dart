@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:relax/data/model/place_item_res.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
 

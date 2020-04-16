@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:relax/config/resource_mananger.dart';
 import 'package:relax/generated/l10n.dart';
+
 import 'view_state.dart';
 
 /// 加载中

@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/repository/map_repository.dart';
 import 'package:relax/provider/view_state_model.dart';

@@ -3,6 +3,7 @@ import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/repository/login_repository.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
+
 import 'login_model.dart';
 
 class UserModel extends ChangeNotifier {

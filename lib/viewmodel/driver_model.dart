@@ -1,13 +1,14 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/repository/driver_repository.dart';
 import 'package:relax/data/repository/map_repository.dart';
+import 'package:relax/lib/res/utils.dart';
 import 'package:relax/provider/view_state_model.dart';
 import 'package:relax/ui/screen/capture/capture_page.dart';
-import 'package:relax/lib/res/utils.dart';
 
 class DriverModel extends ViewStateModel {
   List<PlaceItemRes> _items = List();
