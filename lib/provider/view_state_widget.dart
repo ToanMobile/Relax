@@ -52,9 +52,8 @@ class ViewStateWidget extends StatelessWidget {
                 title ?? S.of(context).viewStateMessageError,
                 style: titleStyle,
               ),
-              SizedBox(height: 20),
               ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: 200, minHeight: 150),
+                constraints: BoxConstraints(maxHeight: 200),
                 child: SingleChildScrollView(
                   child: Text(message ?? '', style: messageStyle),
                 ),

@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,10 +8,12 @@ import 'package:relax/config/router_manger.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/provider/view_state_widget.dart';
+import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/login/widget/login_field_widget.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
+import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/image_picker_gallery_camera.dart';
 import 'package:relax/viewmodel/driver_model.dart';
@@ -25,11 +26,12 @@ class CapturePage extends StatefulWidget {
 }
 
 class CaptureState extends State<CapturePage> {
-  File _imageLicence;
-  File _imageDriver;
-  File _imageCertificate;
+  String _imageLicence;
+  String _imageDriver;
+  String _imageCertificate;
   final _emailController = TextEditingController();
   final _emailFocus = FocusNode();
+  var flag = Type.LICENCE;
 
   @override
   void dispose() {
@@ -40,7 +42,7 @@ class CaptureState extends State<CapturePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ViewModelProvider<DriverModel>.withoutConsumer(
+      body: ViewModelProvider<DriverModel>.withConsumer(
         viewModel: DriverModel(),
         onModelReady: (model) => {},
         builder: (context, model, child) {
@@ -63,10 +65,10 @@ class CaptureState extends State<CapturePage> {
                             isCenter: false,
                             title: 'Driver licence',
                             cb: () {
-                              selectCapture(context, Type.LICENCE);
+                              selectCapture(context, model, Type.LICENCE);
                             },
                           ),
-                          buildImage(Type.LICENCE),
+                          buildImage(model, Type.LICENCE),
                         ],
                       ),
                     ),
@@ -80,10 +82,10 @@ class CaptureState extends State<CapturePage> {
                             isCenter: false,
                             title: 'Potrait of driver',
                             cb: () {
-                              selectCapture(context, Type.DRIVER);
+                              selectCapture(context, model, Type.DRIVER);
                             },
                           ),
-                          buildImage(Type.DRIVER),
+                          buildImage(model, Type.DRIVER),
                         ],
                       ),
                     )
@@ -101,10 +103,10 @@ class CaptureState extends State<CapturePage> {
                             isCenter: false,
                             title: 'Policy certificate ',
                             cb: () {
-                              selectCapture(context, Type.CERTIFICATE);
+                              selectCapture(context, model, Type.CERTIFICATE);
                             },
                           ),
-                          buildImage(Type.CERTIFICATE),
+                          buildImage(model, Type.CERTIFICATE),
                         ],
                       ),
                     ),
@@ -167,8 +169,8 @@ class CaptureState extends State<CapturePage> {
         ),
       );
 
-  Widget buildImage(Type type) {
-    File image;
+  Widget buildImage(DriverModel model, Type type) {
+    String image;
     if (type == Type.LICENCE) {
       image = _imageLicence;
     } else if (type == Type.DRIVER) {
@@ -176,27 +178,52 @@ class CaptureState extends State<CapturePage> {
     } else if (type == Type.CERTIFICATE) {
       image = _imageCertificate;
     }
+    print(image);
+    if (flag == type) {
+      Widget child = model.busy
+          ? Container(
+              width: 500.w,
+              height: 700.h,
+              child: Center(
+                child: ButtonProgressIndicator(color: ColorsUtils.coralPink),
+              ),
+            )
+          : Container(
+              width: 500.w,
+              height: 700.h,
+              child: image != null
+                  ? Image(image: CachedNetworkImageProvider(image))
+                  : ViewStateEmptyWidget(onPressed: () {
+                      selectCapture(context, model, type);
+                    }),
+            );
+      return child;
+    }
     return Container(
       width: 500.w,
       height: 700.h,
-      child: image != null ? Image.file(image) : Container(),
+      child: image != null
+          ? Image(image: CachedNetworkImageProvider(image))
+          : ViewStateEmptyWidget(onPressed: () {
+              selectCapture(context, model, type);
+            }),
     );
   }
 
-  selectCapture(BuildContext context, Type type) async {
+  selectCapture(BuildContext context, DriverModel model, Type type) async {
     final _selectCapture = CupertinoActionSheet(
       actions: <Widget>[
         CupertinoActionSheetAction(
           child: Text('Galary'),
           onPressed: () {
-            getImage(ImgSource.Gallery, type);
+            getImage(model, ImgSource.Gallery, type);
             Navigator.of(context).pop();
           },
         ),
         CupertinoActionSheetAction(
           child: Container(child: Text('Capture')),
           onPressed: () {
-            getImage(ImgSource.Camera, type);
+            getImage(model, ImgSource.Camera, type);
             Navigator.of(context).pop();
           },
         ),
@@ -206,7 +233,8 @@ class CaptureState extends State<CapturePage> {
     showCupertinoModalPopup(context: context, builder: (context) => _selectCapture);
   }
 
-  Future getImage(ImgSource source, Type type) async {
+  Future getImage(DriverModel model, ImgSource source, Type type) async {
+    flag = type;
     var image = await ImagePickerGC.pickImage(
       context: context,
       source: source,
@@ -215,16 +243,18 @@ class CaptureState extends State<CapturePage> {
       cameraIcon: Icon(
         Icons.add,
         color: Colors.red,
-      ), //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
+      ),
     );
-    setState(() {
-      if (type == Type.LICENCE) {
-        _imageLicence = image;
-      } else if (type == Type.DRIVER) {
-        _imageDriver = image;
-      } else if (type == Type.CERTIFICATE) {
-        _imageCertificate = image;
-      }
-    });
+    model.uploadFile(image, type).then(
+      (value) {
+        if (type == Type.LICENCE) {
+          _imageLicence = value;
+        } else if (type == Type.DRIVER) {
+          _imageDriver = value;
+        } else if (type == Type.CERTIFICATE) {
+          _imageCertificate = value;
+        }
+      },
+    );
   }
 }

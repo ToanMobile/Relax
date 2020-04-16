@@ -54,6 +54,7 @@ class LoginRepository {
   }
 
   static saveUser(String uid, Map<String, dynamic> snapshot, bool isSave) {
+    printLog(snapshot);
     LoginEntity loginEntity = LoginEntity(
       uid: uid,
       address: snapshot['address'],
