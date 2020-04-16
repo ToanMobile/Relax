@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:relax/common/constant.dart';
+import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/repository/driver_repository.dart';
 import 'package:relax/data/repository/map_repository.dart';
@@ -73,5 +74,29 @@ class DriverModel extends ViewStateModel {
       return false;
     }
     return false;
+  }
+
+  Future<bool> addDriver(DriverEntity driverEntity) async {
+    setBusy();
+    try {
+      await DriverRepository.addDriver(driverEntity);
+      setIdle();
+      return true;
+    } catch (e, s) {
+      setError(e, s);
+      return false;
+    }
+  }
+
+  Future<bool> updateDriver(DriverEntity driverEntity) async {
+    setBusy();
+    try {
+      await DriverRepository.updateDriver(driverEntity);
+      setIdle();
+      return true;
+    } catch (e, s) {
+      setError(e, s);
+      return false;
+    }
   }
 }

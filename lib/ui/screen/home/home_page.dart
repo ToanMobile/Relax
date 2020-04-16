@@ -26,25 +26,26 @@ class HomeState extends State<HomePage> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return Scaffold(
-        backgroundColor: ColorsUtils.offWhite,
-        body: ViewModelProvider<UserModel>.withConsumer(
-          viewModel: UserModel(),
-          onModelReady: (model) {},
-          builder: (context, model, child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                buildTextUserName(model.getName),
-                SizedBox(
-                  height: 20.h,
-                ),
-                buildLogOut(),
-                buildListUser(model.listUser)
-              ],
-            );
-          },
-        ));
+      backgroundColor: ColorsUtils.offWhite,
+      body: ViewModelProvider<UserModel>.withConsumer(
+        viewModel: UserModel(),
+        onModelReady: (model) {},
+        builder: (context, model, child) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              buildTextUserName(model.getName),
+              SizedBox(
+                height: 20.h,
+              ),
+              buildLogOut(),
+              buildListUser(model.listUser)
+            ],
+          );
+        },
+      ),
+    );
   }
 
   Widget buildTextUserName(String name) => Container(
@@ -89,7 +90,7 @@ class HomeState extends State<HomePage> {
         child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemExtent: 200.h,
-          itemCount: listUser.length,
+          itemCount: listUser.length ?? 0,
           itemBuilder: (context, index) {
             return InkWell(
               child: Container(
@@ -134,7 +135,7 @@ class HomeState extends State<HomePage> {
                 ),
               ),
               onTap: () {
-                Navigator.pushNamed(context, RouteName.capture);
+                Navigator.popAndPushNamed(context, RouteName.capture);
               },
             );
           },

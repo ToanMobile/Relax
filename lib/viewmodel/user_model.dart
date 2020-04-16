@@ -9,17 +9,13 @@ import 'login_model.dart';
 class UserModel extends ChangeNotifier {
   LoginEntity _loginEntity;
 
-  LoginEntity get login => _loginEntity;
-
-  bool get hasLogin => login != null;
-
-  String get getName => login != null ? login.name : "";
+  String get getName =>  _loginEntity != null ? _loginEntity.name :"";
 
   UserModel() {
     _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
   }
 
-  List<LoginEntity> get listUser => LoginRepository.listUser();
+  List<LoginEntity> get listUser => LoginRepository.listUser() ?? null;
 
   saveUser(LoginEntity loginEntity) {
     _loginEntity = loginEntity;

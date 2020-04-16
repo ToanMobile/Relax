@@ -9,8 +9,7 @@ import 'package:relax/data/model/trip_info_res.dart';
 class MapRepository {
   String APIKey = 'AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c';
   static Future<List<PlaceItemRes>> searchPlace(String keyword) async {
-    String url =
-        "https://maps.googleapis.com/maps/api/place/textsearch/json?key=" +
+    String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=" +
          "AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c" +
             "&query=" + Uri.encodeQueryComponent(keyword);
     print("search >>: " + url);

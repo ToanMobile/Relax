@@ -1,13 +1,14 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:relax/config/storage_manager.dart';
+import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/ui/screen/capture/capture_page.dart';
 import 'package:relax/viewmodel/login_model.dart';
-
 import 'base_repository.dart';
 
 class DriverRepository {
@@ -21,6 +22,7 @@ class DriverRepository {
     ),
   ) as FirebaseApp;
   final FirebaseStorage storage = FirebaseStorage(app: app, storageBucket: 'gs://smartway24-30c7d.appspot.com/');
+  static final CollectionReference driverCollection = Firestore.instance.collection('driverOffers');
 
   static Future uploadFile(File image, Type type) async {
     try {
@@ -42,6 +44,17 @@ class DriverRepository {
       printLog(e);
       return null;
     }
+  }
+
+  static Future addDriver(DriverEntity data) async {
+    await driverCollection.add(data.toJson());
+    return;
+  }
+
+  static Future updateDriver(DriverEntity data) async {
+    LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
+    await driverCollection.document(user.uid).updateData(data.toJson());
+    return;
   }
 
   static void printLog(dynamic data) {

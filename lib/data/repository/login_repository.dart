@@ -11,46 +11,32 @@ class LoginRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
 
-  static List<LoginEntity> listUser() {
-    return JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser)) ?? List();
-  }
+  static List<LoginEntity> listUser() => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
 
   static Future login(String email, String password) async {
-    try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = result.user;
-      await infoCollection.document(user.uid).get().then((value) {
-        saveUser(user.uid, value.data, true);
-      });
-      List<LoginEntity> list = List();
-      await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
-        snapshot.documents.forEach(
-          (doc) => {list.add(saveUser(doc.data['uid'] ?? "", doc.data, false))},
-        );
-      });
-      StorageManager.saveObject(LoginModel.preListUser, list);
-      return true;
-    } catch (e) {
-      print(e.toString());
-      return false;
-    }
+    AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    FirebaseUser user = result.user;
+    await infoCollection.document(user.uid).get().then((value) {
+      saveUser(user.uid, value.data, true);
+    });
+    List<LoginEntity> list = List();
+    await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach(
+        (doc) => {list.add(saveUser(doc.data['uid'] ?? "", doc.data, false))},
+      );
+    });
+    StorageManager.saveObject(LoginModel.preListUser, list);
   }
 
   static Future register(String email, String password, FirebaseUser firebaseUser) async {
-    try {
-      FirebaseUser user = firebaseUser;
-      if (user == null) {
-        AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-        user = result.user;
-      }
-      await infoCollection.document(user.uid).get().then((value) {
-        saveUser(user.uid, value.data, true);
-        return true;
-      });
-    } catch (e) {
-      printLog(e);
-      return false;
+    FirebaseUser user = firebaseUser;
+    if (user == null) {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      user = result.user;
     }
+    await infoCollection.document(user.uid).get().then((value) {
+      saveUser(user.uid, value.data, true);
+    });
   }
 
   static saveUser(String uid, Map<String, dynamic> snapshot, bool isSave) {
@@ -66,19 +52,13 @@ class LoginRepository {
       StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
       StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
     }
-    printLog('saveUser=$loginEntity');
+    //printLog('saveUser=$loginEntity');
     return loginEntity;
   }
 
   static Future logout() async {
-    try {
-      await StorageManager.sharedPreferences.clear();
-      await _auth.signOut();
-      return true;
-    } catch (e) {
-      printLog(e);
-      return false;
-    }
+    await StorageManager.sharedPreferences.clear();
+    await _auth.signOut();
   }
 
   static void printLog(dynamic data) {

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
+import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
@@ -26,9 +27,7 @@ class CapturePage extends StatefulWidget {
 }
 
 class CaptureState extends State<CapturePage> {
-  String _imageLicence;
-  String _imageDriver;
-  String _imageCertificate;
+  DriverEntity driverEntity = DriverEntity();
   final _emailController = TextEditingController();
   final _emailFocus = FocusNode();
   var flag = Type.LICENCE;
@@ -155,10 +154,13 @@ class CaptureState extends State<CapturePage> {
                 radius: 10,
                 gradientColor: Constant.gradient_WaterMelon_Melon,
                 text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
-                cb: () {
-                  driverModel.sendEmail(_emailController.text).then((value) {
+                cb: () async {
+                  driverEntity.email = _emailController.text;
+                  driverEntity.status = 'waiting';
+                  await driverModel.addDriver(driverEntity);
+                  await driverModel.sendEmail(driverEntity.email).then((value) {
                     if (value) {
-                      Navigator.pushNamed(context, RouteName.code);
+                      Navigator.pushReplacementNamed(context, RouteName.code);
                     } else {
                       ViewStateErrorWidget(error: null, onPressed: () {});
                     }
@@ -173,11 +175,11 @@ class CaptureState extends State<CapturePage> {
   Widget buildImage(DriverModel model, Type type) {
     String image;
     if (type == Type.LICENCE) {
-      image = _imageLicence;
+      image = driverEntity.imgLicence;
     } else if (type == Type.DRIVER) {
-      image = _imageDriver;
+      image = driverEntity.imgDriver;
     } else if (type == Type.CERTIFICATE) {
-      image = _imageCertificate;
+      image = driverEntity.imgCertificate;
     }
     print(image);
     if (flag == type) {
@@ -249,11 +251,11 @@ class CaptureState extends State<CapturePage> {
     model.uploadFile(image, type).then(
       (value) {
         if (type == Type.LICENCE) {
-          _imageLicence = value;
+          driverEntity.imgLicence = value;
         } else if (type == Type.DRIVER) {
-          _imageDriver = value;
+          driverEntity.imgDriver = value;
         } else if (type == Type.CERTIFICATE) {
-          _imageCertificate = value;
+          driverEntity.imgCertificate = value;
         }
       },
     );

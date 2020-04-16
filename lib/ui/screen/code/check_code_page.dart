@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
+import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
@@ -14,15 +15,18 @@ import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/viewmodel/driver_model.dart';
 
+// ignore: must_be_immutable
 class CheckCodePage extends StatefulWidget {
+  DriverEntity driverEntity;
+
+  CheckCodePage({@required this.driverEntity});
+
   @override
   _CheckCodeState createState() => _CheckCodeState();
 }
 
 class _CheckCodeState extends State<CheckCodePage> {
   final _codeController = TextEditingController();
-  final _codeFocus = FocusNode();
-  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -46,7 +50,6 @@ class _CheckCodeState extends State<CheckCodePage> {
               return Container(
                 padding: EdgeInsets.all(40),
                 child: Form(
-                  key: _formKey,
                   child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
                     buildTextTitleLogin(),
                     SizedBox(
@@ -57,7 +60,6 @@ class _CheckCodeState extends State<CheckCodePage> {
                       label: S.of(context).inputCode,
                       textInputType: TextInputType.number,
                       icon: Icons.vpn_key,
-                      focusNode: _codeFocus,
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (text) {
                         _codeController.text = text;
@@ -100,17 +102,16 @@ class _CheckCodeState extends State<CheckCodePage> {
         radius: 10,
         gradientColor: Constant.gradient_WaterMelon_Melon,
         child: child,
-        cb: () {
-          //var formState = Form.of(context);
-          if (_formKey.currentState.validate()) {
-            model.checkCode(_codeController.text).then((value) {
-              if (value) {
-                Navigator.pushNamed(context, RouteName.map);
-              } else {
-                model.showErrorMessage(context);
-              }
-            });
-          }
+        cb: () async {
+          await model.checkCode(_codeController.text).then((value) async {
+            if (value) {
+              widget.driverEntity.status = 'ready';
+              await model.updateDriver(widget.driverEntity);
+              Navigator.pushReplacementNamed(context, RouteName.map);
+            } else {
+              model.showErrorMessage(context);
+            }
+          });
         });
   }
 }
