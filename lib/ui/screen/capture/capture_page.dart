@@ -160,7 +160,7 @@ class CaptureState extends State<CapturePage> {
                   await driverModel.addDriver(driverEntity);
                   await driverModel.sendEmail(driverEntity.email).then((value) {
                     if (value) {
-                      Navigator.pushReplacementNamed(context, RouteName.code);
+                      Navigator.pushReplacementNamed(context, RouteName.code, arguments: driverEntity);
                     } else {
                       ViewStateErrorWidget(error: null, onPressed: () {});
                     }

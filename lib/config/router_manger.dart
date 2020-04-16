@@ -31,9 +31,9 @@ class Router {
       case RouteName.capture:
         return FadeRouteBuilder(CapturePage());
       case RouteName.map:
-        return FadeRouteBuilder(MapPage());
+        return FadeRouteBuilder(MapPage(driverEntity: settings.arguments));
       case RouteName.code:
-        return FadeRouteBuilder(CheckCodePage());
+        return FadeRouteBuilder(CheckCodePage(driverEntity: settings.arguments));
       default:
         return CupertinoPageRoute(
           builder: (_) => Scaffold(

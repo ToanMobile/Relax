@@ -47,7 +47,8 @@ class DriverRepository {
   }
 
   static Future addDriver(DriverEntity data) async {
-    await driverCollection.add(data.toJson());
+    LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
+    await driverCollection.document(user.uid).setData(data.toJson());
     return;
   }
 

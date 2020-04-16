@@ -36,7 +36,7 @@ class _CheckCodeState extends State<CheckCodePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(Constant.check_code);
+    print('_CheckCodeState==' + widget.driverEntity.toString());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
@@ -107,7 +107,7 @@ class _CheckCodeState extends State<CheckCodePage> {
             if (value) {
               widget.driverEntity.status = 'ready';
               await model.updateDriver(widget.driverEntity);
-              Navigator.pushReplacementNamed(context, RouteName.map);
+              Navigator.pushReplacementNamed(context, RouteName.map, arguments: widget.driverEntity);
             } else {
               model.showErrorMessage(context);
             }
