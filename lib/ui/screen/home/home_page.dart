@@ -101,7 +101,7 @@ class HomeState extends State<HomePage> {
                     Text(
                       listUser[index].name ?? "",
                       textAlign: TextAlign.center,
-                      style: TextStylesUtils.styleRegular14BlackW400,
+                      style: TextStylesUtils.styleMedium18Black,
                     ),
                     SizedBox(
                       height: 20.h,
@@ -111,17 +111,17 @@ class HomeState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          listUser[index].address.toString(),
-                          textAlign: TextAlign.center,
-                          style: TextStylesUtils.styleMedium18Black,
-                        ),
-                        Text(
-                          listUser[index].role.toString(),
+                          'Adrress:' + listUser[index].address.toString(),
                           textAlign: TextAlign.center,
                           style: TextStylesUtils.styleRegular14BlackW400,
                         ),
                         Text(
-                          listUser[index].tel.toString(),
+                          'Role:' + listUser[index].role.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStylesUtils.styleRegular14BlackW400,
+                        ),
+                        Text(
+                          'Sdt:' + listUser[index].tel.toString(),
                           textAlign: TextAlign.center,
                           style: TextStylesUtils.styleRegular14BlackW400,
                         )

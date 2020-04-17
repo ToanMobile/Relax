@@ -19,7 +19,6 @@ class HomeRepository {
         },
         onError: (code, msg) {
           printLog("$msg code=$code");
-          //_onError(code, msg, onError);
         }
     );
   }

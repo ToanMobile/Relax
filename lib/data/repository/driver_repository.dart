@@ -9,7 +9,6 @@ import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'package:relax/viewmodel/login_model.dart';
-
 import 'base_repository.dart';
 
 class DriverRepository {
@@ -23,7 +22,7 @@ class DriverRepository {
     ),
   ) as FirebaseApp;
   final FirebaseStorage storage = FirebaseStorage(app: app, storageBucket: 'gs://smartway24-30c7d.appspot.com/');
-  static final CollectionReference driverCollection = Firestore.instance.collection('driverOffers');
+  static final CollectionReference driverCollection = Firestore.instance.collection('driverInfos');
 
   static Future uploadFile(File image, Type type) async {
     try {
