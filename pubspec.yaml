@@ -39,11 +39,11 @@ dependencies:
   firebase_storage: ^3.1.5
   image_picker: ^0.6.5
   flutter_email_sender: ^3.0.1
+  datetime_picker_formfield: ^1.0.0
   #Map
   flutter_typeahead: ^1.8.0
   flutter_map: any
   flutter_map_marker_cluster: any
-  datetime_picker_formfield: ^1.0.0
   google_maps_flutter: ^0.5.25+3
   flutter_google_places: ^0.2.4
 

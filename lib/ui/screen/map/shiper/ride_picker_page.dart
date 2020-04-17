@@ -46,7 +46,9 @@ class _RidePickerPageState extends State<RidePickerPage> {
             widgetChild = Container(
               height: 150.h,
               child: Center(
-                child: ButtonProgressIndicator(color: ColorsUtils.coralPink,),
+                child: ButtonProgressIndicator(
+                  color: ColorsUtils.coralPink,
+                ),
               ),
             );
           } else if (model.error && model.items.isEmpty) {
@@ -54,32 +56,35 @@ class _RidePickerPageState extends State<RidePickerPage> {
           } else if (model.empty) {
             widgetChild = ViewStateEmptyWidget(onPressed: () {});
           } else {
-            widgetChild = Expanded(
-              flex: 1,
-              child: ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(
-                        model.items.elementAt(index).name == null ? '' : model.items.elementAt(index).name,
-                        style: TextStylesUtils.styleRegular14BlackW400,
-                      ),
-                      subtitle: Text(model.items.elementAt(index).address == null ? '' : model.items.elementAt(index).address,
-                          style: TextStylesUtils.styleRegular12BrownGreyW400),
-                      onTap: () {
-                        print("on tap");
-                        Navigator.of(context).pop();
-                        widget.onSelected(model.items.elementAt(index), widget._isFromAddress);
+            widgetChild = model.items != null
+                ? Expanded(
+                    flex: 1,
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            model.items.elementAt(index).name == null ? '' : model.items.elementAt(index).name,
+                            style: TextStylesUtils.styleRegular14BlackW400,
+                          ),
+                          subtitle: Text(model.items.elementAt(index).address == null ? '' : model.items.elementAt(index).address,
+                              style: TextStylesUtils.styleRegular12BrownGreyW400),
+                          onTap: () {
+                            print("on tap");
+                            Navigator.of(context).pop();
+                            widget.onSelected(model.items.elementAt(index), widget._isFromAddress);
+                          },
+                        );
                       },
-                    );
-                  },
-                  separatorBuilder: (context, index) => Divider(
+                      separatorBuilder: (context, index) => Divider(
                         height: 1,
                         color: Color(0xfff5f5f5),
                       ),
-                  itemCount: model.items.length),
-            );
+                      itemCount: model.items.length ?? 0,
+                    ),
+                  )
+                : Container();
           }
           return Container(
             constraints: BoxConstraints.expand(),

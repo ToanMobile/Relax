@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/ui/screen/map/basic_datetime.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker_page.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
 
-import '../packaging_pickup.dart';
-
 class RidePicker extends StatefulWidget {
   final Function(PlaceItemRes, bool) onSelected;
+  final Function(DateTime, bool) onSelectedTime;
 
-  RidePicker(this.onSelected, this.onPackagingselected);
-
-  final Function(PackagingItem) onPackagingselected;
+  RidePicker(this.onSelected, this.onSelectedTime);
 
   @override
   _RidePickerState createState() => _RidePickerState();
@@ -21,13 +19,15 @@ class RidePicker extends StatefulWidget {
 class _RidePickerState extends State<RidePicker> {
   PlaceItemRes fromAddress;
   PlaceItemRes toAddress;
-  PackagingItem selectedpackaging;
+  DateTime fromTime;
+  DateTime toTime;
+  final format = DateFormat("yyyy-MM-dd HH:mm");
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 300.h,
+      height: 400.h,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
@@ -43,7 +43,7 @@ class _RidePickerState extends State<RidePicker> {
           ContainerButton(
             isExpanded: true,
             isCenter: false,
-            title: fromAddress == null ? "From" : fromAddress.name,
+            title: fromAddress == null ? "FromLocation" : fromAddress.name,
             cb: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -60,11 +60,11 @@ class _RidePickerState extends State<RidePicker> {
           ContainerButton(
             isExpanded: true,
             isCenter: false,
-            title: toAddress == null ? "To" : toAddress.name,
+            title: toAddress == null ? "ToLocation" : toAddress.name,
             cb: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => RidePickerPage(toAddress == null ? "" : toAddress.name, (place, isFrom) {
+                  builder: (context) => RidePickerPage(toAddress == null ? '' : toAddress.name, (place, isFrom) {
                     widget.onSelected(place, isFrom);
                     toAddress = place;
                     setState(() {});
@@ -77,11 +77,33 @@ class _RidePickerState extends State<RidePicker> {
           ContainerButton(
             isExpanded: true,
             isCenter: false,
-            title: toAddress == null ? "Time" : toAddress.name,
+            title: fromTime == null ? "FromTime" : format.format(fromTime),
             cb: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => MyDateTimePage()),
+                  builder: (context) => MyDateTimePage(fromTime == null ? DateTime.now() : fromTime, (datetime, isFrom) {
+                    widget.onSelectedTime(datetime, isFrom);
+                    fromTime = datetime;
+                    setState(() {});
+                  }, true),
+                ),
+              );
+            },
+          ),
+          Divider(),
+          ContainerButton(
+            isExpanded: true,
+            isCenter: false,
+            title: toTime == null ? "ToTime" : format.format(toTime),
+            cb: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => MyDateTimePage(toTime == null ? DateTime.now() : toTime, (datetime, isFrom) {
+                    widget.onSelectedTime(datetime, isFrom);
+                    toTime = datetime;
+                    setState(() {});
+                  }, false),
+                ),
               );
             },
           ),

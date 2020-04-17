@@ -1,4 +1,5 @@
 import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/place_item_res.dart';
 
 driverEntityFromJson(DriverEntity data, Map<String, dynamic> json) {
 	if (json['uid'] != null) {
@@ -19,23 +20,17 @@ driverEntityFromJson(DriverEntity data, Map<String, dynamic> json) {
 	if (json['status'] != null) {
 		data.status = json['status']?.toString();
 	}
-	if (json['fromTime'] != null) {
-		data.fromTime = json['fromTime']?.toString();
+	if(json['fromTime'] != null){
+		data.fromTime = DateTime.tryParse(json['fromTime']);
 	}
-	if (json['toTime'] != null) {
-		data.toTime = json['toTime']?.toString();
+	if(json['toTime'] != null){
+		data.toTime = DateTime.tryParse(json['toTime']);
 	}
 	if (json['fromLocation'] != null) {
-		data.fromLocation = json['fromLocation']?.toString();
+		data.fromLocation = new PlaceItemRes().fromJson(json['fromLocation']);
 	}
 	if (json['toLocation'] != null) {
-		data.toLocation = json['toLocation']?.toString();
-	}
-	if (json['lat'] != null) {
-		data.lat = json['lat']?.toDouble();
-	}
-	if (json['lng'] != null) {
-		data.lng = json['lng']?.toDouble();
+		data.toLocation = new PlaceItemRes().fromJson(json['toLocation']);
 	}
 	return data;
 }
@@ -48,11 +43,13 @@ Map<String, dynamic> driverEntityToJson(DriverEntity entity) {
 	data['imgCertificate'] = entity.imgCertificate;
 	data['email'] = entity.email;
 	data['status'] = entity.status;
-	data['fromTime'] = entity.fromTime;
-	data['toTime'] = entity.toTime;
-	data['fromLocation'] = entity.fromLocation;
-	data['toLocation'] = entity.toLocation;
-	data['lat'] = entity.lat;
-	data['lng'] = entity.lng;
+	data['fromTime'] = entity.fromTime?.toString();
+	data['toTime'] = entity.toTime?.toString();
+	if (entity.fromLocation != null) {
+		data['fromLocation'] = entity.fromLocation.toJson();
+	}
+	if (entity.toLocation != null) {
+		data['toLocation'] = entity.toLocation.toJson();
+	}
 	return data;
 }

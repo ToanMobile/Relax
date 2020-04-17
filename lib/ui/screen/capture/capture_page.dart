@@ -30,7 +30,8 @@ class CaptureState extends State<CapturePage> {
   DriverEntity driverEntity = DriverEntity();
   final _emailController = TextEditingController();
   final _emailFocus = FocusNode();
-  var flag = Type.LICENCE;
+  final emailFormKey = GlobalKey<FormState>();
+  var flag;
 
   @override
   void dispose() {
@@ -123,52 +124,63 @@ class CaptureState extends State<CapturePage> {
     );
   }
 
-  Widget buildSendEmail(DriverModel driverModel) => Container(
-        width: double.infinity,
-        height: 200.h,
-        padding: EdgeInsets.all(16.w),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: LoginTextField(
-                label: S.of(context).login_email,
-                icon: Icons.email,
-                textInputType: TextInputType.emailAddress,
-                controller: _emailController,
-                focusNode: _emailFocus,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (text) {
-                  _emailController.text = text;
-                  FocusScope.of(context).requestFocus(_emailFocus);
-                },
-              ),
-            ),
-            SizedBox(
-              width: 16.w,
-            ),
-            Container(
-              width: 200.w,
-              height: 150.h,
-              child: FilledRoundButton.withGradient(
-                radius: 10,
-                gradientColor: Constant.gradient_WaterMelon_Melon,
-                text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
-                cb: () async {
-                  driverEntity.email = _emailController.text;
-                  driverEntity.status = 'waiting';
-                  await driverModel.addDriver(driverEntity);
-                  await driverModel.sendEmail(driverEntity.email).then((value) {
-                    if (value) {
-                      Navigator.pushReplacementNamed(context, RouteName.code, arguments: driverEntity);
+  Widget buildSendEmail(DriverModel driverModel) => Form(
+        key: emailFormKey,
+        child: Container(
+          width: double.infinity,
+          height: 200.h,
+          padding: EdgeInsets.all(16.w),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: LoginTextField(
+                  label: S.of(context).login_email,
+                  icon: Icons.email,
+                  textInputType: TextInputType.emailAddress,
+                  controller: _emailController,
+                  focusNode: _emailFocus,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (text) {
+                    if (emailFormKey.currentState.validate()) {
+                      _emailController.text = text;
+                      FocusScope.of(context).requestFocus(_emailFocus);
                     } else {
-                      ViewStateErrorWidget(error: null, onPressed: () {});
+                      driverModel.showErrorMessage(context);
                     }
-                  });
-                },
+                  },
+                ),
               ),
-            )
-          ],
+              SizedBox(
+                width: 16.w,
+              ),
+              Container(
+                width: 200.w,
+                height: 150.h,
+                child: FilledRoundButton.withGradient(
+                  radius: 10,
+                  gradientColor: Constant.gradient_WaterMelon_Melon,
+                  text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+                  cb: () async {
+                    if (emailFormKey.currentState.validate()) {
+                      driverEntity.email = _emailController.text;
+                      driverEntity.status = 'waiting';
+                      await driverModel.addDriver(driverEntity);
+                      await driverModel.sendEmail(driverEntity.email).then(
+                        (value) {
+                          if (value) {
+                            Navigator.pushReplacementNamed(context, RouteName.code, arguments: driverEntity);
+                          } else {
+                            driverModel.showErrorMessage(context);
+                          }
+                        },
+                      );
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       );
 

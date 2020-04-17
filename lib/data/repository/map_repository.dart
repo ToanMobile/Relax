@@ -12,10 +12,10 @@ class MapRepository {
     String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=" +
          "AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c" +
             "&query=" + Uri.encodeQueryComponent(keyword);
-    print("search >>: " + url);
     var res = await http.get(url);
     if (res.statusCode == 200) {
-      return PlaceItemRes.fromJson(json.decode(res.body));
+      print("searhUrl==" + url);
+      return PlaceItemRes.fromJsonMap(jsonDecode(res.body));
     } else {
       return new List();
     }

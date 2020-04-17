@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
-      appBar: AppBarIcon.back().build(context),
       body: Stack(
         children: <Widget>[
           BackgroundLogin(bgBackgroud: ImagesUtils.bgLogin),

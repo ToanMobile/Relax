@@ -37,6 +37,7 @@ class _CheckCodeState extends State<CheckCodePage> {
   @override
   Widget build(BuildContext context) {
     print('_CheckCodeState==' + widget.driverEntity.toString());
+    print('check_code==' + Constant.check_code.toString());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,

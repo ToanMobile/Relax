@@ -1,3 +1,4 @@
+import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 
 class DriverEntity with JsonConvert<DriverEntity> {
@@ -7,12 +8,10 @@ class DriverEntity with JsonConvert<DriverEntity> {
   String imgCertificate = '';
   String email = '';
   String status = '';
-  String fromTime = '';
-  String toTime = '';
-  String fromLocation = '';
-  String toLocation = '';
-  double lat;
-  double lng;
+  DateTime fromTime;
+  DateTime toTime;
+  PlaceItemRes fromLocation;
+  PlaceItemRes toLocation;
 
   @override
   String toString() {

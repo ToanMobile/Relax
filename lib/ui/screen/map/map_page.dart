@@ -5,9 +5,9 @@ import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
 import 'package:relax/data/repository/map_repository.dart';
-import 'package:relax/ui/screen/map/packaging_pickup.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
+
 import 'home_menu.dart';
 
 class MapPage extends StatefulWidget {
@@ -15,6 +15,7 @@ class MapPage extends StatefulWidget {
   DriverEntity driverEntity;
 
   MapPage({@required this.driverEntity});
+
   @override
   State<StatefulWidget> createState() => MapState();
 }
@@ -51,7 +52,7 @@ class MapState extends State<MapPage> {
               zoom: 14.4746,
             ),
           ),
-          RidePicker(onPlaceSelected, onPackagingselected),
+          RidePicker(onPlaceSelected, onTimeSelected),
         ],
       ),
       drawer: Drawer(
@@ -60,19 +61,31 @@ class MapState extends State<MapPage> {
     );
   }
 
-  void onPackagingselected(PackagingItem pack) {}
-
   void onPlaceSelected(PlaceItemRes place, bool fromAddress) {
+    print('onPlaceSelected=='+place.toString());
     var mkId = fromAddress ? "from_address" : "to_address";
     if (mkId == "from_address") {
       steps.add('from');
     } else {
       steps.add('to');
     }
+    if (fromAddress) {
+      widget.driverEntity.fromLocation = place;
+    } else {
+      widget.driverEntity.toLocation = place;
+    }
     //_add(mkId,place);
     _addMarker(mkId, place);
     _moveCamera();
     _checkDrawPolyline();
+  }
+
+  void onTimeSelected(DateTime time, bool fromAddress) {
+    if (fromAddress) {
+      widget.driverEntity.fromTime = time;
+    } else {
+      widget.driverEntity.toTime = time;
+    }
   }
 
   void _addMarker(String mkId, PlaceItemRes place) async {
