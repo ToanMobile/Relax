@@ -1,6 +1,7 @@
 import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
+import 'package:relax/data/model/verhicle_entity.dart';
 
 driverEntityFromJson(DriverEntity data, Map<String, dynamic> json) {
 	if (json['imgLicence'] != null) {
@@ -33,18 +34,35 @@ driverEntityFromJson(DriverEntity data, Map<String, dynamic> json) {
 	if (json['user'] != null) {
 		data.user = new LoginEntity().fromJson(json['user']);
 	}
+	if (json['vehicleEntity'] != null) {
+		data.vehicleEntity = new VehicleEntity().fromJson(json['vehicleEntity']);
+	}
 	return data;
 }
 
 Map<String, dynamic> driverEntityToJson(DriverEntity entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
-	data['imgLicence'] = entity.imgLicence;
-	data['imgDriver'] = entity.imgDriver;
-	data['imgCertificate'] = entity.imgCertificate;
-	data['email'] = entity.email;
-	data['status'] = entity.status;
-	data['fromTime'] = entity.fromTime?.toString();
-	data['toTime'] = entity.toTime?.toString();
+	if (entity.imgLicence != null) {
+		data['imgLicence'] = entity.imgLicence;
+	}
+	if (entity.imgDriver != null) {
+		data['imgDriver'] = entity.imgDriver;
+	}
+	if (entity.imgCertificate != null) {
+		data['imgCertificate'] = entity.imgCertificate;
+	}
+	if (entity.email != null) {
+		data['email'] = entity.email;
+	}
+	if (entity.status != null) {
+		data['status'] = entity.status;
+	}
+	if (entity.fromTime != null) {
+		data['fromTime'] = entity.fromTime?.toString();
+	}
+	if (entity.toTime != null) {
+		data['toTime'] = entity.toTime?.toString();
+	}
 	if (entity.fromLocation != null) {
 		data['fromLocation'] = entity.fromLocation.toJson();
 	}
@@ -53,6 +71,9 @@ Map<String, dynamic> driverEntityToJson(DriverEntity entity) {
 	}
 	if (entity.user != null) {
 		data['user'] = entity.user.toJson();
+	}
+	if (entity.vehicleEntity != null) {
+		data['vehicleEntity'] = entity.vehicleEntity.toJson();
 	}
 	return data;
 }

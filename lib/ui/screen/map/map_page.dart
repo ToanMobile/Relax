@@ -5,6 +5,7 @@ import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
+import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/map_repository.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
@@ -29,6 +30,14 @@ class MapState extends State<MapPage> {
   final Map<String, Marker> markers = <String, Marker>{};
   String nextstep = 'weiter =>';
   GoogleMapController _mapController;
+
+  @override
+  void initState() {
+    if (widget.driverEntity == null) {
+      widget.driverEntity = DriverEntity();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +67,7 @@ class MapState extends State<MapPage> {
                   zoom: 14.4746,
                 ),
               ),
-              RidePicker(onPlaceSelected, onTimeSelected),
+              RidePicker(onPlaceSelected, onTimeSelected, onVehicleSelected),
             ],
           ),
           drawer: Drawer(
@@ -79,10 +88,10 @@ class MapState extends State<MapPage> {
     }
     return FloatingActionButton(
       onPressed: () async {
-        print(widget.driverEntity.toString());
+        print('MapPage=='+widget.driverEntity.toString());
         await model.updateDriver(widget.driverEntity, true).then((value) {
           if (value) {
-              print('Done');
+            print('Done');
           } else {
             model.showErrorMessage(context);
           }
@@ -94,7 +103,7 @@ class MapState extends State<MapPage> {
   }
 
   void onPlaceSelected(PlaceItemRes place, bool fromAddress) {
-    print('onPlaceSelected==' + place.toString());
+    //print('onPlaceSelected==' + place.toString());
     var mkId = fromAddress ? "from_address" : "to_address";
     if (mkId == "from_address") {
       steps.add('from');
@@ -118,6 +127,10 @@ class MapState extends State<MapPage> {
     } else {
       widget.driverEntity.toTime = time;
     }
+  }
+
+  void onVehicleSelected(VehicleEntity vehicle) {
+    widget.driverEntity.vehicleEntity = vehicle;
   }
 
   void _addMarker(String mkId, PlaceItemRes place) async {
@@ -163,9 +176,7 @@ class MapState extends State<MapPage> {
       LatLngBounds bounds = LatLngBounds(northeast: LatLng(nLat, nLng), southwest: LatLng(sLat, sLng));
       _mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
     } else {
-      _mapController.animateCamera(CameraUpdate.newLatLng(markers.values
-          .elementAt(0)
-          .position));
+      _mapController.animateCamera(CameraUpdate.newLatLng(markers.values.elementAt(0).position));
     }
   }
 

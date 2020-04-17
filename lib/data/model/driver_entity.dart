@@ -1,5 +1,6 @@
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
+import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 
 class DriverEntity with JsonConvert<DriverEntity> {
@@ -13,9 +14,10 @@ class DriverEntity with JsonConvert<DriverEntity> {
   PlaceItemRes fromLocation;
   PlaceItemRes toLocation;
   LoginEntity user;
+  VehicleEntity vehicleEntity;
 
   @override
   String toString() {
-    return 'DriverEntity{user: $user, imgLicence: $imgLicence, imgDriver: $imgDriver, imgCertificate: $imgCertificate, email: $email, status: $status, fromTime: $fromTime, toTime: $toTime, fromLocation: $fromLocation, toLocation: $toLocation}';
+    return 'DriverEntity{user: $user, imgLicence: $imgLicence, imgDriver: $imgDriver, imgCertificate: $imgCertificate, email: $email, status: $status, fromTime: $fromTime, toTime: $toTime, fromLocation: $fromLocation, toLocation: $toLocation, vehicleEntity:$vehicleEntity}';
   }
 }

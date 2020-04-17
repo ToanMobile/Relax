@@ -12,9 +12,8 @@ import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/text_input_search.dart';
+import 'package:relax/viewmodel/login_model.dart';
 import 'package:relax/viewmodel/user_model.dart';
-
-enum View { TOP, BOTTOM }
 
 class HomePage extends StatefulWidget {
   @override
@@ -40,7 +39,7 @@ class HomeState extends State<HomePage> {
                 height: 20.h,
               ),
               buildLogOut(),
-              buildListUser(model.listUser)
+              buildListUser(model, model.listUser)
             ],
           );
         },
@@ -80,7 +79,7 @@ class HomeState extends State<HomePage> {
         ),
       );
 
-  Widget buildListUser(List<LoginEntity> listUser) {
+  Widget buildListUser(UserModel model, List<LoginEntity> listUser) {
     return Expanded(
       flex: 1,
       child: Container(
@@ -111,17 +110,17 @@ class HomeState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          'Adrress:' + listUser[index].address.toString(),
+                          'Adrress: ' + listUser[index].address.toString(),
                           textAlign: TextAlign.center,
                           style: TextStylesUtils.styleRegular14BlackW400,
                         ),
                         Text(
-                          'Role:' + listUser[index].role.toString(),
+                          'Role: ' + listUser[index].role.toString(),
                           textAlign: TextAlign.center,
                           style: TextStylesUtils.styleRegular14BlackW400,
                         ),
                         Text(
-                          'Sdt:' + listUser[index].tel.toString(),
+                          'Sdt: ' + listUser[index].tel.toString(),
                           textAlign: TextAlign.center,
                           style: TextStylesUtils.styleRegular14BlackW400,
                         )
@@ -134,8 +133,14 @@ class HomeState extends State<HomePage> {
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
               ),
-              onTap: () {
-                Navigator.popAndPushNamed(context, RouteName.capture);
+              onTap: () async {
+                await model.checkRegisterDriver().then((value) {
+                  if (value == DataLogin.CAPTURE) {
+                    Navigator.popAndPushNamed(context, RouteName.capture);
+                  } else {
+                    Navigator.popAndPushNamed(context, RouteName.map);
+                  }
+                });
               },
             );
           },

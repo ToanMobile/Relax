@@ -70,9 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                       icon: Icons.person,
                       controller: _nameController,
                       textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (text) {
-
-                      },
+                      onFieldSubmitted: (text) {},
                     ),
                     SizedBox(
                       height: 30.h,
@@ -132,8 +130,10 @@ class _LoginPageState extends State<LoginPage> {
       child: child,
       cb: () {
         model.login(_nameController.text, _passwordController.text).then((value) {
-          if (value) {
+          if (value == DataLogin.HOME) {
             Navigator.pushReplacementNamed(context, RouteName.home);
+          } else if (value == DataLogin.MAP) {
+            Navigator.pushReplacementNamed(context, RouteName.map);
           } else {
             model.showErrorMessage(context);
           }

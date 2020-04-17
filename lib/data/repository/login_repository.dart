@@ -4,18 +4,23 @@ import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/viewmodel/login_model.dart';
-
 import 'base_repository.dart';
 
 class LoginRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
+  static final CollectionReference driverCollection = Firestore.instance.collection('driverInfos');
 
   static List<LoginEntity> listUser() => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
 
-  static Future login(String email, String password) async {
+  static Future<DataLogin> login(String email, String password) async {
+    DataLogin data;
     AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = result.user;
+    await driverCollection.document(user.uid).get().then((value) {
+      printLog(value.data['status']);
+
+    });
     await infoCollection.document(user.uid).get().then((value) {
       saveUser(user.uid, value.data, true);
     });
@@ -26,6 +31,24 @@ class LoginRepository {
       );
     });
     StorageManager.saveObject(LoginModel.preListUser, list);
+    return data;
+  }
+
+  static Future<DataLogin> checkRegisterDriver(String uid) async {
+    DataLogin data;
+    await driverCollection.document(uid).get().then(
+      (value) {
+        printLog(value.data['status']);
+        if (value.data['status'] != null) {
+          printLog('MAP');
+          data = DataLogin.MAP;
+        } else {
+          printLog('CAPTURE');
+          data = DataLogin.CAPTURE;
+        }
+      },
+    );
+    return data;
   }
 
   static Future register(String email, String password, FirebaseUser firebaseUser) async {

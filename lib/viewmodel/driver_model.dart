@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/driver_repository.dart';
 import 'package:relax/lib/res/utils.dart';
-import 'package:relax/provider/view_state.dart';
 import 'package:relax/provider/view_state_model.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 
@@ -77,6 +78,18 @@ class DriverModel extends ViewStateModel {
     } catch (e, s) {
       setError(e, s);
       return false;
+    }
+  }
+
+  Future<List<DropdownMenuItem<VehicleEntity>>> getListVehicles() async {
+    setBusy();
+    try {
+      var list = await DriverRepository.getListVehicles();
+      setIdle();
+      return list;
+    } catch (e, s) {
+      setError(e, s);
+      return null;
     }
   }
 }

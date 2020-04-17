@@ -4,6 +4,8 @@ import 'package:relax/data/repository/login_repository.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/provider/view_state_model.dart';
 
+enum DataLogin { HOME, CAPTURE, MAP, ERROR }
+
 class LoginModel extends ViewStateModel {
   static const String preLoginUser = 'preLoginUser';
   static const String preListUser = 'preListUser';
@@ -11,15 +13,15 @@ class LoginModel extends ViewStateModel {
 
   LoginEntity getLogin() => JsonConvert.fromJsonAsT(StorageManager.getObject(preLoginUser));
 
-  Future<bool> login(email, password) async {
+  Future<DataLogin> login(email, password) async {
     setBusy();
     try {
-      await LoginRepository.login(email, password);
+      DataLogin data = await LoginRepository.login(email, password);
       setIdle();
-      return true;
+      return data;
     } catch (e, s) {
       setError(e, s);
-      return false;
+      return DataLogin.ERROR;
     }
   }
 

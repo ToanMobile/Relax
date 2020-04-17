@@ -9,13 +9,21 @@ import 'login_model.dart';
 class UserModel extends ChangeNotifier {
   LoginEntity _loginEntity;
 
-  String get getName =>  _loginEntity != null ? _loginEntity.name :"";
+  String get getName => _loginEntity != null ? _loginEntity.name : "";
 
   UserModel() {
     _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
   }
 
   List<LoginEntity> get listUser => LoginRepository.listUser() ?? null;
+
+  Future<DataLogin> checkRegisterDriver() async {
+    try {
+      return await LoginRepository.checkRegisterDriver(_loginEntity.uid);
+    } catch (e, s) {
+      return DataLogin.ERROR;
+    }
+  }
 
   saveUser(LoginEntity loginEntity) {
     _loginEntity = loginEntity;
