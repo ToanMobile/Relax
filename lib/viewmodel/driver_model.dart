@@ -6,11 +6,11 @@ import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/data/repository/driver_repository.dart';
 import 'package:relax/lib/res/utils.dart';
+import 'package:relax/provider/view_state.dart';
 import 'package:relax/provider/view_state_model.dart';
-import 'package:relax/ui/screen/capture/capture_page.dart';
+import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 
 class DriverModel extends ViewStateModel {
-
   Future<String> uploadFile(File image, Type type) async {
     try {
       setBusy();
@@ -30,11 +30,7 @@ class DriverModel extends ViewStateModel {
       try {
         final random = Random();
         Constant.check_code = random.nextIntOfDigits(6);
-        final Email email = Email(
-          body: Constant.check_code.toString(),
-          subject: 'Relax Code',
-          recipients: [_email]
-        );
+        final Email email = Email(body: Constant.check_code.toString(), subject: 'Relax Code', recipients: [_email]);
         await FlutterEmailSender.send(email);
         setIdle();
         return true;
@@ -46,23 +42,24 @@ class DriverModel extends ViewStateModel {
   }
 
   Future<bool> checkCode(String code) async {
-    print('check_code=' +Constant.check_code.toString());
-    print('code=' +code);
+    print('check_code=' + Constant.check_code.toString());
+    print('code=' + code);
+    setBusy();
     if (code.length > 0) {
-      setBusy();
       if (code.trim() == Constant.check_code.toString()) {
-        setIdle();
         return true;
       }
+      setError(e,'');
       return false;
     }
+    setError(e, '');
     return false;
   }
 
-  Future<bool> addDriver(DriverEntity driverEntity) async {
+  Future<bool> addDriver(DriverEntity driverEntity, String email) async {
     setBusy();
     try {
-      await DriverRepository.addDriver(driverEntity);
+      await DriverRepository.addDriver(driverEntity, email);
       setIdle();
       return true;
     } catch (e, s) {
@@ -71,9 +68,9 @@ class DriverModel extends ViewStateModel {
     }
   }
 
-  Future<bool> updateDriver(DriverEntity driverEntity) async {
-    setBusy();
+  Future<bool> updateDriver(DriverEntity driverEntity, bool isFinal) async {
     try {
+      if (isFinal) setBusy();
       await DriverRepository.updateDriver(driverEntity);
       setIdle();
       return true;

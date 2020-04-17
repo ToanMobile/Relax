@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/step_res.dart';
@@ -7,6 +8,7 @@ import 'package:relax/data/model/trip_info_res.dart';
 import 'package:relax/data/repository/map_repository.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
+import 'package:relax/viewmodel/driver_model.dart';
 
 import 'home_menu.dart';
 
@@ -30,39 +32,69 @@ class MapState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBarIcon.drawer(
-        title: 'Relax App',
-        isCenter: true,
-        cb: () {
-          _scaffoldKey.currentState.openDrawer();
-        },
-      ).build(context),
-      body: Stack(
-        children: <Widget>[
-          GoogleMap(
-            //    key:  mapKey,
-            markers: Set.of(markers.values),
-            onMapCreated: (GoogleMapController controller) {
-              _mapController = controller;
+    return ViewModelProvider<DriverModel>.withoutConsumer(
+      viewModel: DriverModel(),
+      onModelReady: (model) => {},
+      builder: (context, model, child) {
+        return Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBarIcon.drawer(
+            title: 'Relax App',
+            isCenter: true,
+            cb: () {
+              _scaffoldKey.currentState.openDrawer();
             },
-            initialCameraPosition: CameraPosition(
-              target: LatLng(50.7331535, 7.0842345),
-              zoom: 14.4746,
-            ),
+          ).build(context),
+          body: Stack(
+            children: <Widget>[
+              GoogleMap(
+                //    key:  mapKey,
+                markers: Set.of(markers.values),
+                onMapCreated: (GoogleMapController controller) {
+                  _mapController = controller;
+                },
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(50.7331535, 7.0842345),
+                  zoom: 14.4746,
+                ),
+              ),
+              RidePicker(onPlaceSelected, onTimeSelected),
+            ],
           ),
-          RidePicker(onPlaceSelected, onTimeSelected),
-        ],
-      ),
-      drawer: Drawer(
-        child: HomeMenu(),
-      ),
+          drawer: Drawer(
+            child: HomeMenu(),
+          ),
+          floatingActionButton: buildFloatButton(model),
+        );
+      },
+    );
+  }
+
+  Widget buildFloatButton(DriverModel model) {
+    Widget child;
+    if (model.busy) {
+      child = Icon(Icons.send);
+    } else {
+      child = Icon(Icons.done_all);
+    }
+    return FloatingActionButton(
+      onPressed: () async {
+        print(widget.driverEntity.toString());
+        await model.updateDriver(widget.driverEntity, true).then((value) {
+          if (value) {
+              print('Done');
+          } else {
+            model.showErrorMessage(context);
+          }
+        });
+      },
+      child: child,
+      backgroundColor: Colors.pink,
     );
   }
 
   void onPlaceSelected(PlaceItemRes place, bool fromAddress) {
-    print('onPlaceSelected=='+place.toString());
+    print('onPlaceSelected==' + place.toString());
     var mkId = fromAddress ? "from_address" : "to_address";
     if (mkId == "from_address") {
       steps.add('from');
@@ -131,7 +163,9 @@ class MapState extends State<MapPage> {
       LatLngBounds bounds = LatLngBounds(northeast: LatLng(nLat, nLng), southwest: LatLng(sLat, sLng));
       _mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
     } else {
-      _mapController.animateCamera(CameraUpdate.newLatLng(markers.values.elementAt(0).position));
+      _mapController.animateCamera(CameraUpdate.newLatLng(markers.values
+          .elementAt(0)
+          .position));
     }
   }
 

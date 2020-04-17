@@ -1,10 +1,8 @@
 import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
 
 driverEntityFromJson(DriverEntity data, Map<String, dynamic> json) {
-	if (json['uid'] != null) {
-		data.uid = json['uid']?.toString();
-	}
 	if (json['imgLicence'] != null) {
 		data.imgLicence = json['imgLicence']?.toString();
 	}
@@ -32,12 +30,14 @@ driverEntityFromJson(DriverEntity data, Map<String, dynamic> json) {
 	if (json['toLocation'] != null) {
 		data.toLocation = new PlaceItemRes().fromJson(json['toLocation']);
 	}
+	if (json['user'] != null) {
+		data.user = new LoginEntity().fromJson(json['user']);
+	}
 	return data;
 }
 
 Map<String, dynamic> driverEntityToJson(DriverEntity entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
-	data['uid'] = entity.uid;
 	data['imgLicence'] = entity.imgLicence;
 	data['imgDriver'] = entity.imgDriver;
 	data['imgCertificate'] = entity.imgCertificate;
@@ -50,6 +50,9 @@ Map<String, dynamic> driverEntityToJson(DriverEntity entity) {
 	}
 	if (entity.toLocation != null) {
 		data['toLocation'] = entity.toLocation.toJson();
+	}
+	if (entity.user != null) {
+		data['user'] = entity.user.toJson();
 	}
 	return data;
 }

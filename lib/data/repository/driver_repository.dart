@@ -7,8 +7,9 @@ import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/driver_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
-import 'package:relax/ui/screen/capture/capture_page.dart';
+import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'package:relax/viewmodel/login_model.dart';
+
 import 'base_repository.dart';
 
 class DriverRepository {
@@ -46,8 +47,11 @@ class DriverRepository {
     }
   }
 
-  static Future addDriver(DriverEntity data) async {
+  static Future addDriver(DriverEntity data, String email) async {
     LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
+    data.user = user;
+    data.email = email;
+    data.status = 'waiting';
     await driverCollection.document(user.uid).setData(data.toJson());
     return;
   }

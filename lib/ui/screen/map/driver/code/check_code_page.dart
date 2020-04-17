@@ -44,7 +44,7 @@ class _CheckCodeState extends State<CheckCodePage> {
       appBar: AppBarIcon.back().build(context),
       body: Stack(
         children: <Widget>[
-          ViewModelProvider<DriverModel>.withoutConsumer(
+          ViewModelProvider<DriverModel>.withConsumer(
             viewModel: DriverModel(),
             onModelReady: (model) => {},
             builder: (context, model, child) {
@@ -100,19 +100,20 @@ class _CheckCodeState extends State<CheckCodePage> {
             ),
           );
     return FilledRoundButton.withGradient(
-        radius: 10,
-        gradientColor: Constant.gradient_WaterMelon_Melon,
-        child: child,
-        cb: () async {
-          await model.checkCode(_codeController.text).then((value) async {
-            if (value) {
-              widget.driverEntity.status = 'ready';
-              await model.updateDriver(widget.driverEntity);
-              Navigator.pushReplacementNamed(context, RouteName.map, arguments: widget.driverEntity);
-            } else {
-              model.showErrorMessage(context);
-            }
-          });
+      radius: 10,
+      gradientColor: Constant.gradient_WaterMelon_Melon,
+      child: child,
+      cb: () async {
+        await model.checkCode(_codeController.text).then((value) async {
+          if (value) {
+            widget.driverEntity.status = 'ready';
+            await model.updateDriver(widget.driverEntity, false);
+            Navigator.pushReplacementNamed(context, RouteName.map, arguments: widget.driverEntity);
+          } else {
+            model.showErrorMessage(context, message: 'Code not match');
+          }
         });
+      },
+    );
   }
 }

@@ -41,13 +41,12 @@ class LoginRepository {
 
   static saveUser(String uid, Map<String, dynamic> snapshot, bool isSave) {
     printLog(snapshot);
-    LoginEntity loginEntity = LoginEntity(
-      uid: uid,
-      address: snapshot['address'],
-      name: snapshot['name'],
-      role: snapshot['role'],
-      tel: snapshot['tel'],
-    );
+    LoginEntity loginEntity = LoginEntity();
+    loginEntity.uid = uid;
+    loginEntity.address = snapshot['address'];
+    loginEntity.name = snapshot['name'];
+    loginEntity.role = snapshot['role'];
+    loginEntity.tel = snapshot['tel'];
     if (isSave) {
       StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
       StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);

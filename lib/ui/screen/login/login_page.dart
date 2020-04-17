@@ -11,7 +11,6 @@ import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/login/widget/login_bg_widget.dart';
 import 'package:relax/ui/screen/login/widget/signup_widget.dart';
-import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/viewmodel/login_model.dart';
@@ -37,8 +36,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    _nameController.text = 'hvtoan.dev@gmail.com';
-    _passwordController.text = '123456';
+    /*_nameController.text = 'hvtoan.dev@gmail.com';
+    _passwordController.text = '123456';*/
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,

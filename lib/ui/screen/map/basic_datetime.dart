@@ -22,7 +22,7 @@ class MyDateTimePageState extends State<MyDateTimePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarIcon.back().build(context),
+      appBar: AppBarIcon.back(title: 'Select pickup datetime',).build(context),
       body: ListView(
         padding: EdgeInsets.all(24),
         children: <Widget>[
@@ -62,28 +62,23 @@ class MyDateTimePageState extends State<MyDateTimePage> {
         ),
       );
 
-  Widget buildDateTimeField() => Column(
-        children: <Widget>[
-          Text('Select pickup datetime'),
-          DateTimeField(
-            format: format,
-            initialValue: widget.selectedTime != null ? widget.selectedTime : DateTime.now(),
-            onShowPicker: (context, currentValue) async {
-              final date = await showDatePicker(
-                  context: context, firstDate: DateTime(2020), initialDate: currentValue ?? DateTime.now(), lastDate: DateTime(2022));
-              if (date != null) {
-                final time = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-                );
-                widget.selectedTime = DateTimeField.combine(date, time);
-                return widget.selectedTime;
-              } else {
-                widget.selectedTime = currentValue;
-                return widget.selectedTime;
-              }
-            },
-          ),
-        ],
-      );
+  Widget buildDateTimeField() => DateTimeField(
+    format: format,
+    initialValue: widget.selectedTime != null ? widget.selectedTime : DateTime.now(),
+    onShowPicker: (context, currentValue) async {
+      final date = await showDatePicker(
+          context: context, firstDate: DateTime(2020), initialDate: currentValue ?? DateTime.now(), lastDate: DateTime(2022));
+      if (date != null) {
+        final time = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+        );
+        widget.selectedTime = DateTimeField.combine(date, time);
+        return widget.selectedTime;
+      } else {
+        widget.selectedTime = currentValue;
+        return widget.selectedTime;
+      }
+    },
+  );
 }

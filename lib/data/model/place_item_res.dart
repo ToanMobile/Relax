@@ -6,6 +6,11 @@ class PlaceItemRes with JsonConvert<PlaceItemRes> {
   double lat;
   double lng;
 
+  @override
+  String toString() {
+    return 'PlaceItemRes{name: $name, address: $address, lat: $lat, lng: $lng}';
+  }
+
   static List<PlaceItemRes> fromJsonMap(Map<String, dynamic> json) {
     List<PlaceItemRes> rs = new List();
     var results = json['results'] as List;

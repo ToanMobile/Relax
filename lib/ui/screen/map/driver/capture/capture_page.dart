@@ -156,17 +156,15 @@ class CaptureState extends State<CapturePage> {
               ),
               Container(
                 width: 200.w,
-                height: 150.h,
+                height: 120.h,
                 child: FilledRoundButton.withGradient(
                   radius: 10,
                   gradientColor: Constant.gradient_WaterMelon_Melon,
-                  text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+                  text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium18White),
                   cb: () async {
                     if (emailFormKey.currentState.validate()) {
-                      driverEntity.email = _emailController.text;
-                      driverEntity.status = 'waiting';
-                      await driverModel.addDriver(driverEntity);
-                      await driverModel.sendEmail(driverEntity.email).then(
+                      await driverModel.addDriver(driverEntity, _emailController.text);
+                      await driverModel.sendEmail(_emailController.text).then(
                         (value) {
                           if (value) {
                             Navigator.pushReplacementNamed(context, RouteName.code, arguments: driverEntity);

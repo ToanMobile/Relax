@@ -6,6 +6,7 @@ import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/provider/view_state_widget.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
+import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/text_input_search.dart';
 import 'package:relax/viewmodel/map_model.dart';
@@ -33,7 +34,7 @@ class _RidePickerPageState extends State<RidePickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBarIcon.back(title: 'Search location',).build(context),
       body: ViewModelProvider<MapModel>.withConsumer(
         viewModel: MapModel(),
         onModelReady: (model) {
