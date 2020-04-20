@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
-import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/driver_info_entity.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
@@ -17,7 +17,7 @@ import 'package:relax/viewmodel/driver_model.dart';
 
 // ignore: must_be_immutable
 class CheckCodePage extends StatefulWidget {
-  DriverEntity driverEntity;
+  DriverInfoEntity driverEntity;
 
   CheckCodePage({@required this.driverEntity});
 
@@ -106,8 +106,7 @@ class _CheckCodeState extends State<CheckCodePage> {
       cb: () async {
         await model.checkCode(_codeController.text).then((value) async {
           if (value) {
-            widget.driverEntity.status = 'ready';
-            await model.updateDriver(widget.driverEntity, false);
+            await model.addDriverInfo(widget.driverEntity);
             Navigator.pushReplacementNamed(context, RouteName.map, arguments: widget.driverEntity);
           } else {
             model.showErrorMessage(context, message: 'Code not match');

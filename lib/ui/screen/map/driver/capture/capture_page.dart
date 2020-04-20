@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
-import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/driver_info_entity.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
@@ -27,7 +27,7 @@ class CapturePage extends StatefulWidget {
 }
 
 class CaptureState extends State<CapturePage> {
-  DriverEntity driverEntity = DriverEntity();
+  DriverInfoEntity driverEntity = DriverInfoEntity();
   final _emailController = TextEditingController();
   final _emailFocus = FocusNode();
   final emailFormKey = GlobalKey<FormState>();
@@ -163,7 +163,6 @@ class CaptureState extends State<CapturePage> {
                   text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium18White),
                   cb: () async {
                     if (emailFormKey.currentState.validate()) {
-                      await driverModel.addDriver(driverEntity, _emailController.text);
                       await driverModel.sendEmail(_emailController.text).then(
                         (value) {
                           if (value) {

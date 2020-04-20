@@ -31,7 +31,7 @@ class Router {
       case RouteName.capture:
         return FadeRouteBuilder(CapturePage());
       case RouteName.map:
-        return FadeRouteBuilder(MapPage(driverEntity: settings.arguments));
+        return FadeRouteBuilder(MapPage());
       case RouteName.code:
         return FadeRouteBuilder(CheckCodePage(driverEntity: settings.arguments));
       default:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
@@ -15,9 +15,6 @@ import 'home_menu.dart';
 
 class MapPage extends StatefulWidget {
   static const mapKey = "AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c";
-  DriverEntity driverEntity;
-
-  MapPage({@required this.driverEntity});
 
   @override
   State<StatefulWidget> createState() => MapState();
@@ -30,14 +27,7 @@ class MapState extends State<MapPage> {
   final Map<String, Marker> markers = <String, Marker>{};
   String nextstep = 'weiter =>';
   GoogleMapController _mapController;
-
-  @override
-  void initState() {
-    if (widget.driverEntity == null) {
-      widget.driverEntity = DriverEntity();
-    }
-    super.initState();
-  }
+  DriverOfferEntity driverOfferEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +74,12 @@ class MapState extends State<MapPage> {
     if (model.busy) {
       child = Icon(Icons.send);
     } else {
-      child = Icon(Icons.done_all);
+      child = Icon(Icons.send);
     }
     return FloatingActionButton(
       onPressed: () async {
-        print('MapPage=='+widget.driverEntity.toString());
-        await model.updateDriver(widget.driverEntity, true).then((value) {
+        print('MapPage==' + driverOfferEntity.toString());
+        await model.addDriverOffer(driverOfferEntity).then((value) {
           if (value) {
             print('Done');
           } else {
@@ -111,9 +101,13 @@ class MapState extends State<MapPage> {
       steps.add('to');
     }
     if (fromAddress) {
-      widget.driverEntity.fromLocation = place;
+      driverOfferEntity.from_address = place.address;
+      driverOfferEntity.from_lat = place.lat;
+      driverOfferEntity.from_lon = place.lng;
     } else {
-      widget.driverEntity.toLocation = place;
+      driverOfferEntity.to_address = place.address;
+      driverOfferEntity.to_lat = place.lat;
+      driverOfferEntity.to_lon = place.lng;
     }
     //_add(mkId,place);
     _addMarker(mkId, place);
@@ -123,14 +117,14 @@ class MapState extends State<MapPage> {
 
   void onTimeSelected(DateTime time, bool fromAddress) {
     if (fromAddress) {
-      widget.driverEntity.fromTime = time;
+      driverOfferEntity.from_workingtime = time;
     } else {
-      widget.driverEntity.toTime = time;
+      driverOfferEntity.to_workingtime = time;
     }
   }
 
   void onVehicleSelected(VehicleEntity vehicle) {
-    widget.driverEntity.vehicleEntity = vehicle;
+    driverOfferEntity.vehicle_id = vehicle.resource_id;
   }
 
   void _addMarker(String mkId, PlaceItemRes place) async {

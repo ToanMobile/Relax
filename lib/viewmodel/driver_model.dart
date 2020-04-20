@@ -4,7 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:relax/common/constant.dart';
-import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/driver_info_entity.dart';
+import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/driver_repository.dart';
 import 'package:relax/lib/res/utils.dart';
@@ -57,10 +58,10 @@ class DriverModel extends ViewStateModel {
     return false;
   }
 
-  Future<bool> addDriver(DriverEntity driverEntity, String email) async {
+  Future<bool> addDriverInfo(DriverInfoEntity driverEntity) async {
     setBusy();
     try {
-      await DriverRepository.addDriver(driverEntity, email);
+      await DriverRepository.addDriverInfo(driverEntity);
       setIdle();
       return true;
     } catch (e, s) {
@@ -69,10 +70,10 @@ class DriverModel extends ViewStateModel {
     }
   }
 
-  Future<bool> updateDriver(DriverEntity driverEntity, bool isFinal) async {
+  Future<bool> addDriverOffer(DriverOfferEntity driverEntity) async {
+    setBusy();
     try {
-      if (isFinal) setBusy();
-      await DriverRepository.updateDriver(driverEntity);
+      await DriverRepository.addDriverOffer(driverEntity);
       setIdle();
       return true;
     } catch (e, s) {

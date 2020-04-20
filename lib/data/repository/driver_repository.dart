@@ -5,13 +5,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:relax/config/storage_manager.dart';
-import 'package:relax/data/model/driver_entity.dart';
+import 'package:relax/data/model/driver_info_entity.dart';
+import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'package:relax/viewmodel/login_model.dart';
+
 import 'base_repository.dart';
 
 class DriverRepository {
@@ -24,21 +26,22 @@ class DriverRepository {
       projectID: 'smartway24-30c7d',
     ),
   ) as FirebaseApp;
-  final FirebaseStorage storage = FirebaseStorage(app: app, storageBucket: 'gs://smartway24-30c7d.appspot.com/');
-  static final CollectionReference driverCollection = Firestore.instance.collection('driverInfos');
+  final FirebaseStorage storage = FirebaseStorage(app: app, storageBucket: 'gs://smartway24-30c7d.appspot.com/driverdocuments/');
+  static final CollectionReference driverInfoCollection = Firestore.instance.collection('driverInfos');
+  static final CollectionReference driverOfferCollection = Firestore.instance.collection('driverOffer');
+  static final uid = (JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser)) as LoginEntity).uid;
 
   static Future uploadFile(File image, Type type) async {
     try {
       String fileName;
       if (type == Type.LICENCE) {
-        fileName = 'LICENCE';
+        fileName = 'imgLicence';
       } else if (type == Type.DRIVER) {
-        fileName = 'DRIVER';
+        fileName = 'imgDriver';
       } else if (type == Type.CERTIFICATE) {
-        fileName = 'CERTIFICATE';
+        fileName = 'imgCertificate';
       }
-      LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
-      String path = user.uid ?? "Unknown";
+      String path = StorageManager.sharedPreferences.getString(LoginModel.preEmail) ?? "Unknown";
       StorageReference storageReference = FirebaseStorage.instance.ref().child('$path/$fileName');
       StorageUploadTask uploadTask = storageReference.putFile(image);
       var url = await (await uploadTask.onComplete).ref.getDownloadURL();
@@ -73,18 +76,19 @@ class DriverRepository {
     return list;
   }
 
-  static Future addDriver(DriverEntity data, String email) async {
-    LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
-    data.user = user;
-    data.email = email;
-    data.status = 'waiting';
-    await driverCollection.document(user.uid).setData(data.toJson());
+  static Future addDriverInfo(DriverInfoEntity data) async {
+    data.driver_status = "0";
+    await driverInfoCollection.document(uid).setData(data.toJson());
     return;
   }
 
-  static Future updateDriver(DriverEntity data) async {
-    LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
-    await driverCollection.document(user.uid).updateData(data.toJson());
+  static Future updateDriverInfo(DriverInfoEntity data) async {
+    await driverInfoCollection.document(uid).updateData(data.toJson());
+    return;
+  }
+
+  static Future addDriverOffer(DriverOfferEntity data) async {
+    await driverOfferCollection.document(uid).setData(data.toJson());
     return;
   }
 

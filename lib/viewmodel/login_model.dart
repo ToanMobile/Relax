@@ -10,6 +10,7 @@ class LoginModel extends ViewStateModel {
   static const String preLoginUser = 'preLoginUser';
   static const String preListUser = 'preListUser';
   static const String preIsLogin = 'preIsLogin';
+  static const String preEmail = 'preEmail';
 
   LoginEntity getLogin() => JsonConvert.fromJsonAsT(StorageManager.getObject(preLoginUser));
 
