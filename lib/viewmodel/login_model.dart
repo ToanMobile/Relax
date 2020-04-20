@@ -14,10 +14,11 @@ class LoginModel extends ViewStateModel {
 
   LoginEntity getLogin() => JsonConvert.fromJsonAsT(StorageManager.getObject(preLoginUser));
 
-  Future<DataLogin> login(email, password) async {
+  Future<DataLogin> login(String email,String password) async {
     setBusy();
+    print('login=' + email);
     try {
-      DataLogin data = await LoginRepository.login(email, password);
+      DataLogin data = await LoginRepository.login(email.trim(), password.trim());
       setIdle();
       return data;
     } catch (e, s) {

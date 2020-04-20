@@ -15,7 +15,9 @@ class StorageManager {
   static bool isLogin = sharedPreferences.getBool(LoginModel.preIsLogin) ?? false;
 
   static dynamic getObject(String key) {
-    return jsonDecode(sharedPreferences.getString(key));
+    if (sharedPreferences.getString(key) != null) {
+      return jsonDecode(sharedPreferences.getString(key));
+    }
   }
 
   static void saveObject(String key, dynamic value) {

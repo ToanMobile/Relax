@@ -27,7 +27,7 @@ class CapturePage extends StatefulWidget {
 }
 
 class CaptureState extends State<CapturePage> {
-  DriverInfoEntity driverEntity = DriverInfoEntity();
+  final DriverInfoEntity driverEntity = DriverInfoEntity();
   final _emailController = TextEditingController();
   final _emailFocus = FocusNode();
   final emailFormKey = GlobalKey<FormState>();

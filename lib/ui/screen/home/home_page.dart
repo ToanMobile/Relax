@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
@@ -80,6 +81,7 @@ class HomeState extends State<HomePage> {
       );
 
   Widget buildListUser(UserModel model, List<LoginEntity> listUser) {
+    if (listUser == null) return Container();
     return Expanded(
       flex: 1,
       child: Container(
@@ -134,6 +136,7 @@ class HomeState extends State<HomePage> {
                 ),
               ),
               onTap: () async {
+                SchedulerBinding.instance.addPostFrameCallback((_) {});
                 await model.checkRegisterDriver().then((value) {
                   if (value == DataLogin.CAPTURE) {
                     Navigator.popAndPushNamed(context, RouteName.capture);

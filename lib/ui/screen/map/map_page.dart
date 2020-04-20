@@ -7,6 +7,7 @@ import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/map_repository.dart';
+import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/viewmodel/driver_model.dart';
@@ -25,9 +26,9 @@ class MapState extends State<MapPage> {
   var _tripDistance = 0;
   final List<String> steps = [];
   final Map<String, Marker> markers = <String, Marker>{};
-  String nextstep = 'weiter =>';
+  final String nextstep = 'weiter =>';
   GoogleMapController _mapController;
-  DriverOfferEntity driverOfferEntity;
+  final DriverOfferEntity driverOfferEntity = DriverOfferEntity();
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +83,14 @@ class MapState extends State<MapPage> {
         await model.addDriverOffer(driverOfferEntity).then((value) {
           if (value) {
             print('Done');
+            _scaffoldKey.currentState.showSnackBar(
+              new SnackBar(
+                content: new Text(
+                  'Send data complete!',
+                  style: TextStylesUtils.styleMedium20White,
+                ),
+              ),
+            );
           } else {
             model.showErrorMessage(context);
           }
@@ -124,6 +133,7 @@ class MapState extends State<MapPage> {
   }
 
   void onVehicleSelected(VehicleEntity vehicle) {
+    print(vehicle);
     driverOfferEntity.vehicle_id = vehicle.resource_id;
   }
 

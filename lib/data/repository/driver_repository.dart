@@ -26,10 +26,10 @@ class DriverRepository {
       projectID: 'smartway24-30c7d',
     ),
   ) as FirebaseApp;
-  final FirebaseStorage storage = FirebaseStorage(app: app, storageBucket: 'gs://smartway24-30c7d.appspot.com/driverdocuments/');
+  final FirebaseStorage storage = FirebaseStorage(app: app, storageBucket: 'gs://smartway24-30c7d.appspot.com/');
   static final CollectionReference driverInfoCollection = Firestore.instance.collection('driverInfos');
   static final CollectionReference driverOfferCollection = Firestore.instance.collection('driverOffer');
-  static final uid = (JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser)) as LoginEntity).uid;
+  static final LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
 
   static Future uploadFile(File image, Type type) async {
     try {
@@ -41,7 +41,7 @@ class DriverRepository {
       } else if (type == Type.CERTIFICATE) {
         fileName = 'imgCertificate';
       }
-      String path = StorageManager.sharedPreferences.getString(LoginModel.preEmail) ?? "Unknown";
+      String path = 'driverdocuments/' + StorageManager.sharedPreferences.getString(LoginModel.preEmail) ?? "Unknown";
       StorageReference storageReference = FirebaseStorage.instance.ref().child('$path/$fileName');
       StorageUploadTask uploadTask = storageReference.putFile(image);
       var url = await (await uploadTask.onComplete).ref.getDownloadURL();
@@ -59,8 +59,11 @@ class DriverRepository {
       snapshot.documents.forEach(
         (doc) {
           var vehicle = VehicleEntity();
+          vehicle.resource_id = doc.data['resource_id'];
+          vehicle.visible = doc.data['visible'];
           vehicle.description = doc.data['description'];
           vehicle.max_weight = doc.data['max_weight'];
+          printLog('getListVehicles=' + vehicle.toString());
           list.add(
             DropdownMenuItem(
               value: vehicle,
@@ -78,17 +81,30 @@ class DriverRepository {
 
   static Future addDriverInfo(DriverInfoEntity data) async {
     data.driver_status = "0";
-    await driverInfoCollection.document(uid).setData(data.toJson());
+    data.uid = user.uid;
+    await driverInfoCollection.document(user.uid).setData(data.toJson());
     return;
   }
 
   static Future updateDriverInfo(DriverInfoEntity data) async {
-    await driverInfoCollection.document(uid).updateData(data.toJson());
+    await driverInfoCollection.document(user.uid).updateData(data.toJson());
     return;
   }
 
   static Future addDriverOffer(DriverOfferEntity data) async {
-    await driverOfferCollection.document(uid).setData(data.toJson());
+    data.uid = user.uid;
+    var driverOffer = driverOfferCollection.document(user.uid);
+    await driverOffer.get().then(
+      (value) {
+        printLog('addDriverOffer=' + value.toString());
+        if (value == null) {
+          data.created_at = DateTime.now();
+          driverOffer.setData(data.toJson());
+        } else {
+          driverOffer.updateData(data.toJson());
+        }
+      },
+    );
     return;
   }
 

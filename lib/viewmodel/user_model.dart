@@ -19,7 +19,7 @@ class UserModel extends ChangeNotifier {
 
   Future<DataLogin> checkRegisterDriver() async {
     try {
-      return await LoginRepository.checkRegisterDriver(_loginEntity.uid);
+      return await LoginRepository.checkRegisterDriver(_loginEntity.uid, true);
     } catch (e, s) {
       return DataLogin.ERROR;
     }

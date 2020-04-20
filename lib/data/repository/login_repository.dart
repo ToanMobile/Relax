@@ -17,36 +17,44 @@ class LoginRepository {
   static Future<DataLogin> login(String email, String password) async {
     DataLogin data;
     AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-    FirebaseUser user = result.user;
-    await driverCollection.document(user.uid).get().then((value) {
-      printLog(value.data['status']);
-
-    });
+    FirebaseUser user = result.user ?? null;
     await infoCollection.document(user.uid).get().then((value) {
       saveUser(user.uid, value.data, true);
     });
     List<LoginEntity> list = List();
     await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach(
-        (doc) => {list.add(saveUser(doc.data['uid'] ?? "", doc.data, false))},
+        (doc) => {
+          list.add(saveUser(doc.data['uid'] ?? "", doc.data, false)),
+        },
       );
     });
+    data = await checkRegisterDriver(user.uid, false);
     StorageManager.sharedPreferences.setString(LoginModel.preEmail, email);
     StorageManager.saveObject(LoginModel.preListUser, list);
     return data;
   }
 
-  static Future<DataLogin> checkRegisterDriver(String uid) async {
+  static Future<DataLogin> checkRegisterDriver(String uid, bool isHome) async {
     DataLogin data;
     await driverCollection.document(uid).get().then(
       (value) {
-        printLog(value.data['status']);
-        if (value.data['status'] != null) {
-          printLog('MAP');
-          data = DataLogin.MAP;
+        if (isHome) {
+          if (value.data != null && value.data['driver_status'] == "0") {
+            printLog('MAP');
+            data = DataLogin.MAP;
+          } else {
+            printLog('CAPTURE');
+            data = DataLogin.CAPTURE;
+          }
         } else {
-          printLog('CAPTURE');
-          data = DataLogin.CAPTURE;
+          if (value.data != null && value.data['driver_status'] == "0") {
+            printLog('MAP');
+            data = DataLogin.MAP;
+          } else {
+            printLog('HOME');
+            data = DataLogin.HOME;
+          }
         }
       },
     );

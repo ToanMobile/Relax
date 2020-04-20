@@ -40,7 +40,7 @@ class _RidePickerState extends State<RidePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<DriverModel>.withConsumer(
+    return ViewModelProvider<DriverModel>.withoutConsumer(
       viewModel: DriverModel(),
       onModelReady: (model) {},
       builder: (context, model, child) {
