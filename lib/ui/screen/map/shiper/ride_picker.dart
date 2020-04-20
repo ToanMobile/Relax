@@ -45,7 +45,10 @@ class _RidePickerState extends State<RidePicker> {
       onModelReady: (model) {},
       builder: (context, model, child) {
         if (_dropDownMenuItems == null) {
-          model.getListVehicles().then((value) => _dropDownMenuItems = value);
+          model.getListVehicles().then((value) {
+            _dropDownMenuItems = value;
+            setState(() {});
+          });
         }
         return Container(
           width: double.infinity,

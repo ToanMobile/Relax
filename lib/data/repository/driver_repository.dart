@@ -58,12 +58,7 @@ class DriverRepository {
     await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach(
         (doc) {
-          var vehicle = VehicleEntity();
-          vehicle.resource_id = doc.data['resource_id'];
-          vehicle.visible = doc.data['visible'];
-          vehicle.description = doc.data['description'];
-          vehicle.max_weight = doc.data['max_weight'];
-          printLog('getListVehicles=' + vehicle.toString());
+          var vehicle = VehicleEntity().fromJson(doc.data);
           list.add(
             DropdownMenuItem(
               value: vehicle,
@@ -96,8 +91,8 @@ class DriverRepository {
     var driverOffer = driverOfferCollection.document(user.uid);
     await driverOffer.get().then(
       (value) {
-        printLog('addDriverOffer=' + value.toString());
-        if (value == null) {
+        printLog('addDriverOffer=' + value.data.toString());
+        if (value.data == null) {
           data.created_at = DateTime.now();
           driverOffer.setData(data.toJson());
         } else {

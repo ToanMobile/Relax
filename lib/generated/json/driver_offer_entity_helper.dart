@@ -64,6 +64,8 @@ Map<String, dynamic> driverOfferEntityToJson(DriverOfferEntity entity) {
   data['from_workingtime'] = entity.from_workingtime?.toString();
   data['to_workingtime'] = entity.to_workingtime?.toString();
   data['vehicle_id'] = entity.vehicle_id;
-  data['created_at'] = entity.created_at?.toString();
+  if (entity.created_at != null) {
+    data['created_at'] = entity.created_at?.toString();
+  }
   return data;
 }

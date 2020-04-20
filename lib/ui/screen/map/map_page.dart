@@ -133,7 +133,6 @@ class MapState extends State<MapPage> {
   }
 
   void onVehicleSelected(VehicleEntity vehicle) {
-    print(vehicle);
     driverOfferEntity.vehicle_id = vehicle.resource_id;
   }
 
