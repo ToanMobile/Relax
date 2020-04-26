@@ -46,6 +46,7 @@ dependencies:
   flutter_map_marker_cluster: any
   google_maps_flutter: ^0.5.25+3
   flutter_google_places: ^0.2.4
+  google_map_polyline: ^0.2.0+1
 
 dev_dependencies:
   flutter_test:
