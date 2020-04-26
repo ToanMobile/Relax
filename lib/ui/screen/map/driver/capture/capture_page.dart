@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/data/model/driver_info_entity.dart';
@@ -18,6 +17,7 @@ import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/image_picker_gallery_camera.dart';
 import 'package:relax/viewmodel/driver_model.dart';
+import 'package:stacked/stacked.dart';
 
 enum Type { LICENCE, DRIVER, CERTIFICATE }
 
@@ -42,8 +42,9 @@ class CaptureState extends State<CapturePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ViewModelProvider<DriverModel>.withConsumer(
-        viewModel: DriverModel(),
+      body: ViewModelBuilder<DriverModel>.reactive(
+        viewModelBuilder: () => DriverModel(),
+        disposeViewModel: false,
         onModelReady: (model) => {},
         builder: (context, model, child) {
           return SingleChildScrollView(

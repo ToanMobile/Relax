@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
@@ -9,6 +8,7 @@ import 'package:relax/ui/screen/map/basic_datetime.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker_page.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
 import 'package:relax/viewmodel/driver_model.dart';
+import 'package:stacked/stacked.dart';
 
 class RidePicker extends StatefulWidget {
   final Function(PlaceItemRes, bool) onSelected;
@@ -40,8 +40,9 @@ class _RidePickerState extends State<RidePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<DriverModel>.withoutConsumer(
-      viewModel: DriverModel(),
+    return ViewModelBuilder<DriverModel>.nonReactive(
+      viewModelBuilder: () => DriverModel(),
+      disposeViewModel: false,
       onModelReady: (model) {},
       builder: (context, model, child) {
         if (_dropDownMenuItems == null) {

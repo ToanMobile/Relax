@@ -7,7 +7,7 @@ import 'package:relax/viewmodel/login_model.dart';
 
 import 'base_repository.dart';
 
-class LoginRepository {
+class LoginRegisterRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
   static final CollectionReference driverCollection = Firestore.instance.collection('driverInfos');
@@ -21,17 +21,8 @@ class LoginRepository {
     await infoCollection.document(user.uid).get().then((value) {
       saveUser(user.uid, value.data, true);
     });
-    List<LoginEntity> list = List();
-    await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
-      snapshot.documents.forEach(
-        (doc) => {
-          list.add(saveUser(doc.data['uid'] ?? "", doc.data, false)),
-        },
-      );
-    });
     data = await checkRegisterDriver(user.uid, false);
     StorageManager.sharedPreferences.setString(LoginModel.preEmail, email);
-    StorageManager.saveObject(LoginModel.preListUser, list);
     return data;
   }
 

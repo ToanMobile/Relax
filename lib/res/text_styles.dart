@@ -16,6 +16,14 @@ class TextStylesUtils {
     fontStyle: FontStyle.normal,
   );
 
+  static const styleRegular12WhiteW400 = const TextStyle(
+    fontFamily: FontFamilyRegular,
+    color: ColorsUtils.white,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+
   static const styleRegular12PinkishOrangeW600 = const TextStyle(
     fontFamily: FontFamilyRegular,
     color: ColorsUtils.pinkishOrange,
@@ -30,6 +38,14 @@ class TextStylesUtils {
     color: ColorsUtils.black,
     fontSize: 14,
     fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+
+  static const styleRegular14WhiteW600 = const TextStyle(
+    fontFamily: FontFamilyRegular,
+    color: ColorsUtils.white,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
   );
 
@@ -54,12 +70,8 @@ class TextStylesUtils {
     fontStyle: FontStyle.normal,
   );
 
-  static const styleMedium20CoalGreyW600 = const TextStyle(
-      fontFamily: fontFamilyMedium,
-      color: ColorsUtils.charcoalGrey,
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-      fontStyle: FontStyle.normal);
+  static const styleMedium20CoalGreyW600 =
+      const TextStyle(fontFamily: fontFamilyMedium, color: ColorsUtils.charcoalGrey, fontSize: 20, fontWeight: FontWeight.w600, fontStyle: FontStyle.normal);
 
   static const styleMedium20TextSelect = const TextStyle(
     fontFamily: fontFamilyMedium,
@@ -72,6 +84,14 @@ class TextStylesUtils {
     fontFamily: fontFamilyMedium,
     color: ColorsUtils.white,
     fontSize: 20,
+    fontStyle: FontStyle.normal,
+  );
+
+  static const styleMedium20WhiteW600 = const TextStyle(
+    fontFamily: fontFamilyMedium,
+    color: ColorsUtils.white,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
   );
 

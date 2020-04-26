@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/provider/view_state_widget.dart';
@@ -10,6 +9,7 @@ import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/text_input_search.dart';
 import 'package:relax/viewmodel/map_model.dart';
+import 'package:stacked/stacked.dart';
 
 class RidePickerPage extends StatefulWidget {
   final String selectedAddress;
@@ -34,9 +34,12 @@ class _RidePickerPageState extends State<RidePickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarIcon.back(title: 'Search location',).build(context),
-      body: ViewModelProvider<MapModel>.withConsumer(
-        viewModel: MapModel(),
+      appBar: AppBarIcon.back(
+        title: 'Search location',
+      ).build(context),
+      body: ViewModelBuilder<MapModel>.reactive(
+        viewModelBuilder: () => MapModel(),
+        disposeViewModel: false,
         onModelReady: (model) {
           _addressController.text = widget.selectedAddress;
           model.searchPlace(_addressController.text);

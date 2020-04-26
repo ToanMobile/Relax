@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/data/model/login_entity.dart';
-import 'package:relax/data/repository/login_repository.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
@@ -14,7 +12,8 @@ import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/text_input_search.dart';
 import 'package:relax/viewmodel/login_model.dart';
-import 'package:relax/viewmodel/user_model.dart';
+import 'package:relax/viewmodel/home_model.dart';
+import 'package:stacked/stacked.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -27,9 +26,9 @@ class HomeState extends State<HomePage> {
     ScreenUtil.init(context);
     return Scaffold(
       backgroundColor: ColorsUtils.offWhite,
-      body: ViewModelProvider<UserModel>.withConsumer(
-        viewModel: UserModel(),
-        onModelReady: (model) {},
+      body: ViewModelBuilder<HomeModel>.reactive(
+        viewModelBuilder: () => HomeModel(),
+        disposeViewModel: false,
         builder: (context, model, child) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -39,7 +38,7 @@ class HomeState extends State<HomePage> {
               SizedBox(
                 height: 20.h,
               ),
-              buildLogOut(),
+              buildLogOut(model),
               buildListUser(model, model.listUser)
             ],
           );
@@ -64,7 +63,7 @@ class HomeState extends State<HomePage> {
         validateErrMsg: "",
       );
 
-  Widget buildLogOut() => Center(
+  Widget buildLogOut(HomeModel model) => Center(
         child: Container(
           width: 300.w,
           height: 130.h,
@@ -73,14 +72,14 @@ class HomeState extends State<HomePage> {
             gradientColor: Constant.gradient_WaterMelon_Melon,
             text: Text(S.of(context).logout, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
             cb: () async {
-              await LoginRepository.logout();
+              await model.logout();
               Navigator.pushNamed(context, RouteName.login);
             },
           ),
         ),
       );
 
-  Widget buildListUser(UserModel model, List<LoginEntity> listUser) {
+  Widget buildListUser(HomeModel model, List<LoginEntity> listUser) {
     if (listUser == null) return Container();
     return Expanded(
       flex: 1,

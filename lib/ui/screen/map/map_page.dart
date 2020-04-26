@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/step_res.dart';
@@ -11,7 +10,7 @@ import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/map/shiper/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/viewmodel/driver_model.dart';
-
+import 'package:stacked/stacked.dart';
 import 'home_menu.dart';
 
 class MapPage extends StatefulWidget {
@@ -32,8 +31,9 @@ class MapState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<DriverModel>.withoutConsumer(
-      viewModel: DriverModel(),
+    return ViewModelBuilder<DriverModel>.nonReactive(
+      viewModelBuilder: () => DriverModel(),
+      disposeViewModel: false,
       onModelReady: (model) => {},
       builder: (context, model, child) {
         return Scaffold(

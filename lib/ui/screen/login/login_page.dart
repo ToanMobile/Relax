@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/generated/l10n.dart';
@@ -14,6 +13,7 @@ import 'package:relax/ui/screen/login/widget/signup_widget.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/viewmodel/login_model.dart';
+import 'package:stacked/stacked.dart';
 
 import 'widget/login_field_widget.dart';
 
@@ -36,16 +36,17 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    /*_nameController.text = 'hvtoan.dev@gmail.com';
-    _passwordController.text = '123456';*/
+    _nameController.text = 'drtpham@aol.com';
+    _passwordController.text = 'test1234';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
       body: Stack(
         children: <Widget>[
           BackgroundLogin(bgBackgroud: ImagesUtils.bgLogin),
-          ViewModelProvider<LoginModel>.withConsumer(
-            viewModel: LoginModel(),
+          ViewModelBuilder<LoginModel>.reactive(
+            viewModelBuilder: () => LoginModel(),
+            disposeViewModel: false,
             onModelReady: (model) => {},
             builder: (context, model, child) {
               return SingleChildScrollView(

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/data/model/driver_info_entity.dart';
@@ -14,6 +13,7 @@ import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/viewmodel/driver_model.dart';
+import 'package:stacked/stacked.dart';
 
 // ignore: must_be_immutable
 class CheckCodePage extends StatefulWidget {
@@ -44,8 +44,9 @@ class _CheckCodeState extends State<CheckCodePage> {
       appBar: AppBarIcon.back().build(context),
       body: Stack(
         children: <Widget>[
-          ViewModelProvider<DriverModel>.withConsumer(
-            viewModel: DriverModel(),
+          ViewModelBuilder<DriverModel>.reactive(
+            viewModelBuilder: () => DriverModel(),
+            disposeViewModel: false,
             onModelReady: (model) => {},
             builder: (context, model, child) {
               return Container(
