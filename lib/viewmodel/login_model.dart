@@ -8,7 +8,6 @@ enum DataLogin { HOME, CAPTURE, MAP, ERROR }
 
 class LoginModel extends ViewStateModel {
   static const String preLoginUser = 'preLoginUser';
-  static const String preListUser = 'preListUser';
   static const String preIsLogin = 'preIsLogin';
   static const String preEmail = 'preEmail';
 

@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:relax/config/storage_manager.dart';
+import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/service/dio_utils.dart';
 import 'package:relax/data/service/http_api.dart';
+import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/viewmodel/login_model.dart';
 import 'base_repository.dart';
 
 class HomeRepository {
-  static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
+  static final CollectionReference offerCollection = Firestore.instance.collection('driverOffer');
 
   static Future getListHome() async {
     return DioUtils.instance.asyncRequestNetwork<LoginEntity>(Method.post, HttpApi.login,
@@ -27,16 +29,12 @@ class HomeRepository {
     );
   }
 
-  static Future getOffer() async {
-    List<LoginEntity> list = List();
-    await infoCollection.getDocuments().then((QuerySnapshot snapshot) {
-      snapshot.documents.forEach(
-            (doc) => {
-          list.add(saveUser(doc.data['uid'] ?? "", doc.data, false)),
-        },
-      );
+  static Future<List<DriverOfferEntity>> getListOffer() async {
+    List<DriverOfferEntity> list = List();
+    LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
+    await offerCollection.document(user.uid).get().then((value) {
+      list.add(DriverOfferEntity().fromJson(value.data));
     });
-    StorageManager.saveObject(LoginModel.preListUser, list);
     return list;
   }
 

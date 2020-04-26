@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
@@ -26,7 +26,6 @@ class _RidePickerState extends State<RidePicker> {
   PlaceItemRes toAddress;
   DateTime fromTime;
   DateTime toTime;
-  final format = DateFormat("yyyy-MM-dd HH:mm");
   List<DropdownMenuItem<VehicleEntity>> _dropDownMenuItems;
   VehicleEntity _currentVehicle;
 
@@ -105,7 +104,7 @@ class _RidePickerState extends State<RidePicker> {
               ContainerButton(
                 isExpanded: true,
                 isCenter: false,
-                title: fromTime == null ? "FromTime" : format.format(fromTime),
+                title: fromTime == null ? "FromTime" : Constant.format.format(fromTime),
                 textStyle: TextStylesUtils.styleRegular14BlackW400,
                 cb: () {
                   Navigator.of(context).push(
@@ -123,7 +122,7 @@ class _RidePickerState extends State<RidePicker> {
               ContainerButton(
                 isExpanded: true,
                 isCenter: false,
-                title: toTime == null ? "ToTime" : format.format(toTime),
+                title: toTime == null ? "ToTime" : Constant.format.format(toTime),
                 textStyle: TextStylesUtils.styleRegular14BlackW400,
                 cb: () {
                   Navigator.of(context).push(

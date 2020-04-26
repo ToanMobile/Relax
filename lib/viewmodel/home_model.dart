@@ -1,4 +1,5 @@
 import 'package:relax/config/storage_manager.dart';
+import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/repository/home_repository.dart';
 import 'package:relax/data/repository/login_register_repository.dart';
@@ -9,14 +10,13 @@ import 'login_model.dart';
 
 class HomeModel extends ViewStateModel {
   LoginEntity _loginEntity;
+  List<DriverOfferEntity> listOffer;
 
   String get getName => _loginEntity != null ? _loginEntity.name : "";
 
   HomeModel() {
     _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
   }
-
-  List<LoginEntity> get listUser => LoginRegisterRepository.listUser() ?? null;
 
   Future<DataLogin> checkRegisterDriver() async {
     try {
@@ -26,15 +26,15 @@ class HomeModel extends ViewStateModel {
     }
   }
 
-  Future<bool> getListOffer() async {
+  Future getListOffer() async {
     setBusy();
     try {
-      await HomeRepository.getOffer();
+      listOffer = await HomeRepository.getListOffer();
       setIdle();
-      return true;
+      return;
     } catch (e, s) {
       setError(e, s);
-      return false;
+      return;
     }
   }
 

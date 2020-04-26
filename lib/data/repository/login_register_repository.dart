@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
-import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/viewmodel/login_model.dart';
 
 import 'base_repository.dart';
@@ -11,9 +10,7 @@ class LoginRegisterRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
   static final CollectionReference driverCollection = Firestore.instance.collection('driverInfos');
-
-  static List<LoginEntity> listUser() => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
-
+  // static List<LoginEntity> listUser() => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
   static Future<DataLogin> login(String email, String password) async {
     DataLogin data;
     AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);

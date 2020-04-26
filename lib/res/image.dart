@@ -4,6 +4,7 @@ class ImagesUtils {
   static const String imageIcon = "assets/icon";
   static const String imageDir = "assets/images";
 
+  static const String placeholder = "assets/placeholder.jpg";
   //Home
   static const String bgFavorite = "$imageDir/landing/bg_package.webp";
   static const String bgPackage = "$imageDir/landing/bg_package.webp";

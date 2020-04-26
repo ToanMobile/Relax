@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:relax/ui/screen/home/home_page.dart';
+import 'package:relax/ui/screen/home/home.dart';
+import 'package:relax/ui/screen/listoffer/listoffer_page.dart';
 import 'package:relax/ui/screen/login/login_page.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'package:relax/ui/screen/map/driver/code/check_code_page.dart';
@@ -11,6 +12,7 @@ import 'package:relax/ui/widget/page_route_anim.dart';
 
 class RouteName {
   static const String home = '/';
+  static const String list_offer = 'list_offer';
   static const String login = 'login';
   static const String register = 'register';
   static const String register_success = 'register_success';
@@ -33,6 +35,8 @@ class Router {
         return FadeRouteBuilder(RegisterSuccessPage());
       case RouteName.home:
         return FadeRouteBuilder(HomePage());
+      case RouteName.list_offer:
+        return FadeRouteBuilder(ListOfferPage());
       case RouteName.capture:
         return FadeRouteBuilder(CapturePage());
       case RouteName.map:
