@@ -4,10 +4,10 @@ import 'package:relax/provider/view_state_model.dart';
 
 class RegisterModel extends ViewStateModel {
 
-  Future<bool> register(loginName, email, password) async {
+  Future<bool> register(loginName, email, password, address, phone, role) async {
     setBusy();
     try {
-      await LoginRegisterRepository.register(loginName, email, password);
+      await LoginRegisterRepository.register(loginName, email, password, address, phone, role);
       setIdle();
       return true;
     } catch (e, s) {

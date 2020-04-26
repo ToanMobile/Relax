@@ -1,5 +1,5 @@
 {
-  "appName": "WERRY",
+  "appName": "Relax",
   "signIn": "Đăng nhập",
   "signUp": "Đăng ký",
   "orLoginWith" : "Hoặc đăng nhập bằng",
@@ -9,6 +9,8 @@
   "login_email": "Email",
   "login_username": "Tài khoản",
   "login_password": "Mật khẩu",
+  "login_address": "Địa chỉ",
+  "login_phone": "SĐT",
   "login_confirm_password": "Xác nhận mật khẩu",
   "register_content1": "Bạn đã có tài khoản? Vậy hãy\u0020",
   "register_content2": "\u0020nhé",

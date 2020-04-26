@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
+import 'package:relax/data/model/role_entity.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
@@ -26,18 +26,43 @@ class _RegisterPageState extends State<RegisterPage> {
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
+  final _addressController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _pwdFocus = FocusNode();
+  int _currVal = 0;
+
+  List<RoleEntity> _group = [
+    RoleEntity(
+      text: "Shipper",
+      role: 1,
+    ),
+    RoleEntity(
+      text: "Driver",
+      role: 2,
+    ),
+    RoleEntity(
+      text: "Shipper & Driver",
+      role: 3,
+    )
+  ];
 
   @override
   void dispose() {
     _nameController.dispose();
     _passwordController.dispose();
     _emailController.dispose();
+    _addressController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    _nameController.text = 'ToanDev';
+    _passwordController.text = '123456';
+    _addressController.text = 'thon 3 hoa vinh';
+    _emailController.text = 'hvtoan.dev@gmail.com';
+    _phoneController.text = '0376542546';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
@@ -54,8 +79,8 @@ class _RegisterPageState extends State<RegisterPage> {
             builder: (context, model, child) {
               return SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                padding: EdgeInsets.all(40.w),
-                child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.stretch, children: <Widget>[
+                padding: EdgeInsets.all(50.h),
+                child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
                   buildTextTitleLogin(),
                   SizedBox(
                     height: 30.h,
@@ -80,37 +105,59 @@ class _RegisterPageState extends State<RegisterPage> {
                   SizedBox(
                     height: 30.h,
                   ),
-                  buildTextPassword(),
+                  buildTextEmail(),
                   SizedBox(
                     height: 30.h,
                   ),
                   LoginTextField(
                     controller: _emailController,
+                    label: S.of(context).login_email,
+                    icon: Icons.email,
+                    textInputAction: TextInputAction.done,
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  buildTextPassword(),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  LoginTextField(
+                    controller: _passwordController,
                     label: S.of(context).login_password,
                     icon: Icons.vpn_key,
                     obscureText: true,
                     focusNode: _pwdFocus,
                     textInputAction: TextInputAction.done,
                   ),
-                  SizedBox(
-                    height: 30.h,
-                  ),
-                  buildTextConfirmPassword(),
+                  buildTextTitleAddress(),
                   SizedBox(
                     height: 30.h,
                   ),
                   LoginTextField(
-                    controller: _passwordController,
-                    label: S.of(context).login_confirm_password,
-                    icon: Icons.vpn_key,
-                    obscureText: true,
-                    focusNode: _pwdFocus,
+                    controller: _addressController,
+                    label: S.of(context).login_address,
+                    icon: Icons.add_location,
+                    textInputAction: TextInputAction.done,
+                  ),
+                  buildTextTitlePhone(),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  LoginTextField(
+                    controller: _phoneController,
+                    label: S.of(context).login_phone,
+                    icon: Icons.phone,
                     textInputAction: TextInputAction.done,
                   ),
                   SizedBox(
-                    height: 120.h,
+                    height: 30.h,
                   ),
-                  RegisterButton(_nameController, _emailController, _passwordController)
+                  buildRole(),
+                  SizedBox(
+                    height: 60.h,
+                  ),
+                  buildButtonRegister(model)
                 ]),
               );
             },
@@ -126,19 +173,39 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget buildTextPassword() => Text(S.of(context).login_password, style: TextStylesUtils.styleRegular12BrownGreyW400);
 
-  Widget buildTextConfirmPassword() => Text(S.of(context).login_confirm_password, style: TextStylesUtils.styleRegular12BrownGreyW400);
-}
+  Widget buildTextEmail() => Text(S.of(context).login_email, style: TextStylesUtils.styleRegular12BrownGreyW400);
 
-class RegisterButton extends StatelessWidget {
-  final nameController;
-  final passwordController;
-  final emailController;
+  Widget buildTextTitleAddress() => Text(S.of(context).login_address, style: TextStylesUtils.styleRegular12BrownGreyW400);
 
-  RegisterButton(this.nameController, this.emailController, this.passwordController);
+  Widget buildTextTitlePhone() => Text(S.of(context).login_phone, style: TextStylesUtils.styleRegular12BrownGreyW400);
 
-  @override
-  Widget build(BuildContext context) {
-    var model = Provider.of<RegisterModel>(context);
+  Widget buildRole() {
+    return Container(
+      width: double.infinity,
+      height: 480.h,
+      child: Column(
+        children: _group
+            .map(
+              (t) => RadioListTile(
+                title: Text(
+                  "${t.text}",
+                  style: TextStylesUtils.styleMedium18Black,
+                ),
+                groupValue: _currVal,
+                value: t.role,
+                onChanged: (val) {
+                  setState(() {
+                    _currVal = val;
+                  });
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
+  Widget buildButtonRegister(RegisterModel model) {
     Widget child = model.busy
         ? Container(
             height: 150.h,
@@ -160,16 +227,15 @@ class RegisterButton extends StatelessWidget {
       gradientColor: Constant.gradient_WaterMelon_Melon,
       child: child,
       cb: () {
-        var formState = Form.of(context);
-        if (formState.validate()) {
-          model.register(nameController.text, emailController.text, passwordController.text).then((value) {
+        model.register(_nameController.text, _emailController.text, _passwordController.text, _addressController.text, _phoneController.text, _currVal).then(
+          (value) {
             if (value) {
-              Navigator.pushReplacementNamed(context, RouteName.register_success);
+              Navigator.pushReplacementNamed(context, RouteName.home);
             } else {
               model.showErrorMessage(context);
             }
-          });
-        }
+          },
+        );
       },
     );
   }

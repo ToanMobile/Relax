@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -30,7 +29,7 @@ class S {
 
   String get appName {
     return Intl.message(
-      'WERRY',
+      'Relax',
       name: 'appName',
       desc: '',
       args: [],
@@ -122,6 +121,24 @@ class S {
     return Intl.message(
       'Confirm Password',
       name: 'login_confirm_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get login_address {
+    return Intl.message(
+      'Address',
+      name: 'login_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get login_phone {
+    return Intl.message(
+      'Phone',
+      name: 'login_phone',
       desc: '',
       args: [],
     );
@@ -601,7 +618,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'), Locale.fromSubtags(languageCode: 'vi'),
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'vi'),
     ];
   }
 

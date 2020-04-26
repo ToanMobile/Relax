@@ -1,5 +1,5 @@
 {
-  "appName": "WERRY",
+  "appName": "Relax",
   "signIn": "Sign In",
   "signUp": "Sign Up",
   "orLoginWith" : "Or log in with",
@@ -10,6 +10,8 @@
   "login_username": "Username",
   "login_password": "Password",
   "login_confirm_password": "Confirm Password",
+  "login_address": "Address",
+  "login_phone": "Phone",
   "register_content1": "Do you already have an account? So please\u0020",
   "register_content2": "\u0020okay",
   "register_complete": "Registration successful",

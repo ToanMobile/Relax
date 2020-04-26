@@ -52,15 +52,28 @@ class LoginRegisterRepository {
     return data;
   }
 
-  static Future register(String email, String password, FirebaseUser firebaseUser) async {
-    FirebaseUser user = firebaseUser;
+  static Future register(String name, String email, String password, String address, String phone, int role) async {
+    AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    FirebaseUser user = result.user ?? null;
+    printLog('register:user=' + user.email);
+    LoginEntity loginEntity = LoginEntity();
+    loginEntity.uid = user.uid;
+    loginEntity.name = name;
+    loginEntity.email = email;
+    loginEntity.address = address;
+    loginEntity.role = role;
+    loginEntity.tel = phone;
+    printLog('register:loginEntity=' + loginEntity.toString());
     if (user == null) {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       user = result.user;
+      await infoCollection.document(user.uid).setData(loginEntity.toJson());
+    } else {
+      //case đã tồn tại user này
+      await infoCollection.document(user.uid).updateData(loginEntity.toJson());
     }
-    await infoCollection.document(user.uid).get().then((value) {
-      saveUser(user.uid, value.data, true);
-    });
+    StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
+    StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
     StorageManager.sharedPreferences.setString(LoginModel.preEmail, email);
   }
 
