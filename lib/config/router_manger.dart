@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:relax/ui/screen/home/home.dart';
-import 'package:relax/ui/screen/listoffer/listoffer_page.dart';
+import 'package:relax/ui/screen/listoffer/list_offer_page.dart';
 import 'package:relax/ui/screen/login/login_page.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'package:relax/ui/screen/map/driver/code/check_code_page.dart';

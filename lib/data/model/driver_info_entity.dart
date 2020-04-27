@@ -5,7 +5,7 @@ class DriverInfoEntity with JsonConvert<DriverInfoEntity> {
   String imgDriver;
   String imgCertificate;
   String uid;
-  String driver_status;
+  String driver_status; // 0 : register  1: active  2: inactive
 
   @override
   String toString() {

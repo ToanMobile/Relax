@@ -38,7 +38,7 @@ class LoginRegisterRepository {
         }
       },
     );
-    printLog('checkRegisterDriver:'+data.toString());
+    printLog('checkRegisterDriver:' + data.toString());
     return data;
   }
 
@@ -55,16 +55,23 @@ class LoginRegisterRepository {
     loginEntity.address = address;
     loginEntity.role = role;
     loginEntity.tel = phone;
-    printLog('register:loginEntity=' + loginEntity.toString());
     if (result == null) {
       result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      var customerId = 0;
+      var customer = Firestore.instance.collection('customerId').document("1");
+      await customer.get().then((value) => {customerId = value.data['customer_id']});
       FirebaseUser user = result.user;
       loginEntity.uid = user.uid;
+      loginEntity.customer_id = customerId;
+      await customer.updateData(<String, dynamic>{
+        'customer_id': customerId + 1,
+      });
       await infoCollection.document(user.uid).setData(loginEntity.toJson());
     } else {
       //case đã tồn tại user này
       await infoCollection.document(result.user.uid).updateData(loginEntity.toJson());
     }
+    printLog('register:loginEntity=' + loginEntity.toString());
     StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
     StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
   }

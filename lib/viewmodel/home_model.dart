@@ -1,6 +1,6 @@
 import 'package:relax/config/storage_manager.dart';
-import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
+import 'package:relax/data/model/offer_info_entity.dart';
 import 'package:relax/data/repository/home_repository.dart';
 import 'package:relax/data/repository/login_register_repository.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
@@ -12,7 +12,7 @@ enum DataLogin { CAPTURE, DRIVER, SHIPPER, DRIVER_SHIPPER, ERROR }
 
 class HomeModel extends ViewStateModel {
   LoginEntity _loginEntity;
-  List<DriverOfferEntity> listOffer;
+  List<OfferInfoEntity> listOffer;
 
   String get getName => _loginEntity != null ? _loginEntity.name : "";
 
@@ -33,7 +33,7 @@ class HomeModel extends ViewStateModel {
   Future getListOffer() async {
     setBusy();
     try {
-      listOffer = await HomeRepository.getListOffer();
+      listOffer = await HomeRepository.getListOffer(getRole);
       setIdle();
       return;
     } catch (e, s) {

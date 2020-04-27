@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
+import 'package:relax/data/model/requestInfo.dart';
 import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
@@ -22,10 +23,12 @@ class MapPage extends StatefulWidget {
 
 class MapState extends State<MapPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  var _tripDistance = 0;
-  final List<String> steps = [];
+  double _tripDistance = 0;
+  final RequestInfo request = new RequestInfo();
   final Map<String, Marker> markers = <String, Marker>{};
   final String nextstep = 'weiter =>';
+  int _polylineCount = 1;
+  Map<PolylineId, Polyline> _polylines = <PolylineId, Polyline>{};
   GoogleMapController _mapController;
   final DriverOfferEntity driverOfferEntity = DriverOfferEntity();
 
@@ -57,6 +60,7 @@ class MapState extends State<MapPage> {
                   target: LatLng(50.7331535, 7.0842345),
                   zoom: 14.4746,
                 ),
+                polylines: Set<Polyline>.of(_polylines.values),
               ),
               RidePicker(onPlaceSelected, onTimeSelected, onVehicleSelected),
             ],
@@ -102,13 +106,8 @@ class MapState extends State<MapPage> {
   }
 
   void onPlaceSelected(PlaceItemRes place, bool fromAddress) {
-    //print('onPlaceSelected==' + place.toString());
     var mkId = fromAddress ? "from_address" : "to_address";
-    if (mkId == "from_address") {
-      steps.add('from');
-    } else {
-      steps.add('to');
-    }
+    _addMarker(mkId, place);
     if (fromAddress) {
       driverOfferEntity.from_address = place.address;
       driverOfferEntity.from_lat = place.lat;
@@ -118,7 +117,6 @@ class MapState extends State<MapPage> {
       driverOfferEntity.to_lat = place.lat;
       driverOfferEntity.to_lon = place.lng;
     }
-    //_add(mkId,place);
     _addMarker(mkId, place);
     _moveCamera();
     _checkDrawPolyline();
@@ -136,6 +134,7 @@ class MapState extends State<MapPage> {
     driverOfferEntity.vehicle_id = vehicle.resource_id;
   }
 
+
   void _addMarker(String mkId, PlaceItemRes place) async {
     markers.remove(mkId);
     final String markerIdVal = mkId;
@@ -143,39 +142,36 @@ class MapState extends State<MapPage> {
     final MarkerId markerId = MarkerId(markerIdVal);
     final Marker marker = Marker(
       markerId: markerId,
-      position: LatLng(place.lat, place.lng),
+      position: LatLng(
+          place.lat, place.lng
+      ),
       infoWindow: InfoWindow(title: place.name, snippet: place.address),
     );
     setState(() {
       markers[mkId] = marker;
     });
-    _mapController.showMarkerInfoWindow(markerId);
   }
 
   void _moveCamera() {
     print("move camera: ");
-
     if (markers.values.length > 1) {
       var fromLatLng = markers["from_address"].position;
       var toLatLng = markers["to_address"].position;
-
       var sLat, sLng, nLat, nLng;
-      if (fromLatLng.latitude <= toLatLng.latitude) {
+      if(fromLatLng.latitude <= toLatLng.latitude) {
         sLat = fromLatLng.latitude;
         nLat = toLatLng.latitude;
       } else {
         sLat = toLatLng.latitude;
         nLat = fromLatLng.latitude;
       }
-
-      if (fromLatLng.longitude <= toLatLng.longitude) {
+      if(fromLatLng.longitude <= toLatLng.longitude) {
         sLng = fromLatLng.longitude;
         nLng = toLatLng.longitude;
       } else {
         sLng = toLatLng.longitude;
         nLng = fromLatLng.longitude;
       }
-
       LatLngBounds bounds = LatLngBounds(northeast: LatLng(nLat, nLng), southwest: LatLng(sLat, sLng));
       _mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
     } else {
@@ -187,19 +183,35 @@ class MapState extends State<MapPage> {
     if (markers.length > 1) {
       var from = markers["from_address"].position;
       var to = markers["to_address"].position;
-      MapRepository.getStep(from.latitude, from.longitude, to.latitude, to.longitude).then((vl) {
-        TripInfoRes infoRes = vl;
-        _tripDistance = infoRes.distance;
-        setState(() {});
+      MapRepository.getStep(from.latitude, from.longitude, to.latitude, to.longitude)
+          .then((v2) {
+        TripInfoRes infoRes = v2;
+        _tripDistance = infoRes.distance.toDouble();
+        print("distance is $_tripDistance");
+        setState(() {
+        });
         List<StepsRes> rs = infoRes.steps;
         List<LatLng> paths = new List();
         for (var t in rs) {
           paths.add(LatLng(t.startLocation.latitude, t.startLocation.longitude));
           paths.add(LatLng(t.endLocation.latitude, t.endLocation.longitude));
         }
-        print(paths.first.latitude);
+        _addPolyline(paths);
       });
-      print(' steps are : ' + '$steps');
+
     }
+  }
+  _addPolyline(List<LatLng> _coordinates) {
+    PolylineId id = PolylineId("poly$_polylineCount");
+    Polyline polyline = Polyline(
+        polylineId: id,
+        color: Colors.blueAccent,
+        points: _coordinates,
+        width: 7,
+        onTap: () {});
+    setState(() {
+      _polylines[id] = polyline;
+      _polylineCount++;
+    });
   }
 }

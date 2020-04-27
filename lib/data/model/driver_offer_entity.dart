@@ -4,7 +4,7 @@ class DriverOfferEntity with JsonConvert<DriverOfferEntity> {
   String uid;
   String client_Id;
   String offer_id;
-  String offer_status;
+  String offer_status; // default 0
   String from_address;
   double from_lat;
   double from_lon;
@@ -14,5 +14,6 @@ class DriverOfferEntity with JsonConvert<DriverOfferEntity> {
   DateTime from_workingtime;
   DateTime to_workingtime;
   int vehicle_id;
+  String vehicle_name;
   DateTime created_at;
 }

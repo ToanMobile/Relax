@@ -4,6 +4,9 @@ loginEntityFromJson(LoginEntity data, Map<String, dynamic> json) {
 	if (json['uid'] != null) {
 		data.uid = json['uid']?.toString();
 	}
+	if (json['customer_id'] != null) {
+		data.customer_id = json['customer_id']?.toInt();
+	}
 	if (json['address'] != null) {
 		data.address = json['address']?.toString();
 	}
@@ -25,6 +28,7 @@ loginEntityFromJson(LoginEntity data, Map<String, dynamic> json) {
 Map<String, dynamic> loginEntityToJson(LoginEntity entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['uid'] = entity.uid;
+	data['customer_id'] = entity.customer_id;
 	data['address'] = entity.address;
 	data['name'] = entity.name;
 	data['email'] = entity.email;

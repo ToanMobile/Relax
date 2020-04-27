@@ -40,6 +40,9 @@ driverOfferEntityFromJson(DriverOfferEntity data, Map<String, dynamic> json) {
 	if (json['vehicle_id'] != null) {
 		data.vehicle_id = json['vehicle_id']?.toInt();
 	}
+	if (json['vehicle_name'] != null) {
+		data.vehicle_name = json['vehicle_name']?.toString();
+	}
 	if(json['created_at'] != null){
 		data.created_at = DateTime.tryParse(json['created_at']);
 	}
@@ -61,6 +64,7 @@ Map<String, dynamic> driverOfferEntityToJson(DriverOfferEntity entity) {
 	data['from_workingtime'] = entity.from_workingtime?.toString();
 	data['to_workingtime'] = entity.to_workingtime?.toString();
 	data['vehicle_id'] = entity.vehicle_id;
+	data['vehicle_name'] = entity.vehicle_name;
 	data['created_at'] = entity.created_at?.toString();
 	return data;
 }

@@ -2,6 +2,7 @@ import 'package:relax/generated/json/base/json_convert_content.dart';
 
 class LoginEntity with JsonConvert<LoginEntity> {
   String uid = '';
+  int customer_id = 0;
   String address = '';
   String name = '';
   String email = '';
@@ -10,6 +11,6 @@ class LoginEntity with JsonConvert<LoginEntity> {
 
   @override
   String toString() {
-    return 'LoginEntity{uid: $uid, address: $address, name: $name, email:$email, role: $role, tel: $tel}';
+    return 'LoginEntity{uid: $uid, customer_id:$customer_id, address: $address, name: $name, email:$email, role: $role, tel: $tel}';
   }
 }

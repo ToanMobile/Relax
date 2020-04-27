@@ -7,6 +7,8 @@ import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/login_entity_helper.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/generated/json/verhicle_entity_helper.dart';
+import 'package:relax/data/model/offer_info_entity.dart';
+import 'package:relax/generated/json/offer_info_entity_helper.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/generated/json/place_item_res_helper.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
@@ -28,7 +30,8 @@ class JsonConvert<T> {
   static _getFromJson<T>(Type type, data, json) {
     switch (type) {			case LoginEntity:
 			return loginEntityFromJson(data as LoginEntity, json) as T;			case VehicleEntity:
-			return vehicleEntityFromJson(data as VehicleEntity, json) as T;			case PlaceItemRes:
+			return vehicleEntityFromJson(data as VehicleEntity, json) as T;			case OfferInfoEntity:
+			return offerInfoEntityFromJson(data as OfferInfoEntity, json) as T;			case PlaceItemRes:
 			return placeItemResFromJson(data as PlaceItemRes, json) as T;			case DriverOfferEntity:
 			return driverOfferEntityFromJson(data as DriverOfferEntity, json) as T;			case RegisterEntity:
 			return registerEntityFromJson(data as RegisterEntity, json) as T;			case RegisterUser:
@@ -40,7 +43,8 @@ class JsonConvert<T> {
   static _getToJson<T>(Type type, data) {
 		switch (type) {			case LoginEntity:
 			return loginEntityToJson(data as LoginEntity);			case VehicleEntity:
-			return vehicleEntityToJson(data as VehicleEntity);			case PlaceItemRes:
+			return vehicleEntityToJson(data as VehicleEntity);			case OfferInfoEntity:
+			return offerInfoEntityToJson(data as OfferInfoEntity);			case PlaceItemRes:
 			return placeItemResToJson(data as PlaceItemRes);			case DriverOfferEntity:
 			return driverOfferEntityToJson(data as DriverOfferEntity);			case RegisterEntity:
 			return registerEntityToJson(data as RegisterEntity);			case RegisterUser:
@@ -52,7 +56,8 @@ class JsonConvert<T> {
   static _fromJsonSingle(String type, json) {
     switch (type) {			case 'LoginEntity':
 			return LoginEntity().fromJson(json);			case 'VehicleEntity':
-			return VehicleEntity().fromJson(json);			case 'PlaceItemRes':
+			return VehicleEntity().fromJson(json);			case 'OfferInfoEntity':
+			return OfferInfoEntity().fromJson(json);			case 'PlaceItemRes':
 			return PlaceItemRes().fromJson(json);			case 'DriverOfferEntity':
 			return DriverOfferEntity().fromJson(json);			case 'RegisterEntity':
 			return RegisterEntity().fromJson(json);			case 'RegisterUser':
@@ -65,7 +70,8 @@ class JsonConvert<T> {
   static _getListFromType(String type) {
     switch (type) {			case 'LoginEntity':
 			return List<LoginEntity>();			case 'VehicleEntity':
-			return List<VehicleEntity>();			case 'PlaceItemRes':
+			return List<VehicleEntity>();			case 'OfferInfoEntity':
+			return List<OfferInfoEntity>();			case 'PlaceItemRes':
 			return List<PlaceItemRes>();			case 'DriverOfferEntity':
 			return List<DriverOfferEntity>();			case 'RegisterEntity':
 			return List<RegisterEntity>();			case 'RegisterUser':

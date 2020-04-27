@@ -87,7 +87,7 @@ class DriverRepository {
   }
 
   static Future addDriverOffer(DriverOfferEntity data) async {
-    data.uid = user.uid;
+    /*data.uid = user.uid;
     var driverOffer = driverOfferCollection.document(user.uid);
     await driverOffer.get().then(
       (value) {
@@ -99,7 +99,9 @@ class DriverRepository {
           driverOffer.updateData(data.toJson());
         }
       },
-    );
+    );*/
+    data.created_at = DateTime.now();
+    driverOfferCollection.add(data.toJson());
     return;
   }
 

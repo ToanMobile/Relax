@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
-import 'package:relax/data/model/driver_offer_entity.dart';
+import 'package:relax/data/model/offer_info_entity.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
@@ -122,7 +122,7 @@ class ListOfferState extends State<ListOfferPage> {
       );
 
   Widget buildListUser(HomeModel model) {
-    List<DriverOfferEntity> listOffer = model.listOffer;
+    List<OfferInfoEntity> listOffer = model.listOffer;
     Widget child = model.busy
         ? Container(
             height: 150.h,
@@ -155,11 +155,12 @@ class ListOfferState extends State<ListOfferPage> {
     return child;
   }
 
-  Widget buildListItem(List<DriverOfferEntity> listOffer, int index, int role) {
+  Widget buildListItem(List<OfferInfoEntity> listOffer, int index, int role) {
+    bool isDriver = listOffer[index].uid != null ?? false;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: Colors.white,
+        color: isDriver ? ColorsUtils.watermelon : ColorsUtils.lightishBlue,
       ),
       width: double.infinity,
       height: 480.h,
@@ -184,7 +185,7 @@ class ListOfferState extends State<ListOfferPage> {
                   ),
                   Flexible(
                     child: Text(
-                      listOffer[index].from_address ?? "",
+                      isDriver ? listOffer[index].from_address ?? "" : listOffer[index].pickup_Address ?? "",
                       textAlign: TextAlign.left,
                       softWrap: true,
                       style: TextStylesUtils.styleRegular14BlackW400,
@@ -204,7 +205,9 @@ class ListOfferState extends State<ListOfferPage> {
                     width: 10.w,
                   ),
                   Text(
-                    listOffer[index].from_workingtime != null ? Constant.format.format(listOffer[index].from_workingtime) : "00-00-00",
+                    isDriver
+                        ? listOffer[index].from_workingtime != null ? Constant.format.format(listOffer[index].from_workingtime) : "00-00-00"
+                        : listOffer[index].pickup_Time != null ? Constant.format.format(listOffer[index].pickup_Time) : "00-00-00",
                     textAlign: TextAlign.center,
                     style: TextStylesUtils.styleRegular14BlackW400,
                   ),
@@ -226,7 +229,7 @@ class ListOfferState extends State<ListOfferPage> {
                   ),
                   Flexible(
                     child: Text(
-                      listOffer[index].to_address ?? "",
+                      isDriver ? listOffer[index].to_address ?? "" : listOffer[index].drop_Address ?? "",
                       textAlign: TextAlign.left,
                       softWrap: true,
                       style: TextStylesUtils.styleRegular14BlackW400,
@@ -252,35 +255,10 @@ class ListOfferState extends State<ListOfferPage> {
                   ),
                 ],
               ),
-              buildIconRole(role),
             ],
           )
         ],
       ),
     );
-  }
-
-  Widget buildIconRole(int role) {
-    if (role == Constant.role_shipper) {
-      return Text(
-        'Shipper',
-        style: TextStylesUtils.styleMedium20Black,
-      );
-    } else if (role == Constant.role_driver) {
-      return Text(
-        'Driver',
-        style: TextStylesUtils.styleMedium20Black,
-      );
-    } else if (role == Constant.role_shipper_driver) {
-      return Text(
-        'Shipper & Driver',
-        style: TextStylesUtils.styleMedium20Black,
-      );
-    } else {
-      return Text(
-        'Unknown',
-        style: TextStylesUtils.styleMedium20Black,
-      );
-    }
   }
 }
