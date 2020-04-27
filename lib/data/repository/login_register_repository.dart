@@ -1,51 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:relax/common/constant.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
+import 'package:relax/viewmodel/home_model.dart';
 import 'package:relax/viewmodel/login_model.dart';
-
 import 'base_repository.dart';
 
 class LoginRegisterRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
   static final CollectionReference driverCollection = Firestore.instance.collection('driverInfos');
+
   // static List<LoginEntity> listUser() => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
-  static Future<DataLogin> login(String email, String password) async {
-    DataLogin data;
+  static Future login(String email, String password) async {
     AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = result.user ?? null;
     await infoCollection.document(user.uid).get().then((value) {
-      saveUser(user.uid, value.data, true);
+      saveUser(user.uid, email, value.data, true);
     });
-    data = await checkRegisterDriver(user.uid, false);
-    StorageManager.sharedPreferences.setString(LoginModel.preEmail, email);
-    return data;
   }
 
-  static Future<DataLogin> checkRegisterDriver(String uid, bool isHome) async {
+  static Future<DataLogin> checkRegisterDriver(String uid, int role) async {
     DataLogin data;
     await driverCollection.document(uid).get().then(
       (value) {
-        if (isHome) {
-          if (value.data != null && value.data['driver_status'] == "0") {
-            printLog('MAP');
-            data = DataLogin.MAP;
-          } else {
-            printLog('CAPTURE');
-            data = DataLogin.CAPTURE;
+        if (value.data != null && value.data['driver_status'] == "0") {
+          if (role == Constant.role_shipper) {
+            data = DataLogin.SHIPPER;
+          } else if (role == Constant.role_driver) {
+            data = DataLogin.DRIVER;
+          } else if (role == Constant.role_shipper_driver) {
+            data = DataLogin.DRIVER_SHIPPER;
           }
         } else {
-          if (value.data != null && value.data['driver_status'] == "0") {
-            printLog('MAP');
-            data = DataLogin.MAP;
-          } else {
-            printLog('HOME');
-            data = DataLogin.HOME;
-          }
+          data = DataLogin.CAPTURE;
         }
       },
     );
+    printLog('checkRegisterDriver:'+data.toString());
     return data;
   }
 
@@ -53,7 +46,7 @@ class LoginRegisterRepository {
     AuthResult result;
     try {
       result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-    }catch (e, s) {
+    } catch (e, s) {
       printLog(e.toString());
     }
     LoginEntity loginEntity = LoginEntity();
@@ -74,13 +67,13 @@ class LoginRegisterRepository {
     }
     StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
     StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
-    StorageManager.sharedPreferences.setString(LoginModel.preEmail, email);
   }
 
-  static saveUser(String uid, Map<String, dynamic> snapshot, bool isSave) {
+  static saveUser(String uid, String email, Map<String, dynamic> snapshot, bool isSave) {
     printLog(snapshot);
     LoginEntity loginEntity = LoginEntity();
     loginEntity.uid = uid;
+    loginEntity.email = email;
     loginEntity.address = snapshot['address'];
     loginEntity.name = snapshot['name'];
     loginEntity.role = snapshot['role'];

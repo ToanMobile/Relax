@@ -12,29 +12,29 @@ class HomeRepository {
   static final CollectionReference offerCollection = Firestore.instance.collection('driverOffer');
 
   static Future getListHome() async {
-    return DioUtils.instance.asyncRequestNetwork<LoginEntity>(Method.post, HttpApi.login,
-        onSuccess: (data) {
-          if (data != null) {
-            printLog(data);
-          }
-        },
-        onSuccessList: (data) {
-          if (data != null) {
-            printLog(data);
-          }
-        },
-        onError: (code, msg) {
-          printLog("$msg code=$code");
-        }
-    );
+    return DioUtils.instance.asyncRequestNetwork<LoginEntity>(Method.post, HttpApi.login, onSuccess: (data) {
+      if (data != null) {
+        printLog(data);
+      }
+    }, onSuccessList: (data) {
+      if (data != null) {
+        printLog(data);
+      }
+    }, onError: (code, msg) {
+      printLog("$msg code=$code");
+    });
   }
 
   static Future<List<DriverOfferEntity>> getListOffer() async {
     List<DriverOfferEntity> list = List();
     LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
     await offerCollection.document(user.uid).get().then((value) {
-      list.add(DriverOfferEntity().fromJson(value.data));
+      printLog(value.data.toString());
+      if (value.data != null) {
+        list.add(DriverOfferEntity().fromJson(value.data));
+      }
     });
+    printLog(list.toString());
     return list;
   }
 
@@ -54,7 +54,7 @@ class HomeRepository {
     return loginEntity;
   }
 
-  static void printLog(dynamic data){
+  static void printLog(dynamic data) {
     BaseRepository.logger.e(data);
   }
 }

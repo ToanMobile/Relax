@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "challenge_run" : MessageLookupByLibrary.simpleMessage("Ongoing challenge (2)"),
     "challenge_time_left" : MessageLookupByLibrary.simpleMessage("Time Left"),
     "close" : MessageLookupByLibrary.simpleMessage("Close"),
+    "createNew" : MessageLookupByLibrary.simpleMessage("Create New"),
     "darkMode" : MessageLookupByLibrary.simpleMessage("Dark Mode"),
     "feedback" : MessageLookupByLibrary.simpleMessage("FeedBack"),
     "fieldNotNull" : MessageLookupByLibrary.simpleMessage("not empty"),

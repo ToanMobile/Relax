@@ -63,5 +63,7 @@
   "feedback": "FeedBack",
   "autoBySystem": "Auto",
   "fieldNotNull": "not empty",
-  "noAccount": "No Account ? "
+  "noAccount": "No Account ? ",
+
+  "createNew": "Create New"
 }

@@ -1,3 +1,4 @@
+import 'package:relax/lib/screenutils/screenutil.dart';
 import 'widgets/profile/profile_categories.dart';
 import 'widgets/profile/profile_detail.dart';
 import 'widgets/profile/profile_menu.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Size deviceSize = MediaQuery.of(context).size;
+    ScreenUtil.init(context);
     return Material(
       color: Colors.white,
       child: Padding(

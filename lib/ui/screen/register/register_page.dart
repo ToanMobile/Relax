@@ -34,15 +34,15 @@ class _RegisterPageState extends State<RegisterPage> {
   List<RoleEntity> _group = [
     RoleEntity(
       text: "Shipper",
-      role: 1,
+      role: Constant.role_shipper,
     ),
     RoleEntity(
       text: "Driver",
-      role: 2,
+      role: Constant.role_driver,
     ),
     RoleEntity(
       text: "Shipper & Driver",
-      role: 3,
+      role: Constant.role_shipper_driver,
     )
   ];
 

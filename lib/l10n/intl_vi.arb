@@ -64,5 +64,7 @@
   "feedback": "Phản hồi",
   "autoBySystem": "Auto",
   "fieldNotNull": "không trống",
-  "noAccount": "Không tìm thấy tài khoản?"
+  "noAccount": "Không tìm thấy tài khoản?",
+
+  "createNew": "Tạo mới"
 }

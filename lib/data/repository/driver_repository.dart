@@ -41,7 +41,7 @@ class DriverRepository {
       } else if (type == Type.CERTIFICATE) {
         fileName = 'imgCertificate';
       }
-      String path = 'driverdocuments/' + StorageManager.sharedPreferences.getString(LoginModel.preEmail) ?? "Unknown";
+      String path = 'driverdocuments/' + user.email ?? "Unknown";
       StorageReference storageReference = FirebaseStorage.instance.ref().child('$path/$fileName');
       StorageUploadTask uploadTask = storageReference.putFile(image);
       var url = await (await uploadTask.onComplete).ref.getDownloadURL();

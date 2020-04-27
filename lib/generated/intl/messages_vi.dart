@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "challenge_run" : MessageLookupByLibrary.simpleMessage("Thử thách đang thực hiện (2)"),
     "challenge_time_left" : MessageLookupByLibrary.simpleMessage("Thời gian còn lại"),
     "close" : MessageLookupByLibrary.simpleMessage("Đóng"),
+    "createNew" : MessageLookupByLibrary.simpleMessage("Tạo mới"),
     "darkMode" : MessageLookupByLibrary.simpleMessage("Chế độ tối"),
     "feedback" : MessageLookupByLibrary.simpleMessage("Phản hồi"),
     "fieldNotNull" : MessageLookupByLibrary.simpleMessage("không trống"),

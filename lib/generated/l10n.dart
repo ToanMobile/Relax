@@ -611,6 +611,15 @@ class S {
       args: [],
     );
   }
+
+  String get createNew {
+    return Intl.message(
+      'Create New',
+      name: 'createNew',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

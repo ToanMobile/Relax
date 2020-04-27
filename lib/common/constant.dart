@@ -21,4 +21,8 @@ class Constant {
   static DateFormat format = DateFormat("yyyy-MM-dd HH:mm");
   static const gradient_WaterMelon_Melon = LinearGradient(colors: [ColorsUtils.watermelon, ColorsUtils.melon]);
   static const List<Color> colorListMelonWaterMelon = [ColorsUtils.watermelon, ColorsUtils.melon];
+
+  static int role_shipper = 1;
+  static int role_driver = 2;
+  static int role_shipper_driver = 3;
 }

@@ -131,10 +131,8 @@ class _LoginPageState extends State<LoginPage> {
       child: child,
       cb: () {
         model.login(_nameController.text, _passwordController.text).then((value) {
-          if (value == DataLogin.HOME) {
+          if (value) {
             Navigator.pushReplacementNamed(context, RouteName.home);
-          } else if (value == DataLogin.MAP) {
-            Navigator.pushReplacementNamed(context, RouteName.map);
           } else {
             model.showErrorMessage(context);
           }

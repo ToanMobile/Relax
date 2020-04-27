@@ -12,7 +12,6 @@ import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/text_input_search.dart';
-import 'package:relax/viewmodel/login_model.dart';
 import 'package:relax/viewmodel/home_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -24,7 +23,6 @@ class ListOfferPage extends StatefulWidget {
 class ListOfferState extends State<ListOfferPage> {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
     return Scaffold(
       backgroundColor: ColorsUtils.offWhite,
       body: ViewModelBuilder<HomeModel>.reactive(
@@ -40,7 +38,16 @@ class ListOfferState extends State<ListOfferPage> {
               SizedBox(
                 height: 20.h,
               ),
-              buildLogOut(model),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildLogOut(model),
+                  SizedBox(
+                    width: 50.w,
+                  ),
+                  buildCreateOffer(model),
+                ],
+              ),
               buildListUser(model)
             ],
           );
@@ -81,6 +88,39 @@ class ListOfferState extends State<ListOfferPage> {
         ),
       );
 
+  Widget buildCreateOffer(HomeModel model) => Center(
+        child: Container(
+          width: 300.w,
+          height: 130.h,
+          child: FilledRoundButton.withGradient(
+            radius: 10,
+            gradientColor: Constant.gradient_WaterMelon_Melon,
+            text: Text(S.of(context).createNew, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+            cb: () async {
+              SchedulerBinding.instance.addPostFrameCallback((_) {});
+              await model.checkRegisterDriver().then((value) {
+                switch (value) {
+                  case DataLogin.CAPTURE:
+                    Navigator.popAndPushNamed(context, RouteName.capture);
+                    break;
+                  case DataLogin.DRIVER:
+                    Navigator.popAndPushNamed(context, RouteName.driver);
+                    break;
+                  case DataLogin.SHIPPER:
+                    Navigator.popAndPushNamed(context, RouteName.shipper);
+                    break;
+                  case DataLogin.DRIVER_SHIPPER:
+                    Navigator.popAndPushNamed(context, RouteName.driver);
+                    break;
+                  case DataLogin.ERROR:
+                    break;
+                }
+              });
+            },
+          ),
+        ),
+      );
+
   Widget buildListUser(HomeModel model) {
     List<DriverOfferEntity> listOffer = model.listOffer;
     Widget child = model.busy
@@ -98,21 +138,16 @@ class ListOfferState extends State<ListOfferPage> {
               height: 1200.h,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: listOffer.length ?? 0,
+                itemCount: listOffer != null ? listOffer.length : 0,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    child: buildListItem(listOffer, index, model.getRole),
-                    onTap: () async {
-                      SchedulerBinding.instance.addPostFrameCallback((_) {});
-                      await model.checkRegisterDriver().then((value) {
-                        if (value == DataLogin.CAPTURE) {
-                          Navigator.popAndPushNamed(context, RouteName.capture);
-                        } else {
-                          Navigator.popAndPushNamed(context, RouteName.map);
-                        }
-                      });
-                    },
-                  );
+                  if (listOffer.length > 0) {
+                    return InkWell(
+                      child: buildListItem(listOffer, index, model.getRole),
+                      onTap: () => Navigator.popAndPushNamed(context, RouteName.offer_details),
+                    );
+                  } else {
+                    return Container();
+                  }
                 },
               ),
             ),
@@ -149,7 +184,7 @@ class ListOfferState extends State<ListOfferPage> {
                   ),
                   Flexible(
                     child: Text(
-                      listOffer[index].from_address.toString(),
+                      listOffer[index].from_address ?? "",
                       textAlign: TextAlign.left,
                       softWrap: true,
                       style: TextStylesUtils.styleRegular14BlackW400,
@@ -169,7 +204,7 @@ class ListOfferState extends State<ListOfferPage> {
                     width: 10.w,
                   ),
                   Text(
-                    Constant.format.format(listOffer[index].from_workingtime),
+                    listOffer[index].from_workingtime != null ? Constant.format.format(listOffer[index].from_workingtime) : "00-00-00",
                     textAlign: TextAlign.center,
                     style: TextStylesUtils.styleRegular14BlackW400,
                   ),
@@ -191,7 +226,7 @@ class ListOfferState extends State<ListOfferPage> {
                   ),
                   Flexible(
                     child: Text(
-                      listOffer[index].to_address.toString(),
+                      listOffer[index].to_address ?? "",
                       textAlign: TextAlign.left,
                       softWrap: true,
                       style: TextStylesUtils.styleRegular14BlackW400,
@@ -211,7 +246,7 @@ class ListOfferState extends State<ListOfferPage> {
                     width: 10.w,
                   ),
                   Text(
-                    Constant.format.format(listOffer[index].to_workingtime),
+                    listOffer[index].to_workingtime != null ? Constant.format.format(listOffer[index].to_workingtime) : "00-00-00",
                     textAlign: TextAlign.center,
                     style: TextStylesUtils.styleRegular14BlackW400,
                   ),
@@ -226,17 +261,17 @@ class ListOfferState extends State<ListOfferPage> {
   }
 
   Widget buildIconRole(int role) {
-    if (role == 0) {
+    if (role == Constant.role_shipper) {
       return Text(
         'Shipper',
         style: TextStylesUtils.styleMedium20Black,
       );
-    } else if (role == 1) {
+    } else if (role == Constant.role_driver) {
       return Text(
         'Driver',
         style: TextStylesUtils.styleMedium20Black,
       );
-    } else if (role == 2) {
+    } else if (role == Constant.role_shipper_driver) {
       return Text(
         'Shipper & Driver',
         style: TextStylesUtils.styleMedium20Black,
