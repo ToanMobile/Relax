@@ -21,6 +21,7 @@ class LoginModel extends ViewStateModel {
       setIdle();
       return data;
     } catch (e, s) {
+      print('error=' + s.toString());
       setError(e, s);
       return DataLogin.ERROR;
     }

@@ -101,7 +101,7 @@ class ListOfferState extends State<ListOfferPage> {
                 itemCount: listOffer.length ?? 0,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    child: buildListItem(listOffer, index),
+                    child: buildListItem(listOffer, index, model.getRole),
                     onTap: () async {
                       SchedulerBinding.instance.addPostFrameCallback((_) {});
                       await model.checkRegisterDriver().then((value) {
@@ -120,14 +120,14 @@ class ListOfferState extends State<ListOfferPage> {
     return child;
   }
 
-  Widget buildListItem(List<DriverOfferEntity> listOffer, int index) {
+  Widget buildListItem(List<DriverOfferEntity> listOffer, int index, int role) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         color: Colors.white,
       ),
       width: double.infinity,
-      height: 350.h,
+      height: 480.h,
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       child: Column(
@@ -217,10 +217,35 @@ class ListOfferState extends State<ListOfferPage> {
                   ),
                 ],
               ),
+              buildIconRole(role),
             ],
           )
         ],
       ),
     );
+  }
+
+  Widget buildIconRole(int role) {
+    if (role == 0) {
+      return Text(
+        'Shipper',
+        style: TextStylesUtils.styleMedium20Black,
+      );
+    } else if (role == 1) {
+      return Text(
+        'Driver',
+        style: TextStylesUtils.styleMedium20Black,
+      );
+    } else if (role == 2) {
+      return Text(
+        'Shipper & Driver',
+        style: TextStylesUtils.styleMedium20Black,
+      );
+    } else {
+      return Text(
+        'Unknown',
+        style: TextStylesUtils.styleMedium20Black,
+      );
+    }
   }
 }

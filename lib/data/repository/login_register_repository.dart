@@ -50,24 +50,27 @@ class LoginRegisterRepository {
   }
 
   static Future register(String name, String email, String password, String address, String phone, int role) async {
-    AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-    FirebaseUser user = result.user ?? null;
-    printLog('register:user=' + user.email);
+    AuthResult result;
+    try {
+      result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    }catch (e, s) {
+      printLog(e.toString());
+    }
     LoginEntity loginEntity = LoginEntity();
-    loginEntity.uid = user.uid;
     loginEntity.name = name;
     loginEntity.email = email;
     loginEntity.address = address;
     loginEntity.role = role;
     loginEntity.tel = phone;
     printLog('register:loginEntity=' + loginEntity.toString());
-    if (user == null) {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      user = result.user;
+    if (result == null) {
+      result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user = result.user;
+      loginEntity.uid = user.uid;
       await infoCollection.document(user.uid).setData(loginEntity.toJson());
     } else {
       //case đã tồn tại user này
-      await infoCollection.document(user.uid).updateData(loginEntity.toJson());
+      await infoCollection.document(result.user.uid).updateData(loginEntity.toJson());
     }
     StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
     StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
