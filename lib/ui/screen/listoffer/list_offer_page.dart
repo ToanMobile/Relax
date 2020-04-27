@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:relax/common/constant.dart';
@@ -100,19 +101,19 @@ class ListOfferState extends State<ListOfferPage> {
               SchedulerBinding.instance.addPostFrameCallback((_) {});
               await model.checkRegisterDriver().then((value) {
                 switch (value) {
-                  case DataLogin.CAPTURE:
+                  case ROLE.CAPTURE:
                     Navigator.popAndPushNamed(context, RouteName.capture);
                     break;
-                  case DataLogin.DRIVER:
+                  case ROLE.DRIVER:
                     Navigator.popAndPushNamed(context, RouteName.driver);
                     break;
-                  case DataLogin.SHIPPER:
+                  case ROLE.SHIPPER:
                     Navigator.popAndPushNamed(context, RouteName.shipper);
                     break;
-                  case DataLogin.DRIVER_SHIPPER:
-                    Navigator.popAndPushNamed(context, RouteName.driver);
+                  case ROLE.DRIVER_SHIPPER:
+                    selectShipperOrDriver(context);
                     break;
-                  case DataLogin.ERROR:
+                  case ROLE.ERROR:
                     break;
                 }
               });
@@ -120,6 +121,29 @@ class ListOfferState extends State<ListOfferPage> {
           ),
         ),
       );
+
+  selectShipperOrDriver(BuildContext context) async {
+    final _select = CupertinoActionSheet(
+      actions: <Widget>[
+        CupertinoActionSheetAction(
+          child: Text('Shipper'),
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.popAndPushNamed(context, RouteName.shipper);
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Container(child: Text('Driver')),
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.popAndPushNamed(context, RouteName.driver);
+          },
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(child: Text('Cancel'), onPressed: () => Navigator.of(context).pop()),
+    );
+    showCupertinoModalPopup(context: context, builder: (context) => _select);
+  }
 
   Widget buildListUser(HomeModel model) {
     List<OfferInfoEntity> listOffer = model.listOffer;

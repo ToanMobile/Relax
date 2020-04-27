@@ -6,6 +6,7 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/driver_info_entity.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
+import 'package:relax/data/model/request_info_entity.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/driver_repository.dart';
 import 'package:relax/lib/res/utils.dart';
@@ -74,6 +75,18 @@ class DriverModel extends ViewStateModel {
     setBusy();
     try {
       await DriverRepository.addDriverOffer(driverEntity);
+      setIdle();
+      return true;
+    } catch (e, s) {
+      setError(e, s);
+      return false;
+    }
+  }
+
+  Future<bool> addRequestPool(RequestInfo requestInfo) async {
+    setBusy();
+    try {
+      await DriverRepository.addRequestPool(requestInfo);
       setIdle();
       return true;
     } catch (e, s) {

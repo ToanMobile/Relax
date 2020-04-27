@@ -7,6 +7,9 @@ driverOfferEntityFromJson(DriverOfferEntity data, Map<String, dynamic> json) {
 	if (json['client_Id'] != null) {
 		data.client_Id = json['client_Id']?.toString();
 	}
+	if (json['customer_id'] != null) {
+		data.customer_id = json['customer_id']?.toInt();
+	}
 	if (json['offer_id'] != null) {
 		data.offer_id = json['offer_id']?.toString();
 	}
@@ -53,6 +56,7 @@ Map<String, dynamic> driverOfferEntityToJson(DriverOfferEntity entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['uid'] = entity.uid;
 	data['client_Id'] = entity.client_Id;
+	data['customer_id'] = entity.customer_id;
 	data['offer_id'] = entity.offer_id;
 	data['offer_status'] = entity.offer_status;
 	data['from_address'] = entity.from_address;

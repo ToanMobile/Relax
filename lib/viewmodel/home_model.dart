@@ -8,7 +8,7 @@ import 'package:relax/provider/view_state_model.dart';
 
 import 'login_model.dart';
 
-enum DataLogin { CAPTURE, DRIVER, SHIPPER, DRIVER_SHIPPER, ERROR }
+enum ROLE { CAPTURE, DRIVER, SHIPPER, DRIVER_SHIPPER, ERROR }
 
 class HomeModel extends ViewStateModel {
   LoginEntity _loginEntity;
@@ -22,11 +22,11 @@ class HomeModel extends ViewStateModel {
     _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
   }
 
-  Future<DataLogin> checkRegisterDriver() async {
+  Future<ROLE> checkRegisterDriver() async {
     try {
       return await LoginRegisterRepository.checkRegisterDriver(_loginEntity.uid, getRole);
     } catch (e, s) {
-      return DataLogin.ERROR;
+      return ROLE.ERROR;
     }
   }
 

@@ -11,6 +11,8 @@ import 'package:relax/data/model/offer_info_entity.dart';
 import 'package:relax/generated/json/offer_info_entity_helper.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/generated/json/place_item_res_helper.dart';
+import 'package:relax/data/model/request_info_entity.dart';
+import 'package:relax/generated/json/request_info_entity_helper.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/generated/json/driver_offer_entity_helper.dart';
 import 'package:relax/data/model/register_entity.dart';
@@ -32,7 +34,8 @@ class JsonConvert<T> {
 			return loginEntityFromJson(data as LoginEntity, json) as T;			case VehicleEntity:
 			return vehicleEntityFromJson(data as VehicleEntity, json) as T;			case OfferInfoEntity:
 			return offerInfoEntityFromJson(data as OfferInfoEntity, json) as T;			case PlaceItemRes:
-			return placeItemResFromJson(data as PlaceItemRes, json) as T;			case DriverOfferEntity:
+			return placeItemResFromJson(data as PlaceItemRes, json) as T;			case RequestInfo:
+			return requestInfoFromJson(data as RequestInfo, json) as T;			case DriverOfferEntity:
 			return driverOfferEntityFromJson(data as DriverOfferEntity, json) as T;			case RegisterEntity:
 			return registerEntityFromJson(data as RegisterEntity, json) as T;			case RegisterUser:
 			return registerUserFromJson(data as RegisterUser, json) as T;			case DriverInfoEntity:
@@ -45,7 +48,8 @@ class JsonConvert<T> {
 			return loginEntityToJson(data as LoginEntity);			case VehicleEntity:
 			return vehicleEntityToJson(data as VehicleEntity);			case OfferInfoEntity:
 			return offerInfoEntityToJson(data as OfferInfoEntity);			case PlaceItemRes:
-			return placeItemResToJson(data as PlaceItemRes);			case DriverOfferEntity:
+			return placeItemResToJson(data as PlaceItemRes);			case RequestInfo:
+			return requestInfoToJson(data as RequestInfo);			case DriverOfferEntity:
 			return driverOfferEntityToJson(data as DriverOfferEntity);			case RegisterEntity:
 			return registerEntityToJson(data as RegisterEntity);			case RegisterUser:
 			return registerUserToJson(data as RegisterUser);			case DriverInfoEntity:
@@ -58,7 +62,8 @@ class JsonConvert<T> {
 			return LoginEntity().fromJson(json);			case 'VehicleEntity':
 			return VehicleEntity().fromJson(json);			case 'OfferInfoEntity':
 			return OfferInfoEntity().fromJson(json);			case 'PlaceItemRes':
-			return PlaceItemRes().fromJson(json);			case 'DriverOfferEntity':
+			return PlaceItemRes().fromJson(json);			case 'RequestInfo':
+			return RequestInfo().fromJson(json);			case 'DriverOfferEntity':
 			return DriverOfferEntity().fromJson(json);			case 'RegisterEntity':
 			return RegisterEntity().fromJson(json);			case 'RegisterUser':
 			return RegisterUser().fromJson(json);			case 'DriverInfoEntity':
@@ -72,7 +77,8 @@ class JsonConvert<T> {
 			return List<LoginEntity>();			case 'VehicleEntity':
 			return List<VehicleEntity>();			case 'OfferInfoEntity':
 			return List<OfferInfoEntity>();			case 'PlaceItemRes':
-			return List<PlaceItemRes>();			case 'DriverOfferEntity':
+			return List<PlaceItemRes>();			case 'RequestInfo':
+			return List<RequestInfo>();			case 'DriverOfferEntity':
 			return List<DriverOfferEntity>();			case 'RegisterEntity':
 			return List<RegisterEntity>();			case 'RegisterUser':
 			return List<RegisterUser>();			case 'DriverInfoEntity':

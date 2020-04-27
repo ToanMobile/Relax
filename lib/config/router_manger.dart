@@ -6,11 +6,11 @@ import 'package:relax/ui/screen/login/login_page.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'package:relax/ui/screen/map/driver/code/check_code_page.dart';
 import 'package:relax/ui/screen/map/map_page.dart';
-import 'package:relax/ui/screen/map/shipper/requestpage.dart';
 import 'package:relax/ui/screen/offerdetails/offer_details_page.dart';
 import 'package:relax/ui/screen/register/register_page.dart';
 import 'package:relax/ui/screen/register/register_success_page.dart';
 import 'package:relax/ui/widget/page_route_anim.dart';
+import 'package:relax/viewmodel/home_model.dart';
 
 class RouteName {
   static const String home = '/';
@@ -46,9 +46,9 @@ class Router {
       case RouteName.capture:
         return FadeRouteBuilder(CapturePage());
       case RouteName.driver:
-        return FadeRouteBuilder(MapPage());
+        return FadeRouteBuilder(MapPage(ROLE.DRIVER));
       case RouteName.shipper:
-        return FadeRouteBuilder(PickupDropHomePage());
+        return FadeRouteBuilder(MapPage(ROLE.SHIPPER));
       case RouteName.code:
         return FadeRouteBuilder(CheckCodePage(driverEntity: settings.arguments));
       default:

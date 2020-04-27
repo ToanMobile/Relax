@@ -21,20 +21,20 @@ class LoginRegisterRepository {
     });
   }
 
-  static Future<DataLogin> checkRegisterDriver(String uid, int role) async {
-    DataLogin data;
+  static Future<ROLE> checkRegisterDriver(String uid, int role) async {
+    ROLE data;
     await driverCollection.document(uid).get().then(
       (value) {
         if (value.data != null && value.data['driver_status'] == "0") {
           if (role == Constant.role_shipper) {
-            data = DataLogin.SHIPPER;
+            data = ROLE.SHIPPER;
           } else if (role == Constant.role_driver) {
-            data = DataLogin.DRIVER;
+            data = ROLE.DRIVER;
           } else if (role == Constant.role_shipper_driver) {
-            data = DataLogin.DRIVER_SHIPPER;
+            data = ROLE.DRIVER_SHIPPER;
           }
         } else {
-          data = DataLogin.CAPTURE;
+          data = ROLE.CAPTURE;
         }
       },
     );

@@ -3,6 +3,7 @@ import 'package:relax/generated/json/base/json_convert_content.dart';
 class DriverOfferEntity with JsonConvert<DriverOfferEntity> {
   String uid;
   String client_Id;
+  int customer_id;
   String offer_id;
   String offer_status; // default 0
   String from_address;

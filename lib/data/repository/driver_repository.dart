@@ -8,6 +8,7 @@ import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/driver_info_entity.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/login_entity.dart';
+import 'package:relax/data/model/request_info_entity.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/res/text_styles.dart';
@@ -28,7 +29,6 @@ class DriverRepository {
   ) as FirebaseApp;
   final FirebaseStorage storage = FirebaseStorage(app: app, storageBucket: 'gs://smartway24-30c7d.appspot.com/');
   static final CollectionReference driverInfoCollection = Firestore.instance.collection('driverInfos');
-  static final CollectionReference driverOfferCollection = Firestore.instance.collection('driverOffer');
   static final LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
 
   static Future uploadFile(File image, Type type) async {
@@ -100,8 +100,18 @@ class DriverRepository {
         }
       },
     );*/
+    final CollectionReference driverOfferCollection = Firestore.instance.collection('driverOffer');
     data.created_at = DateTime.now();
+    data.customer_id = user.customer_id;
     driverOfferCollection.add(data.toJson());
+    return;
+  }
+
+  static Future addRequestPool(RequestInfo data) async {
+    CollectionReference requestCollection = Firestore.instance.collection('requestPool');
+    data.created_at = DateTime.now();
+    data.customer_id = user.customer_id;
+    requestCollection.add(data.toJson());
     return;
   }
 

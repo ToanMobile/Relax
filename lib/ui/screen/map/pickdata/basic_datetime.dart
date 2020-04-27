@@ -2,6 +2,7 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:relax/common/constant.dart';
 import 'package:relax/ui/widget/app_bar.dart';
 
 class MyDateTimePage extends StatefulWidget {
@@ -17,7 +18,6 @@ class MyDateTimePage extends StatefulWidget {
 
 class MyDateTimePageState extends State<MyDateTimePage> {
   final formKey1 = GlobalKey<FormState>();
-  final format = DateFormat("yyyy-MM-dd HH:mm");
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class MyDateTimePageState extends State<MyDateTimePage> {
       );
 
   Widget buildDateTimeField() => DateTimeField(
-    format: format,
+    format: Constant.format,
     initialValue: widget.selectedTime != null ? widget.selectedTime : DateTime.now(),
     onShowPicker: (context, currentValue) async {
       final date = await showDatePicker(
