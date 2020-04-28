@@ -73,6 +73,15 @@ requestInfoFromJson(RequestInfo data, Map<String, dynamic> json) {
 	if(json['created_at'] != null){
 		data.created_at = DateTime.tryParse(json['created_at']);
 	}
+	if (json['guest_Name'] != null) {
+		data.guest_Name = json['guest_Name']?.toString();
+	}
+	if (json['guest_Address'] != null) {
+		data.guest_Address = json['guest_Address']?.toString();
+	}
+	if (json['guest_Phone'] != null) {
+		data.guest_Phone = json['guest_Phone']?.toString();
+	}
 	return data;
 }
 
@@ -102,5 +111,8 @@ Map<String, dynamic> requestInfoToJson(RequestInfo entity) {
 	data['countOfparcels'] = entity.countOfparcels;
 	data['distance'] = entity.distance;
 	data['created_at'] = entity.created_at?.toString();
+	data['guest_Name'] = entity.guest_Name;
+	data['guest_Address'] = entity.guest_Address;
+	data['guest_Phone'] = entity.guest_Phone;
 	return data;
 }

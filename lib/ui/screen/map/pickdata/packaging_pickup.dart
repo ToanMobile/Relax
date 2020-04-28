@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:relax/res/image.dart';
 
 class PackagingPickup extends StatefulWidget {
-  final Function(PackagingItem) onPackagingselected;
+  final Function(PackagingItem) onPackagingSelected;
 
-  PackagingPickup(this.onPackagingselected);
+  PackagingPickup(this.onPackagingSelected);
 
   @override
   _PackagingPickupState createState() => _PackagingPickupState();
@@ -41,13 +40,13 @@ class _PackagingPickupState extends State<PackagingPickup> {
   @override
   Widget build(BuildContext context) {
     PackagingList();
-    final PackagingItems = PackagingList.getPackagingList();
+    final packagingItems = PackagingList.getPackagingList();
     return Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(backgroundColor: Colors.brown[400], elevation: 0.0, title: Text('select one packaging')),
         body: Container(
             child: ListView.builder(
-                itemCount: PackagingItems.length,
+                itemCount: packagingItems.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(top: 10.0),
@@ -59,20 +58,20 @@ class _PackagingPickupState extends State<PackagingPickup> {
                               onPressed: () {
                                 print("on click");
                                 Navigator.of(context).pop();
-                                widget.onPackagingselected(PackagingItems.elementAt(index));
+                                widget.onPackagingSelected(packagingItems.elementAt(index));
                               },
                               child: ListTile(
                                 leading: CircleAvatar(
                                   radius: 25.0,
                                   backgroundColor: ColorsUtils.offWhite,
-                                  child: Image.asset(PackagingItems.elementAt(index).assetsName),
+                                  child: Image.asset(packagingItems.elementAt(index).assetsName),
                                 ),
                                 title: Text(
-                                  PackagingItems.elementAt(index).name,
+                                  packagingItems.elementAt(index).name,
                                   style: TextStyle(fontSize: 18, color: Color(0xff323643)),
                                 ),
                                 subtitle: Text(
-                                  PackagingItems.elementAt(index).pricePerKM.toString() + ' Eur/km',
+                                  packagingItems.elementAt(index).pricePerKM.toString() + ' Eur/km',
                                   style: TextStyle(fontSize: 14, color: Color(0xff323643)),
                                 ),
                               ))),

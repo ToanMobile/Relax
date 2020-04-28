@@ -65,5 +65,8 @@
   "fieldNotNull": "not empty",
   "noAccount": "No Account ? ",
 
-  "createNew": "Create New"
+  "createNew": "Create New",
+  "send_data_ok": "Send data complete!",
+  "send_data_input": "Please input data!",
+  "send_data_error": "Send data error"
 }

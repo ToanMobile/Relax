@@ -84,7 +84,7 @@ class ViewStateModel with ChangeNotifier {
 
   showErrorMessage(context, {String message}) {
     if (viewStateError != null || message != null) {
-      if (viewStateError.isNetworkError) {
+      if (viewStateError != null && viewStateError.isNetworkError) {
         message ??= S.of(context).viewStateMessageNetworkError;
       } else {
         message ??= viewStateError.message;

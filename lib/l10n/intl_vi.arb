@@ -66,5 +66,8 @@
   "fieldNotNull": "không trống",
   "noAccount": "Không tìm thấy tài khoản?",
 
-  "createNew": "Tạo mới"
+  "createNew": "Tạo mới",
+  "send_data_ok": "Gửi thành công!",
+  "send_data_input": "Mời nhập đầy đủ thông tin!",
+  "send_data_error": "Gửi bị lỗi"
 }

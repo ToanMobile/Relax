@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
@@ -7,9 +8,10 @@ import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/map_repository.dart';
-import 'package:relax/res/text_styles.dart';
+import 'package:relax/generated/l10n.dart';
 import 'package:relax/ui/screen/map/pickdata/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
+import 'package:relax/ui/widget/bottomsheet_widget.dart';
 import 'package:relax/viewmodel/driver_model.dart';
 import 'package:relax/viewmodel/home_model.dart';
 import 'package:stacked/stacked.dart';
@@ -47,7 +49,7 @@ class MapState extends State<MapPage> {
         return Scaffold(
           key: _scaffoldKey,
           appBar: AppBarIcon.drawer(
-            title: 'Relax App',
+            title: S.of(context).appName,
             isCenter: true,
             cb: () {
               _scaffoldKey.currentState.openDrawer();
@@ -73,59 +75,9 @@ class MapState extends State<MapPage> {
           drawer: Drawer(
             child: HomeMenu(),
           ),
-          floatingActionButton: buildFloatButton(model),
+          floatingActionButton: MyFloatingButton(widget.role, model, driverOfferEntity, requestPool),
         );
       },
-    );
-  }
-
-  Widget buildFloatButton(DriverModel model) {
-    Widget child;
-    if (model.busy) {
-      child = Icon(Icons.send);
-    } else {
-      child = Icon(Icons.send);
-    }
-    return FloatingActionButton(
-      onPressed: () async {
-        if (widget.role == ROLE.DRIVER) {
-          print('DRIVER==' + driverOfferEntity.toString());
-          await model.addDriverOffer(driverOfferEntity).then((value) {
-            if (value) {
-              print('Done');
-              _scaffoldKey.currentState.showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Send data complete!',
-                    style: TextStylesUtils.styleMedium20White,
-                  ),
-                ),
-              );
-            } else {
-              model.showErrorMessage(context);
-            }
-          });
-        } else if (widget.role == ROLE.SHIPPER) {
-          print('SHIPPER==' + requestPool.toString());
-          await model.addRequestPool(requestPool).then((value) {
-            if (value) {
-              print('Done');
-              _scaffoldKey.currentState.showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Send data complete!',
-                    style: TextStylesUtils.styleMedium20White,
-                  ),
-                ),
-              );
-            } else {
-              model.showErrorMessage(context);
-            }
-          });
-        }
-      },
-      child: child,
-      backgroundColor: Colors.pink,
     );
   }
 
@@ -259,6 +211,68 @@ class MapState extends State<MapPage> {
     setState(() {
       _polylines[id] = polyline;
       _polylineCount++;
+    });
+  }
+}
+
+class MyFloatingButton extends StatefulWidget {
+  final DriverOfferEntity driverOfferEntity;
+  final RequestInfo requestPool;
+  final DriverModel model;
+  final ROLE role;
+
+  MyFloatingButton(this.role, this.model, this.driverOfferEntity, this.requestPool);
+
+  @override
+  _MyFloatingButtonState createState() => _MyFloatingButtonState();
+}
+
+class _MyFloatingButtonState extends State<MyFloatingButton> {
+  bool _show = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return _show
+        ? FloatingActionButton(
+            onPressed: () async {
+              if (widget.role == ROLE.DRIVER) {
+                print('DRIVER==' + widget.driverOfferEntity.toString());
+                await widget.model.addDriverOffer(widget.driverOfferEntity).then(
+                  (value) {
+                    if (value) {
+                      print('Done');
+                      widget.model.showErrorMessage(context, message: S.of(context).send_data_ok);
+                      Navigator.of(context).pop();
+                    } else {
+                      widget.model.showErrorMessage(context);
+                    }
+                  },
+                );
+              } else if (widget.role == ROLE.SHIPPER) {
+                print('SHIPPER==' + widget.requestPool.toString());
+                var sheetController = showBottomSheet(
+                  context: context,
+                  builder: (context) => BottomSheetWidget(widget.model, widget.requestPool),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  backgroundColor: Colors.white,
+                );
+                _showButton(false);
+                sheetController.closed.then((value) {
+                  _showButton(true);
+                });
+              }
+            },
+            child: Icon(Icons.send),
+            backgroundColor: Colors.pink,
+          )
+        : Container();
+  }
+
+  void _showButton(bool value) {
+    setState(() {
+      _show = value;
     });
   }
 }

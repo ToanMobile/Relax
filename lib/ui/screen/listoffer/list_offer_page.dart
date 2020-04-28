@@ -151,7 +151,7 @@ class ListOfferState extends State<ListOfferPage> {
         ? Container(
             height: 150.h,
             child: Center(
-              child: ButtonProgressIndicator(),
+              child: ButtonProgressIndicator(color: ColorsUtils.fadedRed,),
             ),
           )
         : Expanded(

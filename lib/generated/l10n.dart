@@ -620,6 +620,33 @@ class S {
       args: [],
     );
   }
+
+  String get send_data_ok {
+    return Intl.message(
+      'Send data complete!',
+      name: 'send_data_ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get send_data_input {
+    return Intl.message(
+      'Please input data!',
+      name: 'send_data_input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get send_data_error {
+    return Intl.message(
+      'Send data error',
+      name: 'send_data_error',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

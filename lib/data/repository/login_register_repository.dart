@@ -17,7 +17,10 @@ class LoginRegisterRepository {
     AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
     FirebaseUser user = result.user ?? null;
     await infoCollection.document(user.uid).get().then((value) {
-      saveUser(user.uid, email, value.data, true);
+      LoginEntity loginEntity = LoginEntity().fromJson(value.data);
+      loginEntity.uid = user.uid;
+      StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
+      StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
     });
   }
 
@@ -74,23 +77,6 @@ class LoginRegisterRepository {
     printLog('register:loginEntity=' + loginEntity.toString());
     StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
     StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
-  }
-
-  static saveUser(String uid, String email, Map<String, dynamic> snapshot, bool isSave) {
-    printLog(snapshot);
-    LoginEntity loginEntity = LoginEntity();
-    loginEntity.uid = uid;
-    loginEntity.email = email;
-    loginEntity.address = snapshot['address'];
-    loginEntity.name = snapshot['name'];
-    loginEntity.role = snapshot['role'];
-    loginEntity.tel = snapshot['tel'];
-    if (isSave) {
-      StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
-      StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
-    }
-    //printLog('saveUser=$loginEntity');
-    return loginEntity;
   }
 
   static Future logout() async {
