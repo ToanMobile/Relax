@@ -36,8 +36,10 @@ class LoginRegisterRepository {
           } else if (role == Constant.role_shipper_driver) {
             data = ROLE.DRIVER_SHIPPER;
           }
-        } else {
+        } else if (role != Constant.role_shipper) {
           data = ROLE.CAPTURE;
+        } else {
+          data = ROLE.SHIPPER;
         }
       },
     );

@@ -42,7 +42,7 @@ class Router {
       case RouteName.list_offer:
         return FadeRouteBuilder(ListOfferPage());
       case RouteName.offer_details:
-        return FadeRouteBuilder(OfferDetailsPage());
+        return FadeRouteBuilder(OfferDetailsPage(offerInfoEntity: settings.arguments));
       case RouteName.capture:
         return FadeRouteBuilder(CapturePage());
       case RouteName.driver:

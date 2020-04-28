@@ -7,6 +7,7 @@ import 'package:relax/data/model/offer_info_entity.dart';
 import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
+import 'package:relax/provider/view_state_widget.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
@@ -97,30 +98,34 @@ class ListOfferState extends State<ListOfferPage> {
             radius: 10,
             gradientColor: Constant.gradient_WaterMelon_Melon,
             text: Text(S.of(context).createNew, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
-            cb: () async {
-              SchedulerBinding.instance.addPostFrameCallback((_) {});
-              await model.checkRegisterDriver().then((value) {
-                switch (value) {
-                  case ROLE.CAPTURE:
-                    Navigator.popAndPushNamed(context, RouteName.capture);
-                    break;
-                  case ROLE.DRIVER:
-                    Navigator.popAndPushNamed(context, RouteName.driver);
-                    break;
-                  case ROLE.SHIPPER:
-                    Navigator.popAndPushNamed(context, RouteName.shipper);
-                    break;
-                  case ROLE.DRIVER_SHIPPER:
-                    selectShipperOrDriver(context);
-                    break;
-                  case ROLE.ERROR:
-                    break;
-                }
-              });
+            cb: () {
+              actionCreate(model);
             },
           ),
         ),
       );
+
+  Future actionCreate(HomeModel model) async {
+    SchedulerBinding.instance.addPostFrameCallback((_) {});
+    await model.checkRegisterDriver().then((value) {
+      switch (value) {
+        case ROLE.CAPTURE:
+          Navigator.popAndPushNamed(context, RouteName.capture);
+          break;
+        case ROLE.DRIVER:
+          Navigator.popAndPushNamed(context, RouteName.driver);
+          break;
+        case ROLE.SHIPPER:
+          Navigator.popAndPushNamed(context, RouteName.shipper);
+          break;
+        case ROLE.DRIVER_SHIPPER:
+          selectShipperOrDriver(context);
+          break;
+        case ROLE.ERROR:
+          break;
+      }
+    });
+  }
 
   selectShipperOrDriver(BuildContext context) async {
     final _select = CupertinoActionSheet(
@@ -151,30 +156,34 @@ class ListOfferState extends State<ListOfferPage> {
         ? Container(
             height: 150.h,
             child: Center(
-              child: ButtonProgressIndicator(color: ColorsUtils.fadedRed,),
+              child: ButtonProgressIndicator(
+                color: ColorsUtils.fadedRed,
+              ),
             ),
           )
         : Expanded(
             flex: 1,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 32.w),
-              width: ScreenUtil.screenWidthDp,
-              height: 1200.h,
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: listOffer != null ? listOffer.length : 0,
-                itemBuilder: (context, index) {
-                  if (listOffer.length > 0) {
-                    return InkWell(
-                      child: buildListItem(listOffer, index, model.getRole),
-                      onTap: () => Navigator.popAndPushNamed(context, RouteName.offer_details),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
-            ),
+            child: listOffer.length > 0
+                ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: 32.w),
+                    width: ScreenUtil.screenWidthDp,
+                    height: 1200.h,
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: listOffer != null ? listOffer.length : 0,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          child: buildListItem(listOffer, index, model.getRole),
+                          onTap: () => Navigator.popAndPushNamed(context, RouteName.offer_details, arguments: listOffer[index]),
+                        );
+                      },
+                    ),
+                  )
+                : ViewStateEmptyWidget(
+                    onPressed: () {
+                      actionCreate(model);
+                    },
+                  ),
           );
     return child;
   }

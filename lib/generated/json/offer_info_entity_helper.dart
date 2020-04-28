@@ -31,6 +31,15 @@ offerInfoEntityFromJson(OfferInfoEntity data, Map<String, dynamic> json) {
 	if(json['pickup_Time'] != null){
 		data.pickup_Time = DateTime.tryParse(json['pickup_Time']);
 	}
+	if (json['guest_Name'] != null) {
+		data.guest_Name = json['guest_Name']?.toString();
+	}
+	if (json['guest_Address'] != null) {
+		data.guest_Address = json['guest_Address']?.toString();
+	}
+	if (json['guest_Phone'] != null) {
+		data.guest_Phone = json['guest_Phone']?.toString();
+	}
 	return data;
 }
 
@@ -46,5 +55,8 @@ Map<String, dynamic> offerInfoEntityToJson(OfferInfoEntity entity) {
 	data['pickup_Address'] = entity.pickup_Address;
 	data['drop_Address'] = entity.drop_Address;
 	data['pickup_Time'] = entity.pickup_Time?.toString();
+	data['guest_Name'] = entity.guest_Name;
+	data['guest_Address'] = entity.guest_Address;
+	data['guest_Phone'] = entity.guest_Phone;
 	return data;
 }

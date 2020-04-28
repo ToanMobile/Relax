@@ -18,6 +18,8 @@ class HomeModel extends ViewStateModel {
 
   int get getRole => _loginEntity != null ? _loginEntity.role : 0;
 
+  LoginEntity get user => _loginEntity != null ? _loginEntity : null;
+
   HomeModel() {
     _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
   }

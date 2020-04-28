@@ -30,21 +30,24 @@ class HomeRepository {
   static Future<List<OfferInfoEntity>> getListOffer(int role) async {
     List<OfferInfoEntity> list = List();
     LoginEntity user = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
+    printLog(user.toString());
     if (role == Constant.role_shipper) {
       await shipperCollection.getDocuments().then((value) {
-        value.documents.map((e) {
-          printLog(e.data.toString());
+        value.documents.forEach((e) {
           if (e.data != null && e.data['customer_id'] == user.customer_id) {
+            printLog(e.data.toString());
             list.add(OfferInfoEntity().fromJson(e.data));
           }
         });
       });
     } else if (role == Constant.role_driver) {
-      await driverOfferCollection.document(user.uid).get().then((value) {
-        printLog(value.data.toString());
-        if (value.data != null) {
-          list.add(OfferInfoEntity().fromJson(value.data));
-        }
+      await driverOfferCollection.getDocuments().then((value) {
+        value.documents.forEach((e) {
+          if (e.data != null && e.data['customer_id'] == user.customer_id) {
+            printLog(e.data.toString());
+            list.add(OfferInfoEntity().fromJson(e.data));
+          }
+        });
       });
     } else if (role == Constant.role_shipper_driver) {
       await shipperCollection.getDocuments().then((value) {
