@@ -108,7 +108,7 @@ class _CheckCodeState extends State<CheckCodePage> {
         await model.checkCode(_codeController.text).then((value) async {
           if (value) {
             await model.addDriverInfo(widget.driverEntity);
-            Navigator.pushReplacementNamed(context, RouteName.driver, arguments: widget.driverEntity);
+            Navigator.pushReplacementNamed(context, RouteName.driver);
           } else {
             model.showErrorMessage(context, message: 'Code not match');
           }

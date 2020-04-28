@@ -64,8 +64,8 @@ class _PackagingPickupState extends State<PackagingPickup> {
                               child: ListTile(
                                 leading: CircleAvatar(
                                   radius: 25.0,
-                                  backgroundColor: Colors.brown[200],
-                                  backgroundImage: AssetImage(PackagingItems.elementAt(index).assetsName),
+                                  backgroundColor: ColorsUtils.offWhite,
+                                  child: Image.asset(PackagingItems.elementAt(index).assetsName),
                                 ),
                                 title: Text(
                                   PackagingItems.elementAt(index).name,

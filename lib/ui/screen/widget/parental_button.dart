@@ -10,12 +10,14 @@ class ContainerParental extends StatefulWidget {
   final Color bgColor;
   final Color bgColorFocus;
   final bool isCenter;
+  final String image;
   final double size;
   final VoidCallback cb;
 
   ContainerParental(
       {this.size = 100,
       this.title = '',
+      this.image,
       this.isCenter = true,
       this.cb,
       this.textStyle,
@@ -64,7 +66,7 @@ class ContainerParentalState extends State<ContainerParental> {
       decoration: BoxDecoration(
         color: _focusNode.hasFocus ? widget.bgColorFocus : widget.bgColor,
         shape: BoxShape.circle,
-        image: new DecorationImage(fit: BoxFit.fill, image: new NetworkImage("path to your image")),
+        image: DecorationImage(fit: BoxFit.fill, image: NetworkImage(widget.image)),
         border: Border.all(color: ColorsUtils.white),
       ),
       child: Center(

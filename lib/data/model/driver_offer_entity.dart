@@ -17,4 +17,10 @@ class DriverOfferEntity with JsonConvert<DriverOfferEntity> {
   int vehicle_id;
   String vehicle_name;
   DateTime created_at;
+
+  @override
+  String toString() {
+    return 'DriverOfferEntity{uid: $uid, client_Id: $client_Id, customer_id: $customer_id, offer_id: $offer_id, offer_status: $offer_status, from_address: $from_address, from_lat: $from_lat, from_lon: $from_lon, to_address: $to_address, to_lat: $to_lat, to_lon: $to_lon, from_workingtime: $from_workingtime, to_workingtime: $to_workingtime, vehicle_id: $vehicle_id, vehicle_name: $vehicle_name, created_at: $created_at}';
+  }
+
 }

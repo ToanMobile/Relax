@@ -25,7 +25,7 @@ class ListOfferState extends State<ListOfferPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsUtils.offWhite,
+      backgroundColor: ColorsUtils.white,
       body: ViewModelBuilder<HomeModel>.reactive(
         viewModelBuilder: () => HomeModel(),
         onModelReady: (model) => model.getListOffer(),
@@ -184,103 +184,110 @@ class ListOfferState extends State<ListOfferPage> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
-        color: isDriver ? ColorsUtils.watermelon : ColorsUtils.lightishBlue,
+        color: isDriver ? ColorsUtils.bg_driver : ColorsUtils.bg_shipper,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(.4),
+            blurRadius: 20.0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset: Offset(
+              5.0, // Move to right 10  horizontally
+              5.0, // Move to bottom 10 Vertically
+            ),
+          )
+        ],
       ),
       width: double.infinity,
-      height: 480.h,
+      height: 380.h,
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.location_on,
-                    color: ColorsUtils.coralPink,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Flexible(
-                    child: Text(
-                      isDriver ? listOffer[index].from_address ?? "" : listOffer[index].pickup_Address ?? "",
-                      textAlign: TextAlign.left,
-                      softWrap: true,
-                      style: TextStylesUtils.styleRegular14BlackW400,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.timer,
-                    color: ColorsUtils.coralPink,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    isDriver
-                        ? listOffer[index].from_workingtime != null ? Constant.format.format(listOffer[index].from_workingtime) : "00-00-00"
-                        : listOffer[index].pickup_Time != null ? Constant.format.format(listOffer[index].pickup_Time) : "00-00-00",
-                    textAlign: TextAlign.center,
-                    style: TextStylesUtils.styleRegular14BlackW400,
-                  ),
-                ],
+              Icon(
+                Icons.location_on,
+                color: ColorsUtils.coralPink,
+                size: 20,
               ),
               SizedBox(
-                height: 30.h,
+                width: 10.w,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.location_off,
-                    color: ColorsUtils.coralPink,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Flexible(
-                    child: Text(
-                      isDriver ? listOffer[index].to_address ?? "" : listOffer[index].drop_Address ?? "",
-                      textAlign: TextAlign.left,
-                      softWrap: true,
-                      style: TextStylesUtils.styleRegular14BlackW400,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.timer_off,
-                    color: ColorsUtils.coralPink,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    listOffer[index].to_workingtime != null ? Constant.format.format(listOffer[index].to_workingtime) : "00-00-00",
-                    textAlign: TextAlign.center,
-                    style: TextStylesUtils.styleRegular14BlackW400,
-                  ),
-                ],
+              Flexible(
+                child: Text(
+                  isDriver ? listOffer[index].from_address ?? "" : listOffer[index].pickup_Address ?? "",
+                  textAlign: TextAlign.left,
+                  softWrap: true,
+                  style: TextStylesUtils.styleRegular14BlackW400,
+                ),
               ),
             ],
-          )
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.timer,
+                color: ColorsUtils.coralPink,
+                size: 20,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Text(
+                isDriver
+                    ? listOffer[index].from_workingtime != null ? Constant.format.format(listOffer[index].from_workingtime) : "00-00-00"
+                    : listOffer[index].pickup_Time != null ? Constant.format.format(listOffer[index].pickup_Time) : "00-00-00",
+                textAlign: TextAlign.center,
+                style: TextStylesUtils.styleRegular14BlackW400,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 30.h,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.location_off,
+                color: ColorsUtils.coralPink,
+                size: 20,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Flexible(
+                child: Text(
+                  isDriver ? listOffer[index].to_address ?? "" : listOffer[index].drop_Address ?? "",
+                  textAlign: TextAlign.left,
+                  softWrap: true,
+                  style: TextStylesUtils.styleRegular14BlackW400,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.timer_off,
+                color: ColorsUtils.coralPink,
+                size: 20,
+              ),
+              SizedBox(
+                width: 10.w,
+              ),
+              Text(
+                listOffer[index].to_workingtime != null ? Constant.format.format(listOffer[index].to_workingtime) : "00-00-00",
+                textAlign: TextAlign.center,
+                style: TextStylesUtils.styleRegular14BlackW400,
+              ),
+            ],
+          ),
         ],
       ),
     );

@@ -101,8 +101,10 @@ class DriverRepository {
       },
     );*/
     final CollectionReference driverOfferCollection = Firestore.instance.collection('driverOffer');
+    data.uid = user.uid;
     data.created_at = DateTime.now();
     data.customer_id = user.customer_id;
+    printLog(data.toString());
     driverOfferCollection.add(data.toJson());
     return;
   }
@@ -111,6 +113,7 @@ class DriverRepository {
     CollectionReference requestCollection = Firestore.instance.collection('requestPool');
     data.created_at = DateTime.now();
     data.customer_id = user.customer_id;
+    printLog(data.toString());
     requestCollection.add(data.toJson());
     return;
   }

@@ -3,6 +3,7 @@ import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
+import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/map/pickdata/ride_picker_page.dart';
 import 'package:relax/ui/screen/widget/container_button.dart';
@@ -16,7 +17,7 @@ class RidePicker extends StatefulWidget {
   final Function(PackagingItem) onPacked;
   final Function(DateTime, bool) onSelectedTime;
   final Function(VehicleEntity) onSelectedVehicle;
-  bool isDriver;
+  bool isDriver = false;
 
   RidePicker(this.isDriver, this.onSelected, this.onPacked, this.onSelectedTime, this.onSelectedVehicle);
 
@@ -59,7 +60,7 @@ class _RidePickerState extends State<RidePicker> {
         }
         return Container(
           width: double.infinity,
-          height: widget.isDriver ? 600.h : 400.h,
+          height: widget.isDriver ? 650.h : 420.h,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
@@ -70,46 +71,51 @@ class _RidePickerState extends State<RidePicker> {
                   blurRadius: 5.0,
                 ),
               ]),
-          child: Column(
-            children: <Widget>[
-              ContainerButton(
-                isExpanded: true,
-                isCenter: false,
-                title: fromAddress == null ? "FromLocation" : fromAddress.name,
-                textStyle: TextStylesUtils.styleRegular14BlackW400,
-                cb: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => RidePickerPage(fromAddress == null ? "" : fromAddress.name, (place, isFrom) {
-                        widget.onSelected(place, isFrom);
-                        fromAddress = place;
-                        setState(() {});
-                      }, true),
-                    ),
-                  );
-                },
-              ),
-              Divider(),
-              ContainerButton(
-                isExpanded: true,
-                isCenter: false,
-                title: toAddress == null ? "ToLocation" : toAddress.name,
-                textStyle: TextStylesUtils.styleRegular14BlackW400,
-                cb: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => RidePickerPage(toAddress == null ? '' : toAddress.name, (place, isFrom) {
-                        widget.onSelected(place, isFrom);
-                        toAddress = place;
-                        setState(() {});
-                      }, false),
-                    ),
-                  );
-                },
-              ),
-              Divider(),
-              buildWidgetRole()
-            ],
+          child: Padding(
+            padding: EdgeInsets.all(20.w),
+            child: Column(
+              children: <Widget>[
+                ContainerButton(
+                  isExpanded: true,
+                  isCenter: false,
+                  title: fromAddress == null ? "FromLocation" : fromAddress.name,
+                  textStyle: TextStylesUtils.styleRegular14BlackW400,
+                  cb: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            RidePickerPage(fromAddress == null ? "" : fromAddress.name, (place, isFrom) {
+                              widget.onSelected(place, isFrom);
+                              fromAddress = place;
+                              setState(() {});
+                            }, true),
+                      ),
+                    );
+                  },
+                ),
+                Divider(),
+                ContainerButton(
+                  isExpanded: true,
+                  isCenter: false,
+                  title: toAddress == null ? "ToLocation" : toAddress.name,
+                  textStyle: TextStylesUtils.styleRegular14BlackW400,
+                  cb: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            RidePickerPage(toAddress == null ? '' : toAddress.name, (place, isFrom) {
+                              widget.onSelected(place, isFrom);
+                              toAddress = place;
+                              setState(() {});
+                            }, false),
+                      ),
+                    );
+                  },
+                ),
+                Divider(),
+                buildWidgetRole()
+              ],
+            ),
           ),
         );
       },
@@ -118,109 +124,112 @@ class _RidePickerState extends State<RidePicker> {
 
   Widget buildWidgetRole() {
     if (widget.isDriver) {
-      return Column(
-        children: [
-          ContainerButton(
-            isExpanded: true,
-            isCenter: false,
-            title: fromTime == null ? "FromTime" : Constant.format.format(fromTime),
-            textStyle: TextStylesUtils.styleRegular14BlackW400,
-            cb: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => MyDateTimePage(fromTime == null ? DateTime.now() : fromTime, (datetime, isFrom) {
-                    widget.onSelectedTime(datetime, isFrom);
-                    fromTime = datetime;
-                    setState(() {});
-                  }, true),
-                ),
-              );
-            },
-          ),
-          Divider(),
-          ContainerButton(
-            isExpanded: true,
-            isCenter: false,
-            title: toTime == null ? "ToTime" : Constant.format.format(toTime),
-            textStyle: TextStylesUtils.styleRegular14BlackW400,
-            cb: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => MyDateTimePage(toTime == null ? DateTime.now() : toTime, (datetime, isFrom) {
-                    widget.onSelectedTime(datetime, isFrom);
-                    toTime = datetime;
-                    setState(() {});
-                  }, false),
-                ),
-              );
-            },
-          ),
-          Divider(),
-          Container(
-            padding: EdgeInsets.only(left: 50.w),
-            alignment: Alignment.centerLeft,
-            child: DropdownButton(
-              hint: Text(
-                'Selected Vehicle',
-                style: TextStylesUtils.styleRegular12PinkishOrangeW600,
-              ),
-              value: _currentVehicle,
-              items: _dropDownMenuItems,
-              onChanged: (vehicle) {
-                print("Selected city ${vehicle.toString()}, we are going to refresh the UI");
-                setState(
-                  () {
-                    if (vehicle != null) {
-                      _currentVehicle = vehicle;
-                      widget.onSelectedVehicle(_currentVehicle);
-                    }
-                  },
+      return Container(
+        width: double.infinity,
+        height: 380.h,
+        child: Column(
+          children: [
+            ContainerButton(
+              isExpanded: true,
+              isCenter: false,
+              title: fromTime == null ? "FromTime" : Constant.format.format(fromTime),
+              textStyle: TextStylesUtils.styleRegular14BlackW400,
+              cb: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        MyDateTimePage(fromTime == null ? DateTime.now() : fromTime, (datetime, isFrom) {
+                          widget.onSelectedTime(datetime, isFrom);
+                          fromTime = datetime;
+                          setState(() {});
+                        }, true),
+                  ),
                 );
               },
             ),
-          )
-        ],
-      );
-    } else {
-      return Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 40,
-            child: FlatButton(
-              onPressed: () {
+            Divider(),
+            ContainerButton(
+              isExpanded: true,
+              isCenter: false,
+              title: toTime == null ? "ToTime" : Constant.format.format(toTime),
+              textStyle: TextStylesUtils.styleRegular14BlackW400,
+              cb: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => PackagingPickup(
-                      (_packaging) {
+                    builder: (context) =>
+                        MyDateTimePage(toTime == null ? DateTime.now() : toTime, (datetime, isFrom) {
+                          widget.onSelectedTime(datetime, isFrom);
+                          toTime = datetime;
+                          setState(() {});
+                        }, false),
+                  ),
+                );
+              },
+            ),
+            Divider(),
+            Container(
+              padding: EdgeInsets.only(left: 50.w),
+              alignment: Alignment.centerLeft,
+              child: DropdownButton(
+                hint: Text(
+                  'Selected Vehicle',
+                  style: TextStylesUtils.styleRegular12PinkishOrangeW600,
+                ),
+                value: _currentVehicle,
+                items: _dropDownMenuItems,
+                onChanged: (vehicle) {
+                  print("Selected city ${vehicle.toString()}, we are going to refresh the UI");
+                  setState(
+                        () {
+                      if (vehicle != null) {
+                        _currentVehicle = vehicle;
+                        widget.onSelectedVehicle(_currentVehicle);
+                      }
+                    },
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        width: double.infinity,
+        height: 100.h,
+        child: FlatButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    PackagingPickup(
+                          (_packaging) {
                         widget.onPacked(_packaging);
                         selectedPackaging = _packaging;
                         setState(() {});
                       },
                     ),
-                  ),
-                );
-              },
-              child: SizedBox(
-                width: double.infinity,
-                height: double.infinity,
-                child: Stack(
-                  alignment: AlignmentDirectional.centerStart,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 40, right: 50),
-                      child: Text(
-                        selectedPackaging == null ? "packaging" : selectedPackaging.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 16, color: Color(0xff323643)),
-                      ),
-                    )
-                  ],
-                ),
               ),
-            ),
+            );
+          },
+          child: Row(
+            children: <Widget>[
+              CircleAvatar(
+                radius: 18.0,
+                backgroundColor: ColorsUtils.offWhite,
+                child: selectedPackaging != null ? Image.asset(selectedPackaging.assetsName, height: 30, width: 30,) : Container(),
+              ),
+              SizedBox(
+                width: 30.w,
+              ),
+              Text(
+                selectedPackaging == null ? "packaging" : selectedPackaging.name,
+                overflow: TextOverflow.ellipsis,
+                style: TextStylesUtils.styleMedium18Black,
+              )
+            ],
           ),
-        ],
+        ),
       );
     }
   }

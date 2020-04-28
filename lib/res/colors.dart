@@ -84,4 +84,6 @@ class ColorsUtils {
   static const menuCategory = const Color(0xFFC7C7C7);
   static const textSelect = const Color(0xFFB6BAC5);
   static const textSelectDark = const Color(0xFF58565F);
+  static const bg_shipper = const Color(0xFFE1F5FE);
+  static const bg_driver = const Color(0xFFFCE4EC);
 }

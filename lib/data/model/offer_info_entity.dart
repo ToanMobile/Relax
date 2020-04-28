@@ -5,6 +5,7 @@ class OfferInfoEntity with JsonConvert<OfferInfoEntity> {
   String from_address;
   String to_address;
   DateTime from_workingtime;
+
   DateTime to_workingtime;
   int vehicle_id;
   DateTime created_at;
@@ -13,4 +14,9 @@ class OfferInfoEntity with JsonConvert<OfferInfoEntity> {
   String pickup_Address;
   String drop_Address;
   DateTime pickup_Time;
+
+  @override
+  String toString() {
+    return 'OfferInfoEntity{uid: $uid, from_address: $from_address, to_address: $to_address, from_workingtime: $from_workingtime, to_workingtime: $to_workingtime, vehicle_id: $vehicle_id, created_at: $created_at, pickup_Address: $pickup_Address, drop_Address: $drop_Address, pickup_Time: $pickup_Time}';
+  }
 }
