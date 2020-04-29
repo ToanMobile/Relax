@@ -143,23 +143,23 @@ class MapState extends State<MapPage> {
     driverOfferEntity.vehicle_id = vehicle.resource_id;
   }
 
-  void _addMarker(String mkId, PlaceItemRes place) async {
+  void _addMarker(String mkId, PlaceItemRes place) {
     markers.remove(mkId);
     final String markerIdVal = mkId;
     print(place.address);
     final MarkerId markerId = MarkerId(markerIdVal);
-    final Marker marker = Marker(
-      markerId: markerId,
-      position: LatLng(place.lat, place.lng),
-      infoWindow: InfoWindow(title: place.name, snippet: place.address),
-    );
     setState(() {
-      markers[mkId] = marker;
+      markers[mkId] = Marker(
+        markerId: markerId,
+        position: LatLng(place.lat, place.lng),
+        infoWindow: InfoWindow(title: place.name, snippet: place.address),
+      );
     });
   }
 
   void _moveCamera() {
     print("move camera: ");
+    if (_mapController == null) return;
     if (markers.values.length > 1) {
       var fromLatLng = markers["from_address"].position;
       var toLatLng = markers["to_address"].position;
@@ -179,9 +179,11 @@ class MapState extends State<MapPage> {
         nLng = fromLatLng.longitude;
       }
       LatLngBounds bounds = LatLngBounds(northeast: LatLng(nLat, nLng), southwest: LatLng(sLat, sLng));
-      _mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
+      print('bounds==' + bounds.toString());
+      print('markers==' + markers.values.elementAt(0).position.toString());
+      Future.delayed(Duration(milliseconds: 200), () => _mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50)));
     } else {
-      _mapController.animateCamera(CameraUpdate.newLatLng(markers.values.elementAt(0).position));
+      Future.delayed(Duration(milliseconds: 200), () => _mapController.animateCamera(CameraUpdate.newLatLng(markers.values.elementAt(0).position)));
     }
   }
 
@@ -193,7 +195,6 @@ class MapState extends State<MapPage> {
         TripInfoRes infoRes = v2;
         _tripDistance = infoRes.distance.toDouble();
         print("distance is $_tripDistance");
-        setState(() {});
         List<StepsRes> rs = infoRes.steps;
         List<LatLng> paths = new List();
         for (var t in rs) {
@@ -213,6 +214,23 @@ class MapState extends State<MapPage> {
       _polylineCount++;
     });
   }
+}
+
+LatLngBounds boundsFromLatLngList(List<LatLng> list) {
+  assert(list.isNotEmpty);
+  double x0, x1, y0, y1;
+  for (LatLng latLng in list) {
+    if (x0 == null) {
+      x0 = x1 = latLng.latitude;
+      y0 = y1 = latLng.longitude;
+    } else {
+      if (latLng.latitude > x1) x1 = latLng.latitude;
+      if (latLng.latitude < x0) x0 = latLng.latitude;
+      if (latLng.longitude > y1) y1 = latLng.longitude;
+      if (latLng.longitude < y0) y0 = latLng.longitude;
+    }
+  }
+  return LatLngBounds(northeast: LatLng(x1, y1), southwest: LatLng(x0, y0));
 }
 
 class MyFloatingButton extends StatefulWidget {
