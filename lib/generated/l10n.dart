@@ -612,10 +612,19 @@ class S {
     );
   }
 
-  String get createNew {
+  String get createRequest {
     return Intl.message(
-      'Create New',
-      name: 'createNew',
+      'Create Request',
+      name: 'createRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get createOffer {
+    return Intl.message(
+      'Create Offer',
+      name: 'createOffer',
       desc: '',
       args: [],
     );
@@ -643,6 +652,42 @@ class S {
     return Intl.message(
       'Send data error',
       name: 'send_data_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get name_pick {
+    return Intl.message(
+      'Name pick',
+      name: 'name_pick',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get phone_pick {
+    return Intl.message(
+      'Phone pick',
+      name: 'phone_pick',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get name_drop {
+    return Intl.message(
+      'Name drop',
+      name: 'name_drop',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get phone_drop {
+    return Intl.message(
+      'Phone drop',
+      name: 'phone_drop',
       desc: '',
       args: [],
     );

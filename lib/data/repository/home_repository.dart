@@ -34,7 +34,7 @@ class HomeRepository {
     if (role == Constant.role_shipper) {
       await shipperCollection.getDocuments().then((value) {
         value.documents.forEach((e) {
-          if (e.data != null && e.data['customer_id'] == user.customer_id) {
+          if (checkData(e.data, user.customer_id)) {
             printLog(e.data.toString());
             list.add(OfferInfoEntity().fromJson(e.data));
           }
@@ -43,7 +43,7 @@ class HomeRepository {
     } else if (role == Constant.role_driver) {
       await driverOfferCollection.getDocuments().then((value) {
         value.documents.forEach((e) {
-          if (e.data != null && e.data['customer_id'] == user.customer_id) {
+          if (checkData(e.data, user.customer_id)) {
             printLog(e.data.toString());
             list.add(OfferInfoEntity().fromJson(e.data));
           }
@@ -52,7 +52,7 @@ class HomeRepository {
     } else if (role == Constant.role_shipper_driver) {
       await shipperCollection.getDocuments().then((value) {
         value.documents.forEach((e) {
-          if (e.data != null && e.data['customer_id'] == user.customer_id) {
+          if (checkData(e.data, user.customer_id)) {
             printLog(e.data.toString());
             list.add(OfferInfoEntity().fromJson(e.data));
           }
@@ -60,7 +60,7 @@ class HomeRepository {
       });
       await driverOfferCollection.getDocuments().then((value) {
         value.documents.forEach((e) {
-          if (e.data != null && e.data['customer_id'] == user.customer_id) {
+          if (checkData(e.data, user.customer_id)) {
             printLog(e.data.toString());
             list.add(OfferInfoEntity().fromJson(e.data));
           }
@@ -69,6 +69,10 @@ class HomeRepository {
     }
     printLog(list.toString());
     return list;
+  }
+
+  static bool checkData(Map<String, dynamic> snapshot, int customer_id) {
+    return snapshot != null && snapshot['customer_id'] == customer_id && (snapshot['offer_status'] == 0 || snapshot['status'] == 0);
   }
 
   static saveUser(String uid, Map<String, dynamic> snapshot, bool isSave) {

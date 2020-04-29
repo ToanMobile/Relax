@@ -4,16 +4,25 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:relax/common/constant.dart';
+import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/driver_info_entity.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
+import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/model/request_info_entity.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/driver_repository.dart';
+import 'package:relax/generated/json/base/json_convert_content.dart';
 import 'package:relax/lib/res/utils.dart';
 import 'package:relax/provider/view_state_model.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 
+import 'login_model.dart';
+
 class DriverModel extends ViewStateModel {
+  LoginEntity get getUser => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser)) != null
+      ? JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser))
+      : LoginEntity();
+
   Future<String> uploadFile(File image, Type type) async {
     try {
       setBusy();
@@ -52,7 +61,7 @@ class DriverModel extends ViewStateModel {
       if (code.trim() == Constant.check_code.toString()) {
         return true;
       }
-      setError(e,'');
+      setError(e, '');
       return false;
     }
     setError(e, '');

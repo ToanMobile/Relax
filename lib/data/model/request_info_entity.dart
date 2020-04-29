@@ -25,12 +25,9 @@ class RequestInfo with JsonConvert<RequestInfo> {
   int countOfparcels;
   double distance;
   DateTime created_at; //timestemp
-  String guest_Name;
-  String guest_Address;
-  String guest_Phone;
 
   @override
   String toString() {
-    return 'RequestInfo{client_Id: $client_Id, userid: $userid, requestId: $requestId, status: $status, fahrer_Id: $fahrer_Id, transportmittel_Id: $transportmittel_Id, pickup_Address: $pickup_Address, pickup_Lat: $pickup_Lat, pickup_Lon: $pickup_Lon, pickup_Status: $pickup_Status, pickup_Time: $pickup_Time, drop_Address: $drop_Address, drop_Lat: $drop_Lat, drop_Lon: $drop_Lon, request_Status: $request_Status, weight: $weight, hight: $hight, width: $width, length: $length, packaging_kind: $packaging_kind, customer_id: $customer_id, countOfparcels: $countOfparcels, distance: $distance, created_at: $created_at, guest_Name: $guest_Name, guest_Address: $guest_Address, guest_Phone: $guest_Phone}';
+    return 'RequestInfo{client_Id: $client_Id, userid: $userid, requestId: $requestId, status: $status, fahrer_Id: $fahrer_Id, transportmittel_Id: $transportmittel_Id, pickup_Address: $pickup_Address, pickup_Lat: $pickup_Lat, pickup_Lon: $pickup_Lon, pickup_Status: $pickup_Status, pickup_Time: $pickup_Time, drop_Address: $drop_Address, drop_Lat: $drop_Lat, drop_Lon: $drop_Lon, request_Status: $request_Status, weight: $weight, hight: $hight, width: $width, length: $length, packaging_kind: $packaging_kind, customer_id: $customer_id, countOfparcels: $countOfparcels, distance: $distance, created_at: $created_at}';
   }
 }

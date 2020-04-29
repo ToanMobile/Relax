@@ -14,7 +14,7 @@ driverOfferEntityFromJson(DriverOfferEntity data, Map<String, dynamic> json) {
 		data.offer_id = json['offer_id']?.toString();
 	}
 	if (json['offer_status'] != null) {
-		data.offer_status = json['offer_status']?.toString();
+		data.offer_status = json['offer_status']?.toInt();
 	}
 	if (json['from_address'] != null) {
 		data.from_address = json['from_address']?.toString();

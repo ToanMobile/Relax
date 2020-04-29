@@ -29,7 +29,10 @@ class ListOfferState extends State<ListOfferPage> {
       backgroundColor: ColorsUtils.white,
       body: ViewModelBuilder<HomeModel>.reactive(
         viewModelBuilder: () => HomeModel(),
-        onModelReady: (model) => model.getListOffer(),
+        onModelReady: (model) {
+          model.getListOffer();
+          model.checkRegisterDriver();
+        },
         disposeViewModel: false,
         builder: (context, model, child) {
           return Column(
@@ -44,10 +47,26 @@ class ListOfferState extends State<ListOfferPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   buildLogOut(model),
-                  SizedBox(
-                    width: 50.w,
-                  ),
-                  buildCreateOffer(model),
+                  model.roleCheck == ROLE.SHIPPER || model.roleCheck == ROLE.DRIVER_SHIPPER
+                      ? Row(
+                          children: [
+                            SizedBox(
+                              width: 50.w,
+                            ),
+                            buildCreateRequest(model)
+                          ],
+                        )
+                      : Container(),
+                  model.roleCheck == ROLE.DRIVER || model.roleCheck == ROLE.DRIVER_SHIPPER
+                      ? Row(
+                          children: [
+                            SizedBox(
+                              width: 50.w,
+                            ),
+                            buildCreateOffer(model),
+                          ],
+                        )
+                      : Container(),
                 ],
               ),
               buildListUser(model)
@@ -97,34 +116,38 @@ class ListOfferState extends State<ListOfferPage> {
           child: FilledRoundButton.withGradient(
             radius: 10,
             gradientColor: Constant.gradient_WaterMelon_Melon,
-            text: Text(S.of(context).createNew, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+            text: Text(S.of(context).createOffer, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
             cb: () {
-              actionCreate(model);
+              actionCreate(model, true);
             },
           ),
         ),
       );
 
-  Future actionCreate(HomeModel model) async {
+  Widget buildCreateRequest(HomeModel model) => Center(
+        child: Container(
+          width: 300.w,
+          height: 130.h,
+          child: FilledRoundButton.withGradient(
+            radius: 10,
+            gradientColor: Constant.gradient_WaterMelon_Melon,
+            text: Text(S.of(context).createRequest, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+            cb: () {
+              actionCreate(model, false);
+            },
+          ),
+        ),
+      );
+
+  Future actionCreate(HomeModel model, bool isDriver) async {
     SchedulerBinding.instance.addPostFrameCallback((_) {});
-    await model.checkRegisterDriver().then((value) {
-      switch (value) {
-        case ROLE.CAPTURE:
-          Navigator.popAndPushNamed(context, RouteName.capture);
-          break;
-        case ROLE.DRIVER:
-          Navigator.popAndPushNamed(context, RouteName.driver);
-          break;
-        case ROLE.SHIPPER:
-          Navigator.popAndPushNamed(context, RouteName.shipper);
-          break;
-        case ROLE.DRIVER_SHIPPER:
-          selectShipperOrDriver(context);
-          break;
-        case ROLE.ERROR:
-          break;
-      }
-    });
+    if (model.roleCheck == ROLE.CAPTURE) {
+      Navigator.popAndPushNamed(context, RouteName.capture);
+    } else if (isDriver) {
+      Navigator.popAndPushNamed(context, RouteName.driver);
+    } else {
+      Navigator.popAndPushNamed(context, RouteName.shipper);
+    }
   }
 
   selectShipperOrDriver(BuildContext context) async {
@@ -134,7 +157,6 @@ class ListOfferState extends State<ListOfferPage> {
           child: Text('Shipper'),
           onPressed: () {
             Navigator.of(context).pop();
-            Navigator.popAndPushNamed(context, RouteName.shipper);
           },
         ),
         CupertinoActionSheetAction(
@@ -181,7 +203,7 @@ class ListOfferState extends State<ListOfferPage> {
                   )
                 : ViewStateEmptyWidget(
                     onPressed: () {
-                      actionCreate(model);
+                      actionCreate(model, model.getRole == Constant.role_driver);
                     },
                   ),
           );

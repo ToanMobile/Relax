@@ -22,13 +22,11 @@ class BottomSheetWidget extends StatefulWidget {
 
 class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   final _nameController = TextEditingController();
-  final _addressController = TextEditingController();
   final _phoneController = TextEditingController();
 
   @override
   void dispose() {
     _nameController.dispose();
-    _addressController.dispose();
     _phoneController.dispose();
     super.dispose();
   }
@@ -43,39 +41,35 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          buildTextUserName(),
-          SizedBox(
-            height: 30.h,
-          ),
           LoginTextField(
-            label: S.of(context).login_username,
+            label: widget.model.getUser.name ?? S.of(context).name_pick,
             icon: Icons.person,
-            controller: _nameController,
             textInputAction: TextInputAction.next,
           ),
           SizedBox(
             height: 30.h,
           ),
-          buildTextTitleAddress(),
+          LoginTextField(
+            label: widget.model.getUser.tel ?? S.of(context).phone_pick,
+            textInputType: TextInputType.phone,
+            icon: Icons.phone,
+            textInputAction: TextInputAction.next,
+          ),
           SizedBox(
             height: 30.h,
           ),
           LoginTextField(
-            controller: _addressController,
-            label: S.of(context).login_address,
-            icon: Icons.add_location,
+            controller: _nameController,
+            label: S.of(context).name_drop,
+            icon: Icons.person,
             textInputAction: TextInputAction.done,
           ),
           SizedBox(
             height: 30.h,
           ),
-          buildTextTitlePhone(),
-          SizedBox(
-            height: 30.h,
-          ),
           LoginTextField(
             controller: _phoneController,
-            label: S.of(context).login_phone,
+            label: S.of(context).phone_drop,
             textInputType: TextInputType.phone,
             icon: Icons.phone,
             textInputAction: TextInputAction.done,
@@ -88,12 +82,6 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       ),
     );
   }
-
-  Widget buildTextUserName() => Text(S.of(context).login_username, style: TextStylesUtils.styleRegular12BrownGreyW400);
-
-  Widget buildTextTitleAddress() => Text(S.of(context).login_address, style: TextStylesUtils.styleRegular12BrownGreyW400);
-
-  Widget buildTextTitlePhone() => Text(S.of(context).login_phone, style: TextStylesUtils.styleRegular12BrownGreyW400);
 
   Widget buildButtonRequest(DriverModel model, RequestInfo requestInfo) {
     Widget child = model.busy
@@ -117,10 +105,9 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
       gradientColor: Constant.gradient_WaterMelon_Melon,
       child: child,
       cb: () async {
-        if (_nameController.text.isNotEmpty && _addressController.text.isNotEmpty && _phoneController.text.isNotEmpty) {
-          requestInfo.guest_Name = _nameController.text;
-          requestInfo.guest_Address = _addressController.text;
-          requestInfo.guest_Phone = _phoneController.text;
+        if (_nameController.text.isNotEmpty && _phoneController.text.isNotEmpty) {
+          requestInfo.pickup_Address = '${model.getUser.name};${model.getUser.tel};${requestInfo.pickup_Address}';
+          requestInfo.drop_Address = '${_nameController.text};${_phoneController.text};${requestInfo.drop_Address}';
           await model.addRequestPool(requestInfo).then((value) {
             if (value) {
               print('Done');

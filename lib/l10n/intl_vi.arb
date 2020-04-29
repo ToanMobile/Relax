@@ -66,8 +66,13 @@
   "fieldNotNull": "không trống",
   "noAccount": "Không tìm thấy tài khoản?",
 
-  "createNew": "Tạo mới",
+  "createRequest": "Tạo yêu cầu",
+  "createOffer": "Tạo ưu đãi",
   "send_data_ok": "Gửi thành công!",
   "send_data_input": "Mời nhập đầy đủ thông tin!",
-  "send_data_error": "Gửi bị lỗi"
+  "send_data_error": "Gửi bị lỗi",
+  "name_pick": "Tên người gửi",
+  "phone_pick": "ĐT người gửi",
+  "name_drop": "Tên người nhận",
+  "phone_drop": "ĐT người nhận"
 }

@@ -13,6 +13,7 @@ enum ROLE { CAPTURE, DRIVER, SHIPPER, DRIVER_SHIPPER, ERROR }
 class HomeModel extends ViewStateModel {
   LoginEntity _loginEntity;
   List<OfferInfoEntity> listOffer;
+  ROLE roleCheck;
 
   String get getName => _loginEntity != null ? _loginEntity.name : "";
 
@@ -24,11 +25,11 @@ class HomeModel extends ViewStateModel {
     _loginEntity = JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser));
   }
 
-  Future<ROLE> checkRegisterDriver() async {
+  Future checkRegisterDriver() async {
     try {
-      return await LoginRegisterRepository.checkRegisterDriver(_loginEntity.uid, getRole);
+      roleCheck = await LoginRegisterRepository.checkRegisterDriver(_loginEntity.uid, getRole);
     } catch (e, s) {
-      return ROLE.ERROR;
+      return;
     }
   }
 

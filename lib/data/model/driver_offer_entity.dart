@@ -5,7 +5,7 @@ class DriverOfferEntity with JsonConvert<DriverOfferEntity> {
   String client_Id;
   int customer_id;
   String offer_id;
-  String offer_status; // default 0
+  int offer_status = 0; // default 0
   String from_address;
   double from_lat;
   double from_lon;
@@ -22,5 +22,4 @@ class DriverOfferEntity with JsonConvert<DriverOfferEntity> {
   String toString() {
     return 'DriverOfferEntity{uid: $uid, client_Id: $client_Id, customer_id: $customer_id, offer_id: $offer_id, offer_status: $offer_status, from_address: $from_address, from_lat: $from_lat, from_lon: $from_lon, to_address: $to_address, to_lat: $to_lat, to_lon: $to_lon, from_workingtime: $from_workingtime, to_workingtime: $to_workingtime, vehicle_id: $vehicle_id, vehicle_name: $vehicle_name, created_at: $created_at}';
   }
-
 }

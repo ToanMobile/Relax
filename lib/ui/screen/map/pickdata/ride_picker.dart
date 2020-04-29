@@ -60,7 +60,7 @@ class _RidePickerState extends State<RidePicker> {
         }
         return Container(
           width: double.infinity,
-          height: widget.isDriver ? 650.h : 420.h,
+          height: widget.isDriver ? 650.h : 550.h,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
@@ -83,12 +83,11 @@ class _RidePickerState extends State<RidePicker> {
                   cb: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) =>
-                            RidePickerPage(fromAddress == null ? "" : fromAddress.name, (place, isFrom) {
-                              widget.onSelected(place, isFrom);
-                              fromAddress = place;
-                              setState(() {});
-                            }, true),
+                        builder: (context) => RidePickerPage(fromAddress == null ? "" : fromAddress.name, (place, isFrom) {
+                          widget.onSelected(place, isFrom);
+                          fromAddress = place;
+                          setState(() {});
+                        }, true),
                       ),
                     );
                   },
@@ -102,12 +101,11 @@ class _RidePickerState extends State<RidePicker> {
                   cb: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) =>
-                            RidePickerPage(toAddress == null ? '' : toAddress.name, (place, isFrom) {
-                              widget.onSelected(place, isFrom);
-                              toAddress = place;
-                              setState(() {});
-                            }, false),
+                        builder: (context) => RidePickerPage(toAddress == null ? '' : toAddress.name, (place, isFrom) {
+                          widget.onSelected(place, isFrom);
+                          toAddress = place;
+                          setState(() {});
+                        }, false),
                       ),
                     );
                   },
@@ -137,12 +135,11 @@ class _RidePickerState extends State<RidePicker> {
               cb: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) =>
-                        MyDateTimePage(fromTime == null ? DateTime.now() : fromTime, (datetime, isFrom) {
-                          widget.onSelectedTime(datetime, isFrom);
-                          fromTime = datetime;
-                          setState(() {});
-                        }, true),
+                    builder: (context) => MyDateTimePage(fromTime == null ? DateTime.now() : fromTime, (datetime, isFrom) {
+                      widget.onSelectedTime(datetime, isFrom);
+                      fromTime = datetime;
+                      setState(() {});
+                    }, true),
                   ),
                 );
               },
@@ -156,12 +153,11 @@ class _RidePickerState extends State<RidePicker> {
               cb: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) =>
-                        MyDateTimePage(toTime == null ? DateTime.now() : toTime, (datetime, isFrom) {
-                          widget.onSelectedTime(datetime, isFrom);
-                          toTime = datetime;
-                          setState(() {});
-                        }, false),
+                    builder: (context) => MyDateTimePage(toTime == null ? DateTime.now() : toTime, (datetime, isFrom) {
+                      widget.onSelectedTime(datetime, isFrom);
+                      toTime = datetime;
+                      setState(() {});
+                    }, false),
                   ),
                 );
               },
@@ -180,7 +176,7 @@ class _RidePickerState extends State<RidePicker> {
                 onChanged: (vehicle) {
                   print("Selected city ${vehicle.toString()}, we are going to refresh the UI");
                   setState(
-                        () {
+                    () {
                       if (vehicle != null) {
                         _currentVehicle = vehicle;
                         widget.onSelectedVehicle(_currentVehicle);
@@ -196,39 +192,64 @@ class _RidePickerState extends State<RidePicker> {
     } else {
       return Container(
         width: double.infinity,
-        height: 100.h,
-        child: FlatButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    PackagingPickup(
-                          (_packaging) {
-                        widget.onPacked(_packaging);
-                        selectedPackaging = _packaging;
-                        setState(() {});
-                      },
-                    ),
+        height: 240.h,
+        child: Column(
+          children: [
+            ContainerButton(
+              isExpanded: true,
+              isCenter: false,
+              title: fromTime == null ? "Pick Time" : Constant.format.format(fromTime),
+              textStyle: TextStylesUtils.styleRegular14BlackW400,
+              cb: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MyDateTimePage(fromTime == null ? DateTime.now() : fromTime, (datetime, isFrom) {
+                      widget.onSelectedTime(datetime, isFrom);
+                      fromTime = datetime;
+                      setState(() {});
+                    }, false),
+                  ),
+                );
+              },
+            ),
+            Divider(),
+            InkWell(
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 18.0,
+                    backgroundColor: ColorsUtils.offWhite,
+                    child: selectedPackaging != null
+                        ? Image.asset(
+                            selectedPackaging.assetsName,
+                            height: 30,
+                            width: 30,
+                          )
+                        : Container(),
+                  ),
+                  SizedBox(
+                    width: 30.w,
+                  ),
+                  Text(
+                    selectedPackaging == null ? "packaging" : selectedPackaging.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStylesUtils.styleMedium18Black,
+                  )
+                ],
               ),
-            );
-          },
-          child: Row(
-            children: <Widget>[
-              CircleAvatar(
-                radius: 18.0,
-                backgroundColor: ColorsUtils.offWhite,
-                child: selectedPackaging != null ? Image.asset(selectedPackaging.assetsName, height: 30, width: 30,) : Container(),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => PackagingPickup(
+                    (_packaging) {
+                      widget.onPacked(_packaging);
+                      selectedPackaging = _packaging;
+                      setState(() {});
+                    },
+                  ),
+                ),
               ),
-              SizedBox(
-                width: 30.w,
-              ),
-              Text(
-                selectedPackaging == null ? "packaging" : selectedPackaging.name,
-                overflow: TextOverflow.ellipsis,
-                style: TextStylesUtils.styleMedium18Black,
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       );
     }
