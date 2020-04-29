@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    _nameController.text = 'hvtoan.dev@gmail.com';
+    _nameController.text = 'huynhvantoan.itc@gmail.com';
     _passwordController.text = '123456';
     return Scaffold(
       resizeToAvoidBottomInset: false,

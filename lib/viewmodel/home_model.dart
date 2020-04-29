@@ -27,6 +27,7 @@ class HomeModel extends ViewStateModel {
 
   Future checkRegisterDriver() async {
     try {
+      setBusy();
       roleCheck = await LoginRegisterRepository.checkRegisterDriver(_loginEntity.uid, getRole);
     } catch (e, s) {
       return;
@@ -34,7 +35,6 @@ class HomeModel extends ViewStateModel {
   }
 
   Future getListOffer() async {
-    setBusy();
     try {
       listOffer = await HomeRepository.getListOffer(getRole);
       setIdle();

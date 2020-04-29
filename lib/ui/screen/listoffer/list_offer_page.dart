@@ -29,9 +29,9 @@ class ListOfferState extends State<ListOfferPage> {
       backgroundColor: ColorsUtils.white,
       body: ViewModelBuilder<HomeModel>.reactive(
         viewModelBuilder: () => HomeModel(),
-        onModelReady: (model) {
-          model.getListOffer();
-          model.checkRegisterDriver();
+        onModelReady: (model) async {
+          await model.checkRegisterDriver();
+          await model.getListOffer();
         },
         disposeViewModel: false,
         builder: (context, model, child) {
@@ -103,7 +103,7 @@ class ListOfferState extends State<ListOfferPage> {
             text: Text(S.of(context).logout, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
             cb: () async {
               await model.logout();
-              Navigator.pushNamed(context, RouteName.login);
+              Navigator.pushNamedAndRemoveUntil(context, RouteName.login, (Route<dynamic> route) => false);
             },
           ),
         ),
@@ -185,7 +185,7 @@ class ListOfferState extends State<ListOfferPage> {
           )
         : Expanded(
             flex: 1,
-            child: listOffer.length > 0
+            child: listOffer != null && listOffer.length > 0
                 ? Container(
                     margin: EdgeInsets.symmetric(horizontal: 32.w),
                     width: ScreenUtil.screenWidthDp,
