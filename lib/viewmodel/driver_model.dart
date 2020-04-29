@@ -19,9 +19,7 @@ import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'login_model.dart';
 
 class DriverModel extends ViewStateModel {
-  LoginEntity get getUser => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser)) != null
-      ? JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser))
-      : LoginEntity();
+  LoginEntity get getUser => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser))?? LoginEntity();
 
   Future<String> uploadFile(File image, Type type) async {
     try {
