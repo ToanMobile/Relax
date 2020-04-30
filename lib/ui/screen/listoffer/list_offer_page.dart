@@ -57,7 +57,7 @@ class ListOfferState extends State<ListOfferPage> {
                           ],
                         )
                       : Container(),
-                  model.roleCheck == ROLE.DRIVER || model.roleCheck == ROLE.DRIVER_SHIPPER
+                  model.roleCheck == ROLE.DRIVER || model.roleCheck == ROLE.CAPTURE  || model.roleCheck == ROLE.DRIVER_SHIPPER
                       ? Row(
                           children: [
                             SizedBox(

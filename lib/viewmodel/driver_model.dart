@@ -19,7 +19,7 @@ import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 import 'login_model.dart';
 
 class DriverModel extends ViewStateModel {
-  LoginEntity get getUser => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser))?? LoginEntity();
+  LoginEntity get getUser => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preLoginUser)) ?? LoginEntity();
 
   Future<String> uploadFile(File image, Type type) async {
     try {
@@ -40,7 +40,7 @@ class DriverModel extends ViewStateModel {
       try {
         final random = Random();
         Constant.check_code = random.nextIntOfDigits(6);
-        final Email email = Email(body: Constant.check_code.toString(), subject: 'Relax Code', recipients: [_email]);
+         final Email email = Email(body: Constant.check_code.toString(), subject: 'Relax Code', recipients: [_email]);
         await FlutterEmailSender.send(email);
         setIdle();
         return true;

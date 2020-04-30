@@ -44,6 +44,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "872763368063-3h3k7stnjjvaag2qp830ap6lav0snog8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.relax",
+            "certificate_hash": "b7762f6440526bdd55b429254ca45fc9d319c2c2"
+          }
+        },
+        {
           "client_id": "872763368063-7mi8tf77ro2k0p9hermh3nfl7laluc6b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

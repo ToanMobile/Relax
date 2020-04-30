@@ -58,11 +58,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    /*_nameController.text = 'ToanDev';
+    _nameController.text = 'ToanDev';
     _passwordController.text = '123456';
     _addressController.text = 'thon 3 hoa vinh';
-    _emailController.text = 'hvtoan.dev@gmail.com';
-    _phoneController.text = '0376542546';*/
+    _emailController.text = 'huynhvantoan.itc@gmail.com';
+    _phoneController.text = '0376542546';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
