@@ -17,7 +17,6 @@ class Constant {
   static const String refresh_Token = 'refreshToken';
 
   static const String theme = "AppTheme";
-  static int check_code = 123456;
   static DateFormat format = DateFormat("yyyy-MM-dd HH:mm");
   static const gradient_WaterMelon_Melon = LinearGradient(colors: [ColorsUtils.watermelon, ColorsUtils.melon]);
   static const List<Color> colorListMelonWaterMelon = [ColorsUtils.watermelon, ColorsUtils.melon];

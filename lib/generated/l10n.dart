@@ -692,6 +692,60 @@ class S {
       args: [],
     );
   }
+
+  String get gallery {
+    return Intl.message(
+      'Galary',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get capture {
+    return Intl.message(
+      'Capture',
+      name: 'capture',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get send_otp {
+    return Intl.message(
+      'Send OTP',
+      name: 'send_otp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get verify_phone_error {
+    return Intl.message(
+      'Verify phone not match phone register',
+      name: 'verify_phone_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get verify_code {
+    return Intl.message(
+      'Verify Code',
+      name: 'verify_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get invalid_code {
+    return Intl.message(
+      'Invalid Code',
+      name: 'invalid_code',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

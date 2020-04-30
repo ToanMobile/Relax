@@ -2,7 +2,7 @@
   "appName": "Relax",
   "signIn": "Đăng nhập",
   "signUp": "Đăng ký",
-  "orLoginWith" : "Hoặc đăng nhập bằng",
+  "orLoginWith": "Hoặc đăng nhập bằng",
   "login_content1": "Bạn chưa có tài khoản? Vậy hãy\u0020",
   "login_content2": "\u0020ngay nhé",
   "login_title": "Tên đăng nhập",
@@ -39,12 +39,11 @@
   "challenge_rewards_left": "Khuyến mãi còn lại",
   "fontAvenirNext": "AvenirNext",
   "inputCode": "Nhập mã code",
-
   "actionConfirm": "Xác nhận",
   "actionCancel": "Huỷ",
   "viewStateMessageError": "Lấy dữ liệu bị Lỗi",
   "viewStateMessageNetworkError": "Lấy dữ liệu bị Lỗi, kiểm tra kết nối.",
-  "viewStateMessageEmpty": "Không tìm thấy",
+  "viewStateMessageEmpty": "Rỗng",
   "viewStateMessageUnAuth": "Bạn chưa đăng nhập",
   "viewStateButtonRefresh": "Lấy lại dữ liệu",
   "viewStateButtonRetry": "Thử lại",
@@ -65,7 +64,6 @@
   "autoBySystem": "Auto",
   "fieldNotNull": "không trống",
   "noAccount": "Không tìm thấy tài khoản?",
-
   "createRequest": "Tạo yêu cầu",
   "createOffer": "Tạo ưu đãi",
   "send_data_ok": "Gửi thành công!",
@@ -74,5 +72,11 @@
   "name_pick": "Tên người gửi",
   "phone_pick": "ĐT người gửi",
   "name_drop": "Tên người nhận",
-  "phone_drop": "ĐT người nhận"
+  "phone_drop": "ĐT người nhận",
+  "gallery": "Thư viện",
+  "capture": "Chụp ảnh",
+  "send_otp": "Gửi OTP",
+  "verify_phone_error": "Số phone không trùng với số đã đăng ký",
+  "verify_code": "Kiểm tra mã",
+  "invalid_code": "Mã không đúng"
 }

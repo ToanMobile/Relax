@@ -5,12 +5,14 @@ import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/viewmodel/home_model.dart';
 import 'package:relax/viewmodel/login_model.dart';
+
 import 'base_repository.dart';
 
 class LoginRegisterRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final CollectionReference infoCollection = Firestore.instance.collection('firstInfos');
   static final CollectionReference driverCollection = Firestore.instance.collection('driverInfos');
+  static var verificationId = '';
 
   // static List<LoginEntity> listUser() => JsonConvert.fromJsonAsT(StorageManager.getObject(LoginModel.preListUser));
   static Future login(String email, String password) async {
@@ -79,6 +81,49 @@ class LoginRegisterRepository {
     printLog('register:loginEntity=' + loginEntity.toString());
     StorageManager.sharedPreferences.setBool(LoginModel.preIsLogin, true);
     StorageManager.saveObject(LoginModel.preLoginUser, loginEntity);
+  }
+
+  static Future<String> sendOtp(String phone) async {
+    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
+      verificationId = verId;
+    };
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phone,
+      // PHONE NUMBER TO SEND OTP
+      codeAutoRetrievalTimeout: (String verId) {
+        //Starts the phone number verification process for the given phone number.
+        //Either sends an SMS with a 6 digit code to the phone number specified, or sign's the user in and [verificationCompleted] is called.
+        //this.verificationId = verId;
+      },
+      codeSent: smsOTPSent,
+      // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+      timeout: const Duration(seconds: 20),
+      verificationCompleted: (AuthCredential phoneAuthCredential) {
+        print(phoneAuthCredential);
+        return verificationId;
+      },
+      verificationFailed: (AuthException exceptio) {
+        print('${exceptio.message}');
+        return '';
+      },
+    );
+    return '';
+  }
+
+  static Future<bool> verifyOtp(String otp) async {
+    final AuthCredential credential = PhoneAuthProvider.getCredential(
+      verificationId: verificationId,
+      smsCode: otp,
+    );
+    print('otp=' + otp);
+    print('verificationId=' + verificationId);
+    final AuthResult user = await _auth.signInWithCredential(credential);
+    final FirebaseUser currentUser = await _auth.currentUser();
+    if (user.user.uid == currentUser.uid) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static Future logout() async {

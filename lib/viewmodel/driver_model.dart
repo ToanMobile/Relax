@@ -1,9 +1,6 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:relax/common/constant.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/driver_info_entity.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
@@ -11,8 +8,8 @@ import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/data/model/request_info_entity.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/driver_repository.dart';
+import 'package:relax/data/repository/login_register_repository.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
-import 'package:relax/lib/res/utils.dart';
 import 'package:relax/provider/view_state_model.dart';
 import 'package:relax/ui/screen/map/driver/capture/capture_page.dart';
 
@@ -34,14 +31,11 @@ class DriverModel extends ViewStateModel {
     }
   }
 
-  Future<bool> sendEmail(String _email) async {
-    if (_email.length > 0) {
+  Future<bool> sendOtp(String numberPhone) async {
+    if (numberPhone.length > 0) {
       setBusy();
       try {
-        final random = Random();
-        Constant.check_code = random.nextIntOfDigits(6);
-         final Email email = Email(body: Constant.check_code.toString(), subject: 'Relax Code', recipients: [_email]);
-        await FlutterEmailSender.send(email);
+        await LoginRegisterRepository.sendOtp(numberPhone);
         setIdle();
         return true;
       } catch (e, s) {
@@ -51,18 +45,15 @@ class DriverModel extends ViewStateModel {
     return false;
   }
 
-  Future<bool> checkCode(String code) async {
-    print('check_code=' + Constant.check_code.toString());
-    print('code=' + code);
+  Future<bool> checkCode(String otp) async {
     setBusy();
-    if (code.length > 0) {
-      if (code.trim() == Constant.check_code.toString()) {
-        return true;
-      }
-      setError(e, '');
-      return false;
+    try {
+      await LoginRegisterRepository.verifyOtp(otp);
+      setIdle();
+      return true;
+    } catch (e, s) {
+      setError(e, s);
     }
-    setError(e, '');
     return false;
   }
 

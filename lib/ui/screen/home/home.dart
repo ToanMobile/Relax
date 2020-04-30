@@ -1,3 +1,4 @@
+import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/screenutil.dart';
 import 'widgets/profile/profile_categories.dart';
 import 'widgets/profile/profile_detail.dart';
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TitleLarge(
-              title: 'Relax',
+              title: S.of(context).appName,
             ),
             SizedBox(
               height: 20.0,

@@ -37,7 +37,6 @@ class _CheckCodeState extends State<CheckCodePage> {
   @override
   Widget build(BuildContext context) {
     print('_CheckCodeState==' + widget.driverEntity.toString());
-    print('check_code==' + Constant.check_code.toString());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
@@ -95,7 +94,7 @@ class _CheckCodeState extends State<CheckCodePage> {
             height: 150.h,
             child: Center(
               child: Text(
-                'Send Code',
+                S.of(context).verify_code,
                 style: TextStylesUtils.styleRegular14BlackW400,
               ),
             ),
@@ -110,7 +109,7 @@ class _CheckCodeState extends State<CheckCodePage> {
             await model.addDriverInfo(widget.driverEntity);
             Navigator.pushReplacementNamed(context, RouteName.driver);
           } else {
-            model.showErrorMessage(context, message: 'Code not match');
+            model.showErrorMessage(context);
           }
         });
       },

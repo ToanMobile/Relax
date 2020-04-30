@@ -2,7 +2,7 @@
   "appName": "Relax",
   "signIn": "Sign In",
   "signUp": "Sign Up",
-  "orLoginWith" : "Or log in with",
+  "orLoginWith": "Or log in with",
   "login_content1": "Do not have an account? So let's\u0020",
   "login_content2": "\u0020right away",
   "login_title": "Username",
@@ -64,7 +64,6 @@
   "autoBySystem": "Auto",
   "fieldNotNull": "not empty",
   "noAccount": "No Account ? ",
-
   "createRequest": "Create Request",
   "createOffer": "Create Offer",
   "send_data_ok": "Send data complete!",
@@ -73,5 +72,11 @@
   "name_pick": "Name pick",
   "phone_pick": "Phone pick",
   "name_drop": "Name drop",
-  "phone_drop": "Phone drop"
+  "phone_drop": "Phone drop",
+  "gallery": "Galary",
+  "capture": "Capture",
+  "send_otp": "Send OTP",
+  "verify_phone_error": "Verify phone not match phone register",
+  "verify_code": "Verify Code",
+  "invalid_code": "Invalid Code"
 }

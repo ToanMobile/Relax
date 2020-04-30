@@ -28,14 +28,14 @@ class CapturePage extends StatefulWidget {
 
 class CaptureState extends State<CapturePage> {
   final DriverInfoEntity driverEntity = DriverInfoEntity();
-  final _emailController = TextEditingController();
-  final _emailFocus = FocusNode();
-  final emailFormKey = GlobalKey<FormState>();
+  final _sdtController = TextEditingController();
+  final _sdtFocus = FocusNode();
+  final sdtFormKey = GlobalKey<FormState>();
   var flag;
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _sdtController.dispose();
     super.dispose();
   }
 
@@ -126,7 +126,7 @@ class CaptureState extends State<CapturePage> {
   }
 
   Widget buildSendEmail(DriverModel driverModel) => Form(
-        key: emailFormKey,
+        key: sdtFormKey,
         child: Container(
           width: double.infinity,
           height: 200.h,
@@ -136,16 +136,16 @@ class CaptureState extends State<CapturePage> {
               Expanded(
                 flex: 1,
                 child: LoginTextField(
-                  label: S.of(context).login_email,
-                  icon: Icons.email,
-                  textInputType: TextInputType.emailAddress,
-                  controller: _emailController,
-                  focusNode: _emailFocus,
+                  label: S.of(context).login_phone,
+                  icon: Icons.phone,
+                  textInputType: TextInputType.phone,
+                  controller: _sdtController,
+                  focusNode: _sdtFocus,
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (text) {
-                    if (emailFormKey.currentState.validate()) {
-                      _emailController.text = text;
-                      FocusScope.of(context).requestFocus(_emailFocus);
+                    if (sdtFormKey.currentState.validate()) {
+                      _sdtController.text = text;
+                      FocusScope.of(context).requestFocus(_sdtFocus);
                     } else {
                       driverModel.showErrorMessage(context);
                     }
@@ -161,18 +161,23 @@ class CaptureState extends State<CapturePage> {
                 child: FilledRoundButton.withGradient(
                   radius: 10,
                   gradientColor: Constant.gradient_WaterMelon_Melon,
-                  text: Text('Send Email', textAlign: TextAlign.center, style: TextStylesUtils.styleMedium18White),
+                  text: Text(S.of(context).send_otp, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium18White),
                   cb: () async {
-                    if (emailFormKey.currentState.validate()) {
-                      await driverModel.sendEmail(_emailController.text).then(
-                        (value) {
-                          if (value) {
-                            Navigator.pushReplacementNamed(context, RouteName.code, arguments: driverEntity);
-                          } else {
-                            driverModel.showErrorMessage(context);
-                          }
-                        },
-                      );
+                    if (sdtFormKey.currentState.validate()) {
+                      print(driverModel.getUser.tel.substring(6, driverModel.getUser.tel.length).toString());
+                      if(_sdtController.text.endsWith(driverModel.getUser.tel.substring(6, driverModel.getUser.tel.length))) {
+                        await driverModel.sendOtp(_sdtController.text).then(
+                              (value) {
+                            if (value) {
+                              Navigator.pushReplacementNamed(context, RouteName.code, arguments: driverEntity);
+                            } else {
+                              driverModel.showErrorMessage(context);
+                            }
+                          },
+                        );
+                      }else{
+                        driverModel.showErrorMessage(context, message: S.of(context).verify_phone_error);
+                      }
                     }
                   },
                 ),
@@ -227,21 +232,21 @@ class CaptureState extends State<CapturePage> {
     final _selectCapture = CupertinoActionSheet(
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text('Galary'),
+          child: Text(S.of(context).gallery),
           onPressed: () {
             getImage(model, ImgSource.Gallery, type);
             Navigator.of(context).pop();
           },
         ),
         CupertinoActionSheetAction(
-          child: Container(child: Text('Capture')),
+          child: Container(child: Text(S.of(context).capture)),
           onPressed: () {
             getImage(model, ImgSource.Camera, type);
             Navigator.of(context).pop();
           },
         ),
       ],
-      cancelButton: CupertinoActionSheetAction(child: Text('Cancel'), onPressed: () => Navigator.of(context).pop()),
+      cancelButton: CupertinoActionSheetAction(child: Text(S.of(context).actionCancel), onPressed: () => Navigator.of(context).pop()),
     );
     showCupertinoModalPopup(context: context, builder: (context) => _selectCapture);
   }
