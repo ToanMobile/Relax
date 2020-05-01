@@ -1,3 +1,5 @@
+import 'package:relax/generated/l10n.dart';
+
 import '../../utils/constant.dart';
 import '../../widgets/profile/category.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +13,18 @@ class ProfileCategories extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          for (Catg catg in listProfileCategories)
-            Category(
-              catg: catg,
-            )
+          Category(
+            catg: Catg(name: S.of(context).Wallet, icon: Icons.account_balance_wallet, number: 0),
+          ),
+          Category(
+            catg: Catg(name: S.of(context).Delivery, icon: Icons.directions_car, number: 0),
+          ),
+          Category(
+            catg: Catg(name: S.of(context).Message, icon: Icons.message, number: 0),
+          ),
+          Category(
+            catg: Catg(name: S.of(context).Service, icon: Icons.security, number: 0),
+          )
         ],
       ),
     );

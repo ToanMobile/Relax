@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:relax/data/model/place_item_res.dart';
+import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/provider/view_state_widget.dart';
 import 'package:relax/res/colors.dart';
@@ -35,7 +36,7 @@ class _RidePickerPageState extends State<RidePickerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarIcon.back(
-        title: 'Search location',
+        title: S.of(context).search_location,
       ).build(context),
       body: ViewModelBuilder<MapModel>.reactive(
         viewModelBuilder: () => MapModel(),

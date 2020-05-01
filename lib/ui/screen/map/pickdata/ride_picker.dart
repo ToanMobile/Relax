@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
+import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/text_styles.dart';
@@ -78,7 +79,7 @@ class _RidePickerState extends State<RidePicker> {
                 ContainerButton(
                   isExpanded: true,
                   isCenter: false,
-                  title: fromAddress == null ? "FromLocation" : fromAddress.name,
+                  title: fromAddress == null ? S.of(context).FromLocation : fromAddress.name,
                   textStyle: TextStylesUtils.styleRegular14BlackW400,
                   cb: () {
                     Navigator.of(context).push(
@@ -96,7 +97,7 @@ class _RidePickerState extends State<RidePicker> {
                 ContainerButton(
                   isExpanded: true,
                   isCenter: false,
-                  title: toAddress == null ? "ToLocation" : toAddress.name,
+                  title: toAddress == null ? S.of(context).ToLocation : toAddress.name,
                   textStyle: TextStylesUtils.styleRegular14BlackW400,
                   cb: () {
                     Navigator.of(context).push(
@@ -130,7 +131,7 @@ class _RidePickerState extends State<RidePicker> {
             ContainerButton(
               isExpanded: true,
               isCenter: false,
-              title: fromTime == null ? "FromTime" : Constant.format.format(fromTime),
+              title: fromTime == null ? S.of(context).FromTime : Constant.format.format(fromTime),
               textStyle: TextStylesUtils.styleRegular14BlackW400,
               cb: () {
                 Navigator.of(context).push(
@@ -148,7 +149,7 @@ class _RidePickerState extends State<RidePicker> {
             ContainerButton(
               isExpanded: true,
               isCenter: false,
-              title: toTime == null ? "ToTime" : Constant.format.format(toTime),
+              title: toTime == null ? S.of(context).ToTime : Constant.format.format(toTime),
               textStyle: TextStylesUtils.styleRegular14BlackW400,
               cb: () {
                 Navigator.of(context).push(
@@ -168,7 +169,7 @@ class _RidePickerState extends State<RidePicker> {
               alignment: Alignment.centerLeft,
               child: DropdownButton(
                 hint: Text(
-                  'Selected Vehicle',
+                  S.of(context).vehicle,
                   style: TextStylesUtils.styleRegular12PinkishOrangeW600,
                 ),
                 value: _currentVehicle,
@@ -198,7 +199,7 @@ class _RidePickerState extends State<RidePicker> {
             ContainerButton(
               isExpanded: true,
               isCenter: false,
-              title: fromTime == null ? "Pick Time" : Constant.format.format(fromTime),
+              title: fromTime == null ? S.of(context).pick_time : Constant.format.format(fromTime),
               textStyle: TextStylesUtils.styleRegular14BlackW400,
               cb: () {
                 Navigator.of(context).push(

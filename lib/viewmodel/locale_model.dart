@@ -11,15 +11,14 @@ class LocaleModel extends ChangeNotifier {
   int get localeIndex => _localeIndex;
 
   Locale get locale {
-    if (_localeIndex > 0) {
-      var value = localeValueList[_localeIndex].split("-");
-      return Locale(value[0], value.length == 2 ? value[1] : '');
-    }
-    return null;
+    _localeIndex = 0;
+    var value = localeValueList[_localeIndex].split("-");
+    return Locale(value[0], value.length == 2 ? value[1] : '');
   }
 
   LocaleModel() {
     _localeIndex = StorageManager.sharedPreferences?.getInt(kLocaleIndex) ?? 0;
+    switchLocale(0);
   }
 
   switchLocale(int index) {

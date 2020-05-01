@@ -746,6 +746,366 @@ class S {
       args: [],
     );
   }
+
+  String get Wallet {
+    return Intl.message(
+      'Wallet',
+      name: 'Wallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Delivery {
+    return Intl.message(
+      'Delivery',
+      name: 'Delivery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Message {
+    return Intl.message(
+      'Message',
+      name: 'Message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Service {
+    return Intl.message(
+      'Service',
+      name: 'Service',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Address {
+    return Intl.message(
+      'Address',
+      name: 'Address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Privacy {
+    return Intl.message(
+      'Privacy',
+      name: 'Privacy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get General {
+    return Intl.message(
+      'General',
+      name: 'General',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Notification {
+    return Intl.message(
+      'Notification',
+      name: 'Notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Address_content {
+    return Intl.message(
+      'Ensure your harvesting address',
+      name: 'Address_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Privacy__content {
+    return Intl.message(
+      'System permission change',
+      name: 'Privacy__content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get General__content {
+    return Intl.message(
+      'Basic functional settings',
+      name: 'General__content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Notification__content {
+    return Intl.message(
+      'Take over the news in time',
+      name: 'Notification__content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Collect {
+    return Intl.message(
+      'Collect',
+      name: 'Collect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Attention {
+    return Intl.message(
+      'Attention',
+      name: 'Attention',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Track {
+    return Intl.message(
+      'Track',
+      name: 'Track',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Coupons {
+    return Intl.message(
+      'Coupons',
+      name: 'Coupons',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get FromLocation {
+    return Intl.message(
+      'FromLocation',
+      name: 'FromLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get ToLocation {
+    return Intl.message(
+      'ToLocation',
+      name: 'ToLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get FromTime {
+    return Intl.message(
+      'FromTime',
+      name: 'FromTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get ToTime {
+    return Intl.message(
+      'ToTime',
+      name: 'ToTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get vehicle {
+    return Intl.message(
+      'Selected Vehicle',
+      name: 'vehicle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pick_time {
+    return Intl.message(
+      'Pick Time',
+      name: 'pick_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get small_parcel {
+    return Intl.message(
+      'Small parcel',
+      name: 'small_parcel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get normal_parcel {
+    return Intl.message(
+      'Normal parcel',
+      name: 'normal_parcel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get big_parcel {
+    return Intl.message(
+      'Big parcel',
+      name: 'big_parcel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get euro_pallet {
+    return Intl.message(
+      'Euro pallet',
+      name: 'euro_pallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get lattice {
+    return Intl.message(
+      'lattice box',
+      name: 'lattice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get individual {
+    return Intl.message(
+      'Individual',
+      name: 'individual',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get search_location {
+    return Intl.message(
+      'Search location',
+      name: 'search_location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get shipper {
+    return Intl.message(
+      'Shipper',
+      name: 'shipper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get driver {
+    return Intl.message(
+      'Driver',
+      name: 'driver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get pickup_datetime {
+    return Intl.message(
+      'Select pickup datetime',
+      name: 'pickup_datetime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get reset {
+    return Intl.message(
+      'Reset',
+      name: 'reset',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get validate {
+    return Intl.message(
+      'Validate',
+      name: 'validate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Profile {
+    return Intl.message(
+      'My Profile',
+      name: 'Profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get History {
+    return Intl.message(
+      'Show History',
+      name: 'History',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Billing {
+    return Intl.message(
+      'Billing',
+      name: 'Billing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Help_Supports {
+    return Intl.message(
+      'Help & Supports',
+      name: 'Help_Supports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get Logout {
+    return Intl.message(
+      'Logout',
+      name: 'Logout',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

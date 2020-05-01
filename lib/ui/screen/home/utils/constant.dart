@@ -1,5 +1,4 @@
 import 'package:relax/res/colors.dart';
-
 import '../icon/custome_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -24,28 +23,14 @@ const List lampsImage = [
   {'image': 'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/mausam%2Fe.jpg?alt=media&token=a9342ee6-9dc6-452d-ade7-4a1d7783e7fe'},
   {'image': 'https://firebasestorage.googleapis.com/v0/b/dl-flutter-ui-challenges.appspot.com/o/mausam%2Ff.jpg?alt=media&token=c65c13ad-5b2f-494e-82eb-13d730d823ce'},
 ];
-List<ProfileMenu> lampList = [
-  ProfileMenu(title: 'Landscape', subTitle: '384'),
-  ProfileMenu(title: 'Discus Pendant', subTitle: '274'),
-  ProfileMenu(title: 'Mushroom Lamp', subTitle: '374'),
-  ProfileMenu(title: 'Titanic Pendant', subTitle: '562'),
-  ProfileMenu(title: 'Torn Lighting', subTitle: '105'),
-  ProfileMenu(title: 'Abduction Pendant', subTitle: '365'),
+List<ProfileModel> lampList = [
+  ProfileModel(title: 'Landscape', subTitle: '384'),
+  ProfileModel(title: 'Discus Pendant', subTitle: '274'),
+  ProfileModel(title: 'Mushroom Lamp', subTitle: '374'),
+  ProfileModel(title: 'Titanic Pendant', subTitle: '562'),
+  ProfileModel(title: 'Torn Lighting', subTitle: '105'),
+  ProfileModel(title: 'Abduction Pendant', subTitle: '365'),
 ];
-const List profileItems = [
-  {'count': '846', 'name': 'Collect'},
-  {'count': '51', 'name': 'Attention'},
-  {'count': '267', 'name': 'Track'},
-  {'count': '39', 'name': 'Coupons'},
-];
-
-List<Catg> listProfileCategories = [
-  Catg(name: 'Wallet', icon: Icons.account_balance_wallet, number: 0),
-  Catg(name: 'Delivery', icon: Icons.directions_car, number: 0),
-  Catg(name: 'Message', icon: Icons.message, number: 2),
-  Catg(name: 'Service', icon: Icons.security, number: 0),
-];
-
 List<FurnitureCatg> furnitureCategoriesList = [
   FurnitureCatg(icon: Icons.desktop_windows, elivation: true),
   FurnitureCatg(icon: CustomIcon.account_balance_wallet, elivation: false),
@@ -54,39 +39,12 @@ List<FurnitureCatg> furnitureCategoriesList = [
   FurnitureCatg(icon: CustomIcon.money, elivation: false),
 ];
 
-List<ProfileMenu> profileMenuList = [
-  ProfileMenu(
-    title: 'Address',
-    subTitle: 'Ensure your harvesting address',
-    iconColor: profile_info_address,
-    icon: Icons.location_on,
-  ),
-  ProfileMenu(
-    title: 'Privacy',
-    subTitle: 'System permission change',
-    iconColor: profile_info_privacy,
-    icon: Icons.lock,
-  ),
-  ProfileMenu(
-    title: 'General',
-    subTitle: 'Basic functional settings',
-    iconColor: profile_info_general,
-    icon: Icons.layers,
-  ),
-  ProfileMenu(
-    title: 'Notification',
-    subTitle: 'Take over the news in time',
-    iconColor: profile_info_notification,
-    icon: Icons.notifications,
-  ),
-];
-
-class ProfileMenu {
+class ProfileModel {
   String title;
   String subTitle;
   IconData icon;
   Color iconColor;
-  ProfileMenu({this.icon, this.title, this.iconColor, this.subTitle});
+  ProfileModel({this.icon, this.title, this.iconColor, this.subTitle});
 }
 
 class Catg {

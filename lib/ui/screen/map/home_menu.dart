@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:relax/generated/l10n.dart';
 import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
@@ -16,14 +17,14 @@ class HomeMenu extends StatelessWidget {
           ListTile(
             leading: SvgPicture.asset(ImagesUtils.iconIdentity),
             title: Text(
-              "My Profile",
+              S.of(context).Profile,
               style: TextStylesUtils.styleMedium18Black,
             ),
           ),
           ListTile(
             leading: SvgPicture.asset(ImagesUtils.iconHistory),
             title: Text(
-              "Show History",
+              S.of(context).History,
               style: TextStylesUtils.styleMedium18Black,
             ),
           ),
@@ -35,28 +36,28 @@ class HomeMenu extends StatelessWidget {
               allowDrawingOutsideViewBox: true,
             ),
             title: Text(
-              "Billing",
+              S.of(context).Billing,
               style: TextStylesUtils.styleMedium18Black,
             ),
           ),
           ListTile(
             leading: SvgPicture.asset(ImagesUtils.iconNotification),
             title: Text(
-              "Notifications",
+              S.of(context).Notification,
               style: TextStylesUtils.styleMedium18Black,
             ),
           ),
           ListTile(
             leading: SvgPicture.asset(ImagesUtils.iconHelp),
             title: Text(
-              "Help & Supports",
+              S.of(context).Help_Supports,
               style: TextStylesUtils.styleMedium18Black,
             ),
           ),
           ListTile(
             leading: SvgPicture.asset(ImagesUtils.iconExit),
             title: Text(
-              "Logout",
+              S.of(context).Logout,
               style: TextStylesUtils.styleMedium18Black,
             ),
           )

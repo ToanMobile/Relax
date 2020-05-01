@@ -1,3 +1,9 @@
+import 'package:relax/config/storage_manager.dart';
+import 'package:relax/data/model/login_entity.dart';
+import 'package:relax/generated/json/base/json_convert_content.dart';
+import 'package:relax/generated/l10n.dart';
+import 'package:relax/viewmodel/login_model.dart';
+
 import '../../utils/constant.dart';
 import '../../widgets/profile_image.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +11,13 @@ import 'package:flutter/material.dart';
 class ProfileDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    List profileItems = [
+      {'count': '846', 'name': S.of(context).Collect},
+      {'count': '51', 'name': S.of(context).Attention},
+      {'count': '267', 'name': S.of(context).Track},
+      {'count': '39', 'name': S.of(context).Coupons},
+    ];
+
     Size deviceSize = MediaQuery.of(context).size;
     return Material(
       borderRadius: BorderRadius.all(
@@ -40,7 +53,7 @@ class ProfileDetail extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          'Toàn Dev',
+                          JsonConvert.fromJsonAsT<LoginEntity>(StorageManager.getObject(LoginModel.preLoginUser)).name ?? '',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0,

@@ -154,20 +154,20 @@ class ListOfferState extends State<ListOfferPage> {
     final _select = CupertinoActionSheet(
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text('Shipper'),
+          child: Text(S.of(context).shipper),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         CupertinoActionSheetAction(
-          child: Container(child: Text('Driver')),
+          child: Container(child: Text(S.of(context).driver)),
           onPressed: () {
             Navigator.of(context).pop();
             Navigator.popAndPushNamed(context, RouteName.driver);
           },
         ),
       ],
-      cancelButton: CupertinoActionSheetAction(child: Text('Cancel'), onPressed: () => Navigator.of(context).pop()),
+      cancelButton: CupertinoActionSheetAction(child: Text(S.of(context).actionCancel), onPressed: () => Navigator.of(context).pop()),
     );
     showCupertinoModalPopup(context: context, builder: (context) => _select);
   }

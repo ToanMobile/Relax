@@ -1,11 +1,14 @@
 import 'package:relax/config/router_manger.dart';
+import 'package:relax/generated/l10n.dart';
 
 import '../../utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class Category extends StatelessWidget {
   final Catg catg;
+
   Category({this.catg});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,11 +19,9 @@ class Category extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                if(catg.name == 'Delivery'){
+                if (catg.name == S.of(context).Delivery) {
                   Navigator.pushNamed(context, RouteName.list_offer);
                 }
-                else if (catg.name == listProfileCategories[0].name)
-                  Navigator.pushNamed(context, '/furniture');
               },
               child: Container(
                 padding: EdgeInsets.all(10.0),

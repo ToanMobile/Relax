@@ -6,7 +6,7 @@ import '../../widgets/furniture/custom_side_button.dart';
 import 'package:flutter/material.dart';
 
 class Lamp extends StatelessWidget {
-  final ProfileMenu item;
+  final ProfileModel item;
   final int index;
   Lamp({this.item, this.index});
   @override
