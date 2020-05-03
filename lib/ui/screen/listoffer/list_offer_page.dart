@@ -47,26 +47,37 @@ class ListOfferState extends State<ListOfferPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   buildLogOut(model),
-                  model.roleCheck == ROLE.SHIPPER || model.roleCheck == ROLE.DRIVER_SHIPPER
+                  model.roleCheck == ROLE.DRIVER_SHIPPER ? Row(
+                    children: [
+                      SizedBox(
+                        width: 50.w,
+                      ),
+                      buildCreateRequest(model),
+                      SizedBox(
+                        width: 50.w,
+                      ),
+                      buildCreateOffer(model),
+                    ],
+                  ) : Container(),
+                  model.roleCheck == ROLE.SHIPPER
                       ? Row(
-                          children: [
-                            SizedBox(
-                              width: 50.w,
-                            ),
-                            buildCreateRequest(model)
-                          ],
-                        )
+                    children: [
+                      SizedBox(
+                        width: 50.w,
+                      ),
+                      buildCreateRequest(model)
+                    ],
+                  )
                       : Container(),
-                  model.roleCheck == ROLE.DRIVER || model.roleCheck == ROLE.CAPTURE  || model.roleCheck == ROLE.DRIVER_SHIPPER
+                  model.roleCheck == ROLE.DRIVER || model.roleCheck == ROLE.CAPTURE
                       ? Row(
-                          children: [
-                            SizedBox(
-                              width: 50.w,
-                            ),
-                            buildCreateOffer(model),
-                          ],
-                        )
-                      : Container(),
+                    children: [
+                      SizedBox(
+                        width: 50.w,
+                      ),
+                      buildCreateOffer(model),
+                    ],
+                  ) : Container(),
                 ],
               ),
               buildListUser(model)
@@ -77,30 +88,38 @@ class ListOfferState extends State<ListOfferPage> {
     );
   }
 
-  Widget buildTextUserName(String name) => Container(
+  Widget buildTextUserName(String name) =>
+      Container(
         alignment: Alignment.bottomCenter,
         width: ScreenUtil.screenWidthDp,
         height: ScreenUtil.screenHeightDp * 0.13,
         child: Text(name, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20CoalGreyW600),
       );
 
-  Widget buildTextSearch() => Container(
+  Widget buildTextSearch() =>
+      Container(
         width: ScreenUtil.screenWidthDp,
-        child: Text(S.of(context).home_search, textAlign: TextAlign.center, style: TextStylesUtils.styleRegular14BlackW400),
+        child: Text(S
+            .of(context)
+            .home_search, textAlign: TextAlign.center, style: TextStylesUtils.styleRegular14BlackW400),
       );
 
-  Widget buildSearchView() => TextInputSearch(
+  Widget buildSearchView() =>
+      TextInputSearch(
         validateErrMsg: "",
       );
 
-  Widget buildLogOut(HomeModel model) => Center(
+  Widget buildLogOut(HomeModel model) =>
+      Center(
         child: Container(
           width: 300.w,
           height: 130.h,
           child: FilledRoundButton.withGradient(
             radius: 10,
             gradientColor: Constant.gradient_WaterMelon_Melon,
-            text: Text(S.of(context).logout, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+            text: Text(S
+                .of(context)
+                .logout, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
             cb: () async {
               await model.logout();
               Navigator.pushNamedAndRemoveUntil(context, RouteName.login, (Route<dynamic> route) => false);
@@ -109,14 +128,17 @@ class ListOfferState extends State<ListOfferPage> {
         ),
       );
 
-  Widget buildCreateOffer(HomeModel model) => Center(
+  Widget buildCreateOffer(HomeModel model) =>
+      Center(
         child: Container(
           width: 300.w,
           height: 130.h,
           child: FilledRoundButton.withGradient(
             radius: 10,
             gradientColor: Constant.gradient_WaterMelon_Melon,
-            text: Text(S.of(context).createOffer, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+            text: Text(S
+                .of(context)
+                .createOffer, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
             cb: () {
               actionCreate(model, true);
             },
@@ -124,14 +146,17 @@ class ListOfferState extends State<ListOfferPage> {
         ),
       );
 
-  Widget buildCreateRequest(HomeModel model) => Center(
+  Widget buildCreateRequest(HomeModel model) =>
+      Center(
         child: Container(
           width: 300.w,
           height: 130.h,
           child: FilledRoundButton.withGradient(
             radius: 10,
             gradientColor: Constant.gradient_WaterMelon_Melon,
-            text: Text(S.of(context).createRequest, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
+            text: Text(S
+                .of(context)
+                .createRequest, textAlign: TextAlign.center, style: TextStylesUtils.styleMedium20White),
             cb: () {
               actionCreate(model, false);
             },
@@ -154,20 +179,26 @@ class ListOfferState extends State<ListOfferPage> {
     final _select = CupertinoActionSheet(
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text(S.of(context).shipper),
+          child: Text(S
+              .of(context)
+              .shipper),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         CupertinoActionSheetAction(
-          child: Container(child: Text(S.of(context).driver)),
+          child: Container(child: Text(S
+              .of(context)
+              .driver)),
           onPressed: () {
             Navigator.of(context).pop();
             Navigator.popAndPushNamed(context, RouteName.driver);
           },
         ),
       ],
-      cancelButton: CupertinoActionSheetAction(child: Text(S.of(context).actionCancel), onPressed: () => Navigator.of(context).pop()),
+      cancelButton: CupertinoActionSheetAction(child: Text(S
+          .of(context)
+          .actionCancel), onPressed: () => Navigator.of(context).pop()),
     );
     showCupertinoModalPopup(context: context, builder: (context) => _select);
   }
@@ -176,37 +207,37 @@ class ListOfferState extends State<ListOfferPage> {
     List<OfferInfoEntity> listOffer = model.listOffer;
     Widget child = model.busy
         ? Container(
-            height: 150.h,
-            child: Center(
-              child: ButtonProgressIndicator(
-                color: ColorsUtils.fadedRed,
-              ),
-            ),
-          )
+      height: 150.h,
+      child: Center(
+        child: ButtonProgressIndicator(
+          color: ColorsUtils.fadedRed,
+        ),
+      ),
+    )
         : Expanded(
-            flex: 1,
-            child: listOffer != null && listOffer.length > 0
-                ? Container(
-                    margin: EdgeInsets.symmetric(horizontal: 32.w),
-                    width: ScreenUtil.screenWidthDp,
-                    height: 1200.h,
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: listOffer != null ? listOffer.length : 0,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          child: buildListItem(listOffer, index, model.getRole),
-                          onTap: () => Navigator.popAndPushNamed(context, RouteName.offer_details, arguments: listOffer[index]),
-                        );
-                      },
-                    ),
-                  )
-                : ViewStateEmptyWidget(
-                    onPressed: () {
-                      actionCreate(model, model.getRole == Constant.role_driver);
-                    },
-                  ),
-          );
+      flex: 1,
+      child: listOffer != null && listOffer.length > 0
+          ? Container(
+        margin: EdgeInsets.symmetric(horizontal: 32.w),
+        width: ScreenUtil.screenWidthDp,
+        height: 1200.h,
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: listOffer != null ? listOffer.length : 0,
+          itemBuilder: (context, index) {
+            return InkWell(
+              child: buildListItem(listOffer, index, model.getRole),
+              onTap: () => Navigator.popAndPushNamed(context, RouteName.offer_details, arguments: listOffer[index]),
+            );
+          },
+        ),
+      )
+          : ViewStateEmptyWidget(
+        onPressed: () {
+          actionCreate(model, model.getRole == Constant.role_driver);
+        },
+      ),
+    );
     return child;
   }
 
