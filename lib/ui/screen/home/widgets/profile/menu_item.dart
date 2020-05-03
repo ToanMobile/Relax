@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:relax/res/colors.dart';
 
 import '../../utils/constant.dart';
-import 'package:flutter/material.dart';
 
 class MenuItem extends StatelessWidget {
   final ProfileModel menu;

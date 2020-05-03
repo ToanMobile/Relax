@@ -160,11 +160,11 @@ class ListOfferState extends State<ListOfferPage> {
   Future actionCreate(HomeModel model, bool isDriver) async {
     SchedulerBinding.instance.addPostFrameCallback((_) {});
     if (model.roleCheck == ROLE.CAPTURE) {
-      Navigator.popAndPushNamed(context, RouteName.capture);
+      Navigator.pushNamed(context, RouteName.capture);
     } else if (isDriver) {
-      Navigator.popAndPushNamed(context, RouteName.driver);
+      Navigator.pushNamed(context, RouteName.driver);
     } else {
-      Navigator.popAndPushNamed(context, RouteName.shipper);
+      Navigator.pushNamed(context, RouteName.shipper);
     }
   }
 
@@ -214,7 +214,7 @@ class ListOfferState extends State<ListOfferPage> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           child: buildListItem(listOffer, index, model.getRole),
-                          onTap: () => Navigator.popAndPushNamed(context, RouteName.offer_details, arguments: listOffer[index]),
+                          onTap: () => Navigator.pushNamed(context, RouteName.offer_details, arguments: listOffer[index]),
                         );
                       },
                     ),

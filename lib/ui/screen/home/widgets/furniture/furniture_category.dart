@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import '../../utils/constant.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/constant.dart';
 
 class FurnitureCategory extends StatelessWidget {
   final FurnitureCatg item;

@@ -1,7 +1,7 @@
 import 'package:relax/generated/json/base/json_convert_content.dart';
 
 class LoginEntity with JsonConvert<LoginEntity> {
-  String uid = '';
+  String uid;
   int customer_id = 0;
   String address;
   String name;

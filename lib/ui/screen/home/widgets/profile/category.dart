@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/generated/l10n.dart';
 
 import '../../utils/constant.dart';
-import 'package:flutter/material.dart';
 
 class Category extends StatelessWidget {
   final Catg catg;

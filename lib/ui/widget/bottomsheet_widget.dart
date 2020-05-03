@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:relax/common/constant.dart';
 import 'package:relax/data/model/request_info_entity.dart';
 import 'package:relax/generated/l10n.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/text_styles.dart';
 import 'package:relax/ui/screen/login/widget/login_field_widget.dart';
 import 'package:relax/viewmodel/driver_model.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
+
 import 'button_progress_indicator.dart';
 import 'filled_round_button.dart';
 

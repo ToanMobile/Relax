@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -927,6 +928,33 @@ class S {
     );
   }
 
+  String get pick_address {
+    return Intl.message(
+      'Pick address',
+      name: 'pick_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get drop_address {
+    return Intl.message(
+      'Drop address',
+      name: 'drop_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get role {
+    return Intl.message(
+      'Role',
+      name: 'role',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get vehicle {
     return Intl.message(
       'Selected Vehicle',
@@ -1021,6 +1049,15 @@ class S {
     return Intl.message(
       'Driver',
       name: 'driver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get shipper_driver {
+    return Intl.message(
+      'Shipper&Driver',
+      name: 'shipper_driver',
       desc: '',
       args: [],
     );

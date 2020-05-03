@@ -4,6 +4,7 @@ import 'package:relax/common/constant.dart';
 import 'package:relax/config/router_manger.dart';
 import 'package:relax/data/model/role_entity.dart';
 import 'package:relax/generated/l10n.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
@@ -14,7 +15,6 @@ import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/viewmodel/register_model.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:stacked/stacked.dart';
 
 class RegisterPage extends StatefulWidget {

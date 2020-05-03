@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:relax/config/storage_manager.dart';
 import 'package:relax/data/model/login_entity.dart';
 import 'package:relax/generated/json/base/json_convert_content.dart';
@@ -6,7 +7,6 @@ import 'package:relax/viewmodel/login_model.dart';
 
 import '../../utils/constant.dart';
 import '../../widgets/profile_image.dart';
-import 'package:flutter/material.dart';
 
 class ProfileDetail extends StatelessWidget {
   @override

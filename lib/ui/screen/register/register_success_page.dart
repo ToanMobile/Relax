@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:relax/generated/l10n.dart';
+import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
-import 'package:relax/lib/screenutils/size_extension.dart';
 
 class RegisterSuccessPage extends StatefulWidget {
   @override

@@ -1,6 +1,7 @@
-import 'package:relax/res/colors.dart';
-import '../icon/custome_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:relax/res/colors.dart';
+
+import '../icon/custome_icon.dart';
 
 //COLORS
 const Color profile_info_background = ColorsUtils.salmon;
