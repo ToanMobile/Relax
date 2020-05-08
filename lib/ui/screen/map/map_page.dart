@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_map_polyline/google_map_polyline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:relax/data/model/driver_offer_entity.dart';
 import 'package:relax/data/model/place_item_res.dart';
 import 'package:relax/data/model/request_info_entity.dart';
-import 'package:relax/data/model/step_res.dart';
 import 'package:relax/data/model/trip_info_res.dart';
 import 'package:relax/data/model/verhicle_entity.dart';
 import 'package:relax/data/repository/map_repository.dart';
 import 'package:relax/generated/l10n.dart';
+import 'package:relax/lib/screenutils/flutter_screenutil.dart';
 import 'package:relax/ui/screen/map/pickdata/ride_picker.dart';
 import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/bottomsheet_widget.dart';
@@ -36,9 +37,11 @@ class MapState extends State<MapPage> {
   final String nextstep = 'weiter =>';
   int _polylineCount = 1;
   Map<PolylineId, Polyline> _polylines = <PolylineId, Polyline>{};
+  List<LatLng> routeCoords = new List();
   GoogleMapController _mapController;
   final RequestInfo requestPool = new RequestInfo();
   final DriverOfferEntity driverOfferEntity = DriverOfferEntity();
+  final GoogleMapPolyline _googleMapPolyline = GoogleMapPolyline(apiKey: "AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c");
 
   @override
   Widget build(BuildContext context) {
@@ -180,36 +183,45 @@ class MapState extends State<MapPage> {
         nLng = fromLatLng.longitude;
       }
       LatLngBounds bounds = LatLngBounds(northeast: LatLng(nLat, nLng), southwest: LatLng(sLat, sLng));
-      print('bounds==' + bounds.toString());
-      print('markers==' + markers.values.elementAt(0).position.toString());
-      Future.delayed(Duration(milliseconds: 200), () => _mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50)));
+      //print('bounds==' + bounds.toString() + "markers=" + markers.values.elementAt(0).position.toString());
+      Future.delayed(Duration(milliseconds: 200), () => _mapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, ScreenUtil.screenWidthDp * 0.12)));
     } else {
+      //print("markers=" + markers.values.elementAt(0).position.toString());
       Future.delayed(Duration(milliseconds: 200), () => _mapController.animateCamera(CameraUpdate.newLatLng(markers.values.elementAt(0).position)));
     }
   }
 
-  void _checkDrawPolyline() {
+  Future<void> _checkDrawPolyline() async {
     if (markers.length > 1) {
       var from = markers["from_address"].position;
       var to = markers["to_address"].position;
-      MapRepository.getStep(from.latitude, from.longitude, to.latitude, to.longitude).then((v2) {
+      routeCoords.clear();
+      routeCoords = await _googleMapPolyline.getCoordinatesWithLocation(
+          origin: LatLng(from.latitude, from.longitude), destination: LatLng(to.latitude, to.longitude), mode: RouteMode.driving);
+      _addPolyline();
+      MapRepository.getStep(from.latitude, from.longitude, to.latitude, to.longitude).then((v2) async {
         TripInfoRes infoRes = v2;
         _tripDistance = infoRes.distance.toDouble();
         print("distance is $_tripDistance");
-        List<StepsRes> rs = infoRes.steps;
-        List<LatLng> paths = new List();
-        for (var t in rs) {
-          paths.add(LatLng(t.startLocation.latitude, t.startLocation.longitude));
-          paths.add(LatLng(t.endLocation.latitude, t.endLocation.longitude));
-        }
-        _addPolyline(paths);
       });
     }
   }
 
-  _addPolyline(List<LatLng> _coordinates) {
+  _addPolyline() {
+    print(routeCoords.map((e) => e.toString()));
     PolylineId id = PolylineId("poly$_polylineCount");
-    Polyline polyline = Polyline(polylineId: id, color: Colors.blueAccent, points: _coordinates, width: 7, onTap: () {});
+    Polyline polyline = Polyline(
+        polylineId: id,
+        color: Colors.blueAccent,
+        points: routeCoords,
+        geodesic: true,
+        jointType: JointType.round,
+        startCap: Cap.roundCap,
+        endCap: Cap.buttCap,
+        width: 5,
+        onTap: () {});
+    print("polyline=" + polyline.points.map((e) => e.toString()).toString());
+    print("polyline=" + polyline.patterns.map((e) => e.toString()).toString());
     setState(() {
       _polylines[id] = polyline;
       _polylineCount++;
