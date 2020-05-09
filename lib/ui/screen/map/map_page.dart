@@ -21,7 +21,6 @@ import 'home_menu.dart';
 import 'pickdata/packaging_pickup.dart';
 
 class MapPage extends StatefulWidget {
-  static const mapKey = "AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c";
   ROLE role;
 
   MapPage(this.role);
@@ -31,6 +30,7 @@ class MapPage extends StatefulWidget {
 }
 
 class MapState extends State<MapPage> {
+  static const mapKey = "AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c";
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   double _tripDistance = 0;
   final Map<String, Marker> markers = <String, Marker>{};
@@ -41,7 +41,7 @@ class MapState extends State<MapPage> {
   GoogleMapController _mapController;
   final RequestInfo requestPool = new RequestInfo();
   final DriverOfferEntity driverOfferEntity = DriverOfferEntity();
-  final GoogleMapPolyline _googleMapPolyline = GoogleMapPolyline(apiKey: "AIzaSyAdH-Drq0svd8QQV_jUq7kmYjBPKNPYx4c");
+  final GoogleMapPolyline _googleMapPolyline = GoogleMapPolyline(apiKey: mapKey);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class MapState extends State<MapPage> {
 
   void onPlaceSelected(PlaceItemRes place, bool fromAddress) {
     var mkId = fromAddress ? "from_address" : "to_address";
-    _addMarker(mkId, place);
+    _addMarker(mkId, place, fromAddress);
     _moveCamera();
     _checkDrawPolyline();
     if (widget.role == ROLE.DRIVER) {
@@ -147,13 +147,14 @@ class MapState extends State<MapPage> {
     driverOfferEntity.vehicle_id = vehicle.resource_id;
   }
 
-  void _addMarker(String mkId, PlaceItemRes place) {
+  void _addMarker(String mkId, PlaceItemRes place, bool fromAddress) {
     markers.remove(mkId);
     final String markerIdVal = mkId;
     print(place.address);
     final MarkerId markerId = MarkerId(markerIdVal);
     setState(() {
       markers[mkId] = Marker(
+        icon: fromAddress ? BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure) : BitmapDescriptor.defaultMarker,
         markerId: markerId,
         position: LatLng(place.lat, place.lng),
         infoWindow: InfoWindow(title: place.name, snippet: place.address),

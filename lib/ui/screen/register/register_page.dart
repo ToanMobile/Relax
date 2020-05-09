@@ -29,22 +29,31 @@ class _RegisterPageState extends State<RegisterPage> {
   final _addressController = TextEditingController();
   final _phoneController = TextEditingController();
   final _pwdFocus = FocusNode();
-  int _currVal = 0;
+  int _currVal = Constant.role_shipper;
+  List<RoleEntity> list = new List();
 
-  List<RoleEntity> _group = [
-    RoleEntity(
-      text: "Shipper",
-      role: Constant.role_shipper,
-    ),
-    RoleEntity(
-      text: "Driver",
-      role: Constant.role_driver,
-    ),
-    RoleEntity(
-      text: "Shipper & Driver",
-      role: Constant.role_shipper_driver,
-    )
-  ];
+  void _group(BuildContext context) {
+    if (list.length == 0) {
+      list.add(
+        RoleEntity(
+          text: S.of(context).shipper,
+          role: Constant.role_shipper,
+        ),
+      );
+      list.add(
+        RoleEntity(
+          text: S.of(context).driver,
+          role: Constant.role_driver,
+        ),
+      );
+      list.add(
+        RoleEntity(
+          text: S.of(context).shipper_driver,
+          role: Constant.role_shipper_driver,
+        ),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -63,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _addressController.text = 'thon 3 hoa vinh';
     _emailController.text = 'huynhvantoan.itc@gmail.com';
     _phoneController.text = '0376542546';*/
+    _group(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.pale,
@@ -99,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     controller: _nameController,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (text) {
+                      _nameController.text = text;
                       FocusScope.of(context).requestFocus(_pwdFocus);
                     },
                   ),
@@ -114,6 +125,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     label: S.of(context).login_email,
                     icon: Icons.email,
                     textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (text) {
+                      _emailController.text = text;
+                    },
                   ),
                   SizedBox(
                     height: 30.h,
@@ -129,6 +143,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     obscureText: true,
                     focusNode: _pwdFocus,
                     textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (text) {
+                      _passwordController.text = text;
+                    },
                   ),
                   buildTextTitleAddress(),
                   SizedBox(
@@ -139,6 +156,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     label: S.of(context).login_address,
                     icon: Icons.add_location,
                     textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (text) {
+                      _addressController.text = text;
+                    },
                   ),
                   buildTextTitlePhone(),
                   SizedBox(
@@ -149,6 +169,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     label: S.of(context).login_phone,
                     icon: Icons.phone,
                     textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (text) {
+                      _phoneController.text = text;
+                    },
                   ),
                   SizedBox(
                     height: 30.h,
@@ -184,7 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
       width: double.infinity,
       height: 480.h,
       child: Column(
-        children: _group
+        children: list
             .map(
               (t) => RadioListTile(
                 title: Text(
