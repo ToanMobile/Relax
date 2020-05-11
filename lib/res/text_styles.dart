@@ -41,6 +41,14 @@ class TextStylesUtils {
     fontStyle: FontStyle.normal,
   );
 
+  static const styleRegular14Black = const TextStyle(
+    fontFamily: FontFamilyRegular,
+    color: ColorsUtils.black,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
   static const styleRegular14WhiteW600 = const TextStyle(
     fontFamily: FontFamilyRegular,
     color: ColorsUtils.white,

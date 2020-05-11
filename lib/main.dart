@@ -36,7 +36,8 @@ class App extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: themeModel.themeData(),
-              darkTheme: themeModel.themeData(platformDarkMode: true),
+              //TODO dark mode bug
+              //darkTheme: themeModel.themeData(platformDarkMode: true),
               locale: localeModel.locale,
               localizationsDelegates: const [
                 S.delegate,

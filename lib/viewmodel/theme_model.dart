@@ -11,7 +11,7 @@ class ThemeModel with ChangeNotifier {
   static const kThemeUserDarkMode = 'kThemeUserDarkMode';
   static const kFontIndex = 'kFontIndex';
 
-  static const fontValueList = ['system', 'fontAvenirNext'];
+  static const fontValueList = ['system', 'Roboto'];
 
   bool _userDarkMode;
 

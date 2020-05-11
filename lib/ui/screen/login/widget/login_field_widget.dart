@@ -69,6 +69,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
         focusNode: widget.focusNode,
         textInputAction: widget.textInputAction,
         onFieldSubmitted: widget.onFieldSubmitted,
+        style: TextStylesUtils.styleRegular14Black,
         decoration: InputDecoration(
           prefixIcon: Icon(widget.icon, color: theme.hintColor, size: 60.w),
           hintText: widget.label,
