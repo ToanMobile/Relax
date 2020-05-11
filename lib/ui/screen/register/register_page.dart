@@ -208,8 +208,7 @@ class _RegisterPageState extends State<RegisterPage> {
       height: 480.h,
       child: Column(
         children: list
-            .map(
-              (t) => RadioListTile(
+            .map((t) => RadioListTile(
                 title: Text(
                   "${t.text}",
                   style: TextStylesUtils.styleMedium18Black,

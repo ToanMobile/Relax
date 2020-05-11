@@ -1,4 +1,4 @@
-package com.relax
+package com.smartway.relax
 
 import io.flutter.app.FlutterApplication
 import android.content.Context

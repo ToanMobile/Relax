@@ -8,55 +8,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:872763368063:android:dc11218a031537d88bd54a",
+        "mobilesdk_app_id": "1:872763368063:android:b03307356907988d8bd54a",
         "android_client_info": {
-          "package_name": "com.example.relax"
+          "package_name": "com.smartway.relax"
         }
       },
       "oauth_client": [
         {
-          "client_id": "872763368063-rs1na5r8d1g0b666s82hcrthf59300bg.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC_mhf9Ep1PV24kH6SioPp2Z-bcwhNoW5w"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "872763368063-rs1na5r8d1g0b666s82hcrthf59300bg.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:872763368063:android:126c7f421e53ba888bd54a",
-        "android_client_info": {
-          "package_name": "com.relax"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "872763368063-3h3k7stnjjvaag2qp830ap6lav0snog8.apps.googleusercontent.com",
+          "client_id": "872763368063-8cm88o7vi93antpke65cfhnbcc6os16s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.relax",
+            "package_name": "com.smartway.relax",
             "certificate_hash": "b7762f6440526bdd55b429254ca45fc9d319c2c2"
           }
         },
         {
-          "client_id": "872763368063-7mi8tf77ro2k0p9hermh3nfl7laluc6b.apps.googleusercontent.com",
+          "client_id": "872763368063-1n8u1bg29fnrofqfrjged92g3ndmjgp9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.relax",
-            "certificate_hash": "bcf83ba859d82709ee1b0ccd45f3c415f46aa7d6"
+            "package_name": "com.smartway.relax",
+            "certificate_hash": "8207babc9b86c980b0da534ebe9a065d33782840"
           }
         },
         {
@@ -75,6 +46,13 @@
             {
               "client_id": "872763368063-rs1na5r8d1g0b666s82hcrthf59300bg.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "872763368063-9au8gk93mhp8amdiivfjnhprk9crftdm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.smartway.relax"
+              }
             }
           ]
         }

@@ -1,4 +1,4 @@
-package com.relax
+package com.smartway.relax
 
 import org.junit.Test
 

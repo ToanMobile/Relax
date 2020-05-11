@@ -1,4 +1,4 @@
-package com.relax
+package com.smartway.relax
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
