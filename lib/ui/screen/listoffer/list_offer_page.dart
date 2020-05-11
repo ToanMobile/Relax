@@ -11,6 +11,7 @@ import 'package:relax/provider/view_state_widget.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
+import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/ui/widget/button_progress_indicator.dart';
 import 'package:relax/ui/widget/filled_round_button.dart';
 import 'package:relax/ui/widget/text_input_search.dart';
@@ -26,7 +27,9 @@ class ListOfferState extends State<ListOfferPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.white,
+      appBar: AppBarIcon.back().build(context),
       body: ViewModelBuilder<HomeModel>.reactive(
         viewModelBuilder: () => HomeModel(),
         onModelReady: (model) async {

@@ -7,6 +7,7 @@ import 'package:relax/lib/screenutils/size_extension.dart';
 import 'package:relax/res/colors.dart';
 import 'package:relax/res/image.dart';
 import 'package:relax/res/text_styles.dart';
+import 'package:relax/ui/widget/app_bar.dart';
 import 'package:relax/viewmodel/home_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,7 +24,9 @@ class OfferDetailsState extends State<OfferDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorsUtils.white,
+      appBar: AppBarIcon.back().build(context),
       body: ViewModelBuilder<HomeModel>.reactive(
         viewModelBuilder: () => HomeModel(),
         onModelReady: (model) => model.getListOffer(),
