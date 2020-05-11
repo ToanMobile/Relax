@@ -64,3 +64,5 @@ app.*.map.json
 assets/demo/
 gen/
 .gradle/
+!/ios/Pods/
+!/ios/build/
