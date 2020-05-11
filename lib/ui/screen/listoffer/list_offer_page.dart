@@ -63,11 +63,11 @@ class ListOfferState extends State<ListOfferPage> {
     if (model.roleCheck == ROLE.DRIVER_SHIPPER) {
       child = Row(children: [
         SizedBox(
-          width: 50.w,
+          width: 30.w,
         ),
         buildCreateRequest(model),
         SizedBox(
-          width: 50.w,
+          width: 30.w,
         ),
         buildCreateOffer(model),
       ]);
@@ -75,7 +75,7 @@ class ListOfferState extends State<ListOfferPage> {
       child = Row(
         children: [
           SizedBox(
-            width: 50.w,
+            width: 30.w,
           ),
           buildCreateRequest(model)
         ],
@@ -84,7 +84,7 @@ class ListOfferState extends State<ListOfferPage> {
       child = Row(
         children: [
           SizedBox(
-            width: 50.w,
+            width: 30.w,
           ),
           buildCreateOffer(model),
         ],
@@ -113,7 +113,7 @@ class ListOfferState extends State<ListOfferPage> {
 
   Widget buildLogOut(HomeModel model) => Center(
         child: Container(
-          width: 300.w,
+          width: 320.w,
           height: 130.h,
           child: FilledRoundButton.withGradient(
             radius: 10,
@@ -129,7 +129,7 @@ class ListOfferState extends State<ListOfferPage> {
 
   Widget buildCreateOffer(HomeModel model) => Center(
         child: Container(
-          width: 300.w,
+          width: 320.w,
           height: 130.h,
           child: FilledRoundButton.withGradient(
             radius: 10,
@@ -144,7 +144,7 @@ class ListOfferState extends State<ListOfferPage> {
 
   Widget buildCreateRequest(HomeModel model) => Center(
         child: Container(
-          width: 300.w,
+          width: 320.w,
           height: 130.h,
           child: FilledRoundButton.withGradient(
             radius: 10,
@@ -270,6 +270,8 @@ class ListOfferState extends State<ListOfferPage> {
                   isDriver ? listOffer[index].from_address ?? "" : listOffer[index].pickup_Address ?? "",
                   textAlign: TextAlign.left,
                   softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStylesUtils.styleRegular14BlackW400,
                 ),
               ),
@@ -314,6 +316,8 @@ class ListOfferState extends State<ListOfferPage> {
                   isDriver ? listOffer[index].to_address ?? "" : listOffer[index].drop_Address ?? "",
                   textAlign: TextAlign.left,
                   softWrap: true,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStylesUtils.styleRegular14BlackW400,
                 ),
               ),

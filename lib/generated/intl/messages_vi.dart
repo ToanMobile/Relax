@@ -114,7 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "retry" : MessageLookupByLibrary.simpleMessage("Thử lại"),
     "role" : MessageLookupByLibrary.simpleMessage("Vai trò"),
     "save" : MessageLookupByLibrary.simpleMessage("Lưu"),
-    "search_location" : MessageLookupByLibrary.simpleMessage("Search location"),
+    "search_location" : MessageLookupByLibrary.simpleMessage("Tìm kiếm vị trí"),
     "send_data_error" : MessageLookupByLibrary.simpleMessage("Gửi bị lỗi"),
     "send_data_input" : MessageLookupByLibrary.simpleMessage("Mời nhập đầy đủ thông tin!"),
     "send_data_ok" : MessageLookupByLibrary.simpleMessage("Gửi thành công!"),

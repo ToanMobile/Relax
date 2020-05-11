@@ -54,6 +54,8 @@ class _TextInputSearchState extends State<TextInputSearch> {
         padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.h),
         clearButtonMode: OverlayVisibilityMode.editing,
         placeholder: S.of(context).home_search,
+        textInputAction: TextInputAction.search,
+        onSubmitted: (newValue) => widget.cb == null ? () => {} : widget.cb,
         suffix: Container(
           margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
           width: 120.w,

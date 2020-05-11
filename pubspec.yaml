@@ -63,6 +63,9 @@ flutter:
     - family: RobotoMedium
       fonts:
         - asset: assets/fonts/roboto_medium.ttf
+    - family: iconfont
+      fonts:
+        - asset: assets/fonts/iconfont.ttf
   assets:
     - assets/icon/
     - assets/images/

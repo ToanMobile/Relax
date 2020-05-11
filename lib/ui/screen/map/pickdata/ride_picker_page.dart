@@ -93,6 +93,7 @@ class _RidePickerPageState extends State<RidePickerPage> {
           }
           return Container(
             constraints: BoxConstraints.expand(),
+            margin: EdgeInsets.only(left: 15.w, right: 15.w, top: 15.h),
             color: Color(0xfff8f8f8),
             child: Column(
               children: <Widget>[

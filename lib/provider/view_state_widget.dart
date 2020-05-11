@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:relax/config/resource_mananger.dart';
 import 'package:relax/generated/l10n.dart';
+import 'package:relax/res/text_styles.dart';
 
 import 'view_state.dart';
 
-/// 加载中
 class ViewStateBusyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,6 @@ class ViewStateBusyWidget extends StatelessWidget {
   }
 }
 
-/// 基础Widget
 class ViewStateWidget extends StatelessWidget {
   final String title;
   final String message;
@@ -34,10 +33,6 @@ class ViewStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var titleStyle =
-    Theme.of(context).textTheme.subhead.copyWith(color: Colors.grey);
-    var messageStyle = titleStyle.copyWith(
-        color: titleStyle.color.withOpacity(0.7), fontSize: 14);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,12 +46,12 @@ class ViewStateWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 title ?? S.of(context).viewStateMessageError,
-                style: titleStyle,
+                style: TextStylesUtils.styleRegular14BlackW400,
               ),
               ConstrainedBox(
                 constraints: BoxConstraints(maxHeight: 200),
                 child: SingleChildScrollView(
-                  child: Text(message ?? '', style: messageStyle),
+                  child: Text(message ?? '', style: TextStylesUtils.styleRegular12BrownGreyW400),
                 ),
               ),
             ],
@@ -74,7 +69,6 @@ class ViewStateWidget extends StatelessWidget {
   }
 }
 
-/// 页面加载失败
 class ViewStateErrorWidget extends StatelessWidget {
   final ViewStateError error;
   final String title;
@@ -129,7 +123,6 @@ class ViewStateErrorWidget extends StatelessWidget {
   }
 }
 
-/// 页面无数据
 class ViewStateEmptyWidget extends StatelessWidget {
   final String message;
   final Widget image;
@@ -157,7 +150,6 @@ class ViewStateEmptyWidget extends StatelessWidget {
   }
 }
 
-/// 页面未授权
 class ViewStateUnAuthWidget extends StatelessWidget {
   final String message;
   final Widget image;
@@ -217,7 +209,7 @@ class ViewStateButton extends StatelessWidget {
       child: child ??
           Text(
             textData ?? S.of(context).viewStateButtonRetry,
-            style: TextStyle(wordSpacing: 5),
+            style: TextStylesUtils.styleRegular14BlackW400,
           ),
       textColor: Colors.grey,
       splashColor: Theme.of(context).splashColor,

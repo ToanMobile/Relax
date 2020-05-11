@@ -205,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget buildRole() {
     return Container(
       width: double.infinity,
-      height: 480.h,
+      height: 500.h,
       child: Column(
         children: list
             .map((t) => RadioListTile(
