@@ -29,5 +29,5 @@ class ImagesUtils {
   static const String iconClose = "$imageIcon/ic_close.svg";
 
   //Show
-  static const String iconInfo = "$imageIcon/ic_info_screen.xml";
+  static const String iconUser = "$imageIcon/user.png";
 }

@@ -13,7 +13,7 @@ const Color profile_info_notification = Color(0xFF5DD1D3);
 const Color profile_item_color = Color(0xFFC4C5C9);
 const String imagePath = 'assets/image';
 
-const String devMausam = 'https://anh.24h.com.vn/upload/4-2017/images/2017-10-28/1509153561-150914102311053-177223101895460805719895n1457405065788-9416.jpg';
+const String devMausam = 'https://image.flaticon.com/icons/svg/727/727399.svg';
 
 const Color furnitureCateDisableColor = Color(0xFF939BA9);
 const List lampsImage = [

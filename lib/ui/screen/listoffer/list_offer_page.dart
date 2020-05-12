@@ -26,26 +26,25 @@ class ListOfferPage extends StatefulWidget {
 class ListOfferState extends State<ListOfferPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: ColorsUtils.white,
-      appBar: AppBarIcon.back().build(context),
-      body: ViewModelBuilder<HomeModel>.reactive(
-        viewModelBuilder: () => HomeModel(),
-        onModelReady: (model) async {
-          await model.checkRegisterDriver();
-          await model.getListOffer();
-        },
-        disposeViewModel: false,
-        builder: (context, model, child) {
-          return Column(
+    return ViewModelBuilder<HomeModel>.reactive(
+      viewModelBuilder: () => HomeModel(),
+      onModelReady: (model) async {
+        await model.checkRegisterDriver();
+        await model.getListOffer();
+      },
+      disposeViewModel: false,
+      builder: (context, model, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: ColorsUtils.white,
+          appBar: AppBarIcon.back(
+            color: ColorsUtils.white,
+            title: S.of(context).list_offer,
+          ).build(context),
+          body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              buildTextUserName(model.getName),
-              SizedBox(
-                height: 20.h,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -53,11 +52,14 @@ class ListOfferState extends State<ListOfferPage> {
                   buildRole(model),
                 ],
               ),
+              SizedBox(
+                height: 20.h,
+              ),
               buildListUser(model)
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

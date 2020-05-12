@@ -64,8 +64,8 @@
   "autoBySystem": "Auto",
   "fieldNotNull": "không trống",
   "noAccount": "Không tìm thấy tài khoản?",
-  "createRequest": "Tạo yêu cầu",
-  "createOffer": "Tạo ưu đãi",
+  "createRequest": "Gửi hàng",
+  "createOffer": "Đặt xe",
   "send_data_ok": "Gửi thành công!",
   "send_data_input": "Mời nhập đầy đủ thông tin!",
   "send_data_error": "Gửi bị lỗi",
@@ -80,7 +80,7 @@
   "verify_code": "Kiểm tra mã",
   "invalid_code": "Mã không đúng",
   "Wallet": "Ví",
-  "Delivery": "Giao hang",
+  "Delivery": "Giao hàng",
   "Message": "Tin nhắn",
   "Service": "Dịch vụ",
   "Address": "Địa chỉ",
@@ -114,7 +114,7 @@
   "shipper": "Người gửi hàng",
   "driver": "Người lái xe",
   "shipper_driver": "Gửi hàng&lái",
-  "pickup_datetime": "Select pickup datetime",
+  "pickup_datetime": "Chọn thời gian",
   "save": "Lưu",
   "reset": "Nhập lại",
   "validate": "Kiểm tra",
@@ -122,5 +122,6 @@
   "History": "Hiển thị lịch sử",
   "Billing": "Thanh toán",
   "Help_Supports": "Trợ giúp & Hỗ trợ",
-  "Logout": "Thoát"
+  "Logout": "Thoát",
+  "list_offer": "Danh sách đặt xe"
 }

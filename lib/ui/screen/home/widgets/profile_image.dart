@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:relax/ui/screen/home/utils/constant.dart';
+import 'package:relax/res/image.dart';
 
 class ProfileImage extends StatelessWidget {
   final double height, width;
@@ -14,9 +13,8 @@ class ProfileImage extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.red,
         image: DecorationImage(
-          image: CachedNetworkImageProvider(devMausam),
+          image: ExactAssetImage(ImagesUtils.iconUser),
           fit: BoxFit.contain,
         ),
         border: Border.all(

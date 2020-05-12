@@ -1142,6 +1142,15 @@ class S {
       args: [],
     );
   }
+
+  String get list_offer {
+    return Intl.message(
+      'List offer',
+      name: 'list_offer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

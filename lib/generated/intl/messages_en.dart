@@ -84,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "inputCode" : MessageLookupByLibrary.simpleMessage("Input code"),
     "invalid_code" : MessageLookupByLibrary.simpleMessage("Invalid Code"),
     "lattice" : MessageLookupByLibrary.simpleMessage("lattice box"),
+    "list_offer" : MessageLookupByLibrary.simpleMessage("List offer"),
     "login_address" : MessageLookupByLibrary.simpleMessage("Address"),
     "login_confirm_password" : MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "login_content1" : MessageLookupByLibrary.simpleMessage("Do not have an account? So let\'s "),

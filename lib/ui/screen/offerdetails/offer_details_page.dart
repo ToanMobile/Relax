@@ -23,17 +23,19 @@ class OfferDetailsPage extends StatefulWidget {
 class OfferDetailsState extends State<OfferDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: ColorsUtils.white,
-      appBar: AppBarIcon.back().build(context),
-      body: ViewModelBuilder<HomeModel>.reactive(
-        viewModelBuilder: () => HomeModel(),
-        onModelReady: (model) => model.getListOffer(),
-        disposeViewModel: false,
-        builder: (context, model, child) {
-          return Container(
-            margin: EdgeInsets.all(60.w),
+    return ViewModelBuilder<HomeModel>.reactive(
+      viewModelBuilder: () => HomeModel(),
+      onModelReady: (model) => model.getListOffer(),
+      disposeViewModel: false,
+      builder: (context, model, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: ColorsUtils.white,
+          appBar: AppBarIcon.back(
+            color: ColorsUtils.white,
+          ).build(context),
+          body: Container(
+            margin: EdgeInsets.only(left: 60.w, right: 60.w, bottom: 60.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: checkIsDriver() ? ColorsUtils.bg_driver : ColorsUtils.bg_shipper,
@@ -50,7 +52,7 @@ class OfferDetailsState extends State<OfferDetailsPage> {
               ],
             ),
             child: Padding(
-              padding: EdgeInsets.all(60.w),
+              padding: EdgeInsets.only(left: 60.w, right: 60.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,9 +98,9 @@ class OfferDetailsState extends State<OfferDetailsPage> {
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

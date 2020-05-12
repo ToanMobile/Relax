@@ -12,10 +12,10 @@ class ProfileDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List profileItems = [
-      {'count': '846', 'name': S.of(context).Collect},
-      {'count': '51', 'name': S.of(context).Attention},
-      {'count': '267', 'name': S.of(context).Track},
-      {'count': '39', 'name': S.of(context).Coupons},
+      {'count': '0', 'name': S.of(context).Collect},
+      {'count': '0', 'name': S.of(context).Attention},
+      {'count': '0', 'name': S.of(context).Track},
+      {'count': '0', 'name': S.of(context).Coupons},
     ];
 
     Size deviceSize = MediaQuery.of(context).size;

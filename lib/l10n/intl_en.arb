@@ -122,5 +122,6 @@
   "History": "Show History",
   "Billing": "Billing",
   "Help_Supports": "Help & Supports",
-  "Logout": "Logout"
+  "Logout": "Logout",
+  "list_offer": "List offer"
 }
