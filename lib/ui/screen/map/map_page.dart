@@ -16,7 +16,6 @@ import 'package:relax/ui/widget/bottomsheet_widget.dart';
 import 'package:relax/viewmodel/driver_model.dart';
 import 'package:relax/viewmodel/home_model.dart';
 import 'package:stacked/stacked.dart';
-
 import 'home_menu.dart';
 import 'pickdata/packaging_pickup.dart';
 
@@ -50,6 +49,7 @@ class MapState extends State<MapPage> {
       disposeViewModel: false,
       onModelReady: (model) => {},
       builder: (context, model, child) {
+        print("polyline=" + _polylines.values.map((e) => e.toString()).toString());
         return Scaffold(
           key: _scaffoldKey,
           appBar: AppBarIcon.drawer(
@@ -197,8 +197,7 @@ class MapState extends State<MapPage> {
       var from = markers["from_address"].position;
       var to = markers["to_address"].position;
       routeCoords.clear();
-      routeCoords = await _googleMapPolyline.getCoordinatesWithLocation(
-          origin: LatLng(from.latitude, from.longitude), destination: LatLng(to.latitude, to.longitude), mode: RouteMode.driving);
+      routeCoords = await _googleMapPolyline.getCoordinatesWithLocation(origin: LatLng(from.latitude, from.longitude), destination: LatLng(to.latitude, to.longitude), mode: RouteMode.driving);
       _addPolyline();
       MapRepository.getStep(from.latitude, from.longitude, to.latitude, to.longitude).then((v2) async {
         TripInfoRes infoRes = v2;
@@ -221,8 +220,6 @@ class MapState extends State<MapPage> {
         endCap: Cap.buttCap,
         width: 5,
         onTap: () {});
-    print("polyline=" + polyline.points.map((e) => e.toString()).toString());
-    print("polyline=" + polyline.patterns.map((e) => e.toString()).toString());
     setState(() {
       _polylines[id] = polyline;
       _polylineCount++;

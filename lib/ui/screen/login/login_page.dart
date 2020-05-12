@@ -111,13 +111,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget buildLogin(LoginModel model) {
     Widget child = model.busy
         ? Container(
-            height: 150.h,
+            height: 60,
             child: Center(
               child: ButtonProgressIndicator(),
             ),
           )
         : Container(
-            height: 150.h,
+            height: 60,
             child: Center(
               child: Text(
                 S.of(context).signIn,

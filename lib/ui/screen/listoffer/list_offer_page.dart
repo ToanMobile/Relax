@@ -252,7 +252,7 @@ class ListOfferState extends State<ListOfferPage> {
         ],
       ),
       width: double.infinity,
-      height: 380.h,
+      height: 140,
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
       child: Column(

@@ -21,7 +21,7 @@ class HomeMenu extends StatelessWidget {
               S.of(context).tab_home,
               style: TextStylesUtils.styleMedium18Black,
             ),
-            onTap: () => Navigator.pushNamedAndRemoveUntil(context, RouteName.list_offer, (Route<dynamic> route) => false),
+            onTap: () => Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (Route<dynamic> route) => false),
           ),
           ListTile(
             leading: SvgPicture.asset(ImagesUtils.iconIdentity),
